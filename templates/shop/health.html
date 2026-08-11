@@ -1,0 +1,113 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block extrastyle %}
+<style>
+  body { background: #f5f7fa; }
+  .hl-hero { background: linear-gradient(135deg, #1A1A1A 0%, #333 100%); padding: 60px 0 50px; }
+  .hl-hero h1, .hl-hero p { color: #fff; }
+  .hl-card { border: none; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.85rem; }
+</style>
+{% endblock %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block content %}
+<main class="main-content position-relative">
+<section class="hl-hero text-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 fw-bold"><i class="fas fa-heartbeat me-2"></i>{% tr "Service Health" %}</h1>
+        <p class="lead fs-6 opacity-90">{% tr "Status of the advance store's hub shared-services — queried by business managers and sysops on the dev hub (ubuntu) and in production." %}</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <span class="badge {% if health.status == 'ok' %}bg-success{% else %}bg-danger{% endif %} fs-6 px-3 py-2">{{ health.status|upper }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <div class="card hl-card p-4 h-100">
+        <h5 class="fw-bold mb-3"><i class="fas fa-boxes me-2 text-advance-red"></i>{% tr "Service Overview" %}</h5>
+        <table class="table align-middle mb-0">
+          <tbody class="mono">
+            <tr><td class="text-muted">{% tr "service" %}</td><td class="fw-bold">{{ health.service }}</td></tr>
+            <tr><td class="text-muted">{% tr "version" %}</td><td>{{ health.version }}</td></tr>
+            <tr><td class="text-muted">{% tr "integration" %}</td><td>{{ health.integration }}</td></tr>
+            <tr><td class="text-muted">{% tr "host" %}</td><td>{{ health.host }}</td></tr>
+            <tr><td class="text-muted">{% tr "checked_at" %}</td><td>{{ health.checked_at|slice:":19" }}{% tr "UTC" %}</td></tr>
+            <tr><td class="text-muted">{% tr "uptime" %}</td><td>{{ health.uptime_seconds }}{% tr "s" %}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card hl-card p-4 h-100">
+        <h5 class="fw-bold mb-3"><i class="fas fa-credit-card me-2 text-advance-red"></i>{% tr "Payment Gateway" %}</h5>
+        <table class="table align-middle mb-0">
+          <tbody class="mono">
+            <tr>
+              <td class="text-muted">{% tr "mode" %}</td>
+              <td>
+                {% if health.gateway.mode == 'hub' %}
+                <span class="badge bg-success">{% tr "LIVE — HUB" %}</span>
+                {% else %}
+                <span class="badge bg-warning text-dark">{% tr "SIMULATED" %}</span>
+                {% endif %}
+              </td>
+            </tr>
+            <tr><td class="text-muted">{% tr "url" %}</td><td>{{ health.gateway.url|default:"—" }}</td></tr>
+            <tr><td class="text-muted">{% tr "note" %}</td><td class="text-muted">{{ health.gateway.note|default:"Connected to hub payment gateway." }}</td></tr>
+          </tbody>
+        </table>
+        <hr>
+        <h6 class="fw-bold mb-2">{% tr "Last payment" %}</h6>
+        {% if health.last_payment %}
+        <p class="mono mb-0">{% tr "#" %}{{ health.last_payment.payment_id }}{% tr "·" %}{{ health.last_payment.gateway|upper }}{% tr "·" %}{{ health.last_payment.status }}{% tr "·" %}{{ health.last_payment.amount_display }}<br><small class="text-muted">{{ health.last_payment.transaction_id }}</small></p>
+        {% else %}
+        <p class="text-sm text-muted">{% tr "No payments recorded yet." %}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card hl-card p-4 h-100">
+        <h5 class="fw-bold mb-3"><i class="fas fa-database me-2 text-advance-red"></i>{% tr "Database Row Counts" %}</h5>
+        <table class="table align-middle mb-0 mono">
+          <tbody>
+            <tr><td>{% tr "products" %}</td><td class="text-end fw-bold">{{ health.row_counts.products }}</td></tr>
+            <tr><td>{% tr "carts" %}</td><td class="text-end fw-bold">{{ health.row_counts.carts }}</td></tr>
+            <tr><td>{% tr "orders" %}</td><td class="text-end fw-bold">{{ health.row_counts.orders }}</td></tr>
+            <tr><td>{% tr "payments" %}</td><td class="text-end fw-bold">{{ health.row_counts.payments }}</td></tr>
+          </tbody>
+        </table>
+        <hr>
+        <h6 class="fw-bold mb-2">{% tr "Orders by status" %}</h6>
+        <div class="d-flex gap-2 flex-wrap">
+          {% for status, count in health.order_status_counts.items %}
+          <span class="badge {% if status == 'paid' %}bg-success{% elif status == 'failed' %}bg-danger{% else %}bg-secondary{% endif %}">{{ status }}{% tr ":" %}{{ count }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card hl-card p-4 h-100">
+        <h5 class="fw-bold mb-3"><i class="fas fa-terminal me-2 text-advance-red"></i>{% tr "Query Endpoints (hub & ops)" %}</h5>
+        <p class="text-sm text-muted">{% tr "All three surfaces return the identical payload above — pick whichever fits the consumer:" %}</p>
+        <div class="mono">
+          <p class="mb-1"><span class="badge bg-dark me-1">{% tr "GET" %}</span>{% tr "/api/v1/health" %}<small class="text-muted">{% tr "(X-API-Key, sysop)" %}</small></p>
+          <p class="mb-1"><span class="badge bg-dark me-1">{% tr "GET" %}</span>{% tr "/mcp/health_check" %}<small class="text-muted">{% tr "(X-API-Key, sysop)" %}</small></p>
+          <p class="mb-0"><span class="badge bg-dark me-1">{% tr "GET" %}</span>{% tr "/mcp/financial_check" %}<small class="text-muted">{% tr "(X-API-Key, admin)" %}</small></p>
+        </div>
+        <hr>
+        <a href="/financial" class="btn btn-advance-red btn-sm rounded-pill"><i class="fas fa-chart-bar me-1"></i>{% tr "Revenue Overview" %}</a>
+        <a href="/mcp/financial_check" target="_blank" class="btn btn-outline-dark btn-sm rounded-pill"><i class="fas fa-external-link-alt me-1"></i>{% tr "Open financial_check JSON" %}</a>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+{% endblock content %}

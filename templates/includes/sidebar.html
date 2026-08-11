@@ -1,0 +1,159 @@
+{% load static %}
+{% load translate_en %}
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl fixed-start ms-3" id="sidenav-main">
+  <div class="sidenav-header">
+    <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+    <a class="navbar-brand m-0" href="/dashboard">
+      <img src="{% static 'assets/img/advance-party-tile.png' %}" class="navbar-brand-img h-100" alt="Advance Party" style="width:38px;">
+      <span class="ms-1 font-weight-bold">{% tr "Advance Party" %}</span>
+    </a>
+  </div>
+  <hr class="horizontal dark mt-0">
+  <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+    <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a data-bs-toggle="collapse" href="#profileSubmenu" role="button" aria-expanded="{% if segment == 'profile' or segment == 'pricing' or segment == 'cart' or segment == 'orders' %}true{% else %}false{% endif %}" aria-controls="profileSubmenu" class="nav-link d-flex align-items-center" style="padding-top:8px; padding-bottom:8px;">
+          <div class="d-flex align-items-center">
+            <div class="avatar avatar-sm me-3 bg-gradient-dark d-flex align-items-center justify-content-center text-white rounded-circle" style="width:36px; height:36px; font-size:14px; font-weight:600; overflow:hidden;">
+              {% if user.profile.photo %}
+              <img src="{{ user.profile.photo.url }}" alt="{{ user.get_full_name|default:user.username }}" style="width:100%; height:100%; object-fit:cover;">
+              {% else %}
+              {{ user.username|slice:":2"|upper }}
+              {% endif %}
+            </div>
+            <div>
+              <span class="d-block font-weight-bold text-sm">{{ user.get_full_name|default:user.username }}</span>
+              <span class="d-block text-xs text-secondary">{% tr "@" %}{{ user.username }}</span>
+            </div>
+          </div>
+          <i class="fas fa-chevron-down ms-auto text-xs opacity-6"></i>
+        </a>
+        <div class="collapse {% if segment == 'profile' or segment == 'pricing' or segment == 'cart' or segment == 'orders' %}show{% endif %}" id="profileSubmenu">
+          <ul class="navbar-nav ps-2 mb-1">
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'profile' %}active{% endif %}" href="/profile">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-user me-1"></i>{% tr "My Profile" %}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'pricing' %}active{% endif %}" href="/pricing">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-tags me-1"></i>{% tr "Pricing" %}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'cart' %}active{% endif %}" href="/cart">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-shopping-cart me-1"></i>{% tr "Cart" %}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'orders' %}active{% endif %}" href="/orders">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-receipt me-1"></i>{% tr "My Orders" %}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li><hr class="horizontal dark my-1"></li>
+      {% endif %}
+      <li class="nav-item mt-3">
+        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{% tr "Navigation" %}</h6>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if segment == 'dashboard' %}active{% endif %}" href="/dashboard">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-tachometer-alt text-dark"></i>
+          </div>
+          <span class="nav-link-text ms-1">{% tr "Dashboard" %}</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if segment == 'stats' %}active{% endif %}" href="/stats">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-image text-dark"></i>
+          </div>
+          <span class="nav-link-text ms-1">{% tr "Stats Gallery" %}</span>
+        </a>
+      </li>
+      {# Map page temporarily disabled — re-enable when the new /map is built. #}
+      {% comment %}<li class="nav-item">
+        <a class="nav-link {% if segment == 'map' %}active{% endif %}" href="/map">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-map-marked-alt text-dark"></i>
+          </div>
+          <span class="nav-link-text ms-1">Map of Canada</span>
+        </a>
+      </li>{% endcomment %}
+      <li class="nav-item">
+        <a class="nav-link {% if segment == 'candidates' %}active{% endif %}" href="/candidates">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-users text-dark"></i>
+          </div>
+          <span class="nav-link-text ms-1">{% tr "Candidates" %}</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if segment == 'policies' %}active{% endif %}" href="/policies">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-scroll text-dark"></i>
+          </div>
+          <span class="nav-link-text ms-1">{% tr "Policies" %}</span>
+        </a>
+      </li>
+      {% if user.is_authenticated %}
+      <li class="nav-item mt-3">
+        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{% tr "Admin" %}</h6>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if segment == 'stats' and request.path == '/stateditor' %}active{% endif %}" href="/stateditor">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-cog text-dark"></i>
+          </div>
+          <span class="nav-link-text ms-1">{% tr "Stats Editor" %}</span>
+        </a>
+      </li>
+<li class="nav-item">
+        <a class="nav-link {% if segment == 'financial' or segment == 'health' %}active{% endif %}" data-bs-toggle="collapse" href="#finReportsSubmenu" role="button" aria-expanded="{% if segment == 'financial' or segment == 'health' %}true{% else %}false{% endif %}" aria-controls="finReportsSubmenu">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-chart-bar text-dark"></i>
+          </div>
+          <span class="nav-link-text ms-1">{% tr "Financial Reports" %}</span>
+          <i class="fas fa-chevron-down ms-auto text-xs opacity-7"></i>
+        </a>
+        <div class="collapse {% if segment == 'financial' or segment == 'health' %}show{% endif %}" id="finReportsSubmenu">
+          <ul class="navbar-nav ps-3">
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'financial' %}active{% endif %}" href="/financial">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-dollar-sign me-1"></i>{% tr "Revenue Overview" %}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'health' %}active{% endif %}" href="/health">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-heartbeat me-1"></i>{% tr "Service Health" %}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/mcp/financial_check" target="_blank">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-terminal me-1"></i>{% tr "MCP financial_check" %}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      {% endif %}
+      {% if user.is_authenticated %}
+      <li class="nav-item mt-3">
+        <hr class="horizontal dark">
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">
+          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-sign-out-alt text-dark"></i>
+          </div>
+          <span class="nav-link-text ms-1">{% tr "Logout" %}</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</aside>

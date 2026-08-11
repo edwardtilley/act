@@ -1,0 +1,192 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block content %}
+<main class="main-content position-relative">
+<style>
+  body { background: #f5f7fa; }
+  .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
+<div class="container-fluid py-4">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+    <div>
+      <h4 class="fw-bold mb-1"><i class="fas fa-chart-bar text-advance-red me-2"></i>{% tr "Stats Editor" %}</h4>
+      <p class="text-muted text-sm mb-0">{% tr "Edit the text that accompanies each stat image — descriptions, keywords, and links." %}</p>
+    </div>
+    <button class="btn btn-advance-red btn-sm" data-bs-toggle="modal" data-bs-target="#createStatModal">
+      <i class="fas fa-plus me-1"></i>{% tr "Add Stat" %}</button>
+  </div>
+
+  {% if saved %}
+  <div class="alert alert-success py-2"><i class="fas fa-check-circle me-2"></i>{% tr "Stat #" %}{{ saved }}{% tr "updated successfully." %}</div>
+  {% endif %}
+
+  <div class="card shadow-sm rounded-4 border-0">
+    <div class="card-body px-0 pt-0 pb-2">
+      <div class="table-responsive p-0">
+        <table id="statsEditorTable" class="table align-items-center mb-0 display" style="width:100%;">
+          <thead>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Title" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Description" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Image" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Keywords" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Links" %}</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Active" %}</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Actions" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for stat in stats %}
+            <tr id="stat-row-{{ stat.id }}">
+              <td><p class="text-xs font-weight-bold mb-0">{{ stat.title }}</p><small class="text-muted">{{ stat.image_filename }}</small></td>
+              <td><p class="text-xs mb-0 line-clamp-3" style="max-width:380px;">{{ stat.description|default:"<em>No description yet</em>" }}</p></td>
+              <td>
+                {% if stat.image_filename %}
+                <img src="/static/assets/img/{{ stat.image_filename }}" alt="{{ stat.title }}" style="width:60px;height:40px;object-fit:cover;border-radius:4px;cursor:pointer;" data-bs-toggle="modal" data-bs-target="#imgModal{{ stat.id }}">
+                {% else %}<span class="text-xs text-muted">{% tr "No image" %}</span>{% endif %}
+              </td>
+              <td><p class="text-xs mb-0">{{ stat.keywords|default:"—" }}</p></td>
+              <td>
+                <span class="badge bg-gradient-secondary text-xs" title="{{ stat.links_json }}">{% tr "JSON" %}</span>
+              </td>
+              <td class="text-center">
+                <span class="badge badge-sm {% if stat.active %}bg-gradient-success{% else %}bg-gradient-secondary{% endif %}">{{ stat.active|yesno:"Yes,No" }}</span>
+              </td>
+              <td class="text-center">
+                <button class="btn btn-sm btn-outline-primary mb-0 py-1 px-2" data-bs-toggle="modal" data-bs-target="#editStatModal{{ stat.id }}" title="Edit text">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <a href="/stats" class="btn btn-sm btn-outline-dark mb-0 py-1 px-2" title="View in slideshow">
+                  <i class="fas fa-eye"></i>
+                </a>
+                <button class="btn btn-sm btn-outline-danger mb-0 py-1 px-2" data-bs-toggle="modal" data-bs-target="#deleteStatModal{{ stat.id }}" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create modal -->
+<div class="modal fade" id="createStatModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="post" action="/stateditor/create/">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h6><i class="fas fa-plus-circle text-advance-red me-2"></i>{% tr "Add Stat Image" %}</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6 mb-3"><label class="form-label">{% tr "Title" %}</label><input type="text" class="form-control" name="title" placeholder="Stat title" required></div>
+            <div class="col-md-6 mb-3"><label class="form-label">{% tr "Image Filename" %}</label><input type="text" class="form-control" name="image_filename" placeholder="e.g. gdpcapgrowth.jpg"></div>
+          </div>
+          <div class="mb-3"><label class="form-label">{% tr "Description" %}</label><textarea class="form-control" name="description" rows="4"></textarea></div>
+          <div class="mb-3"><label class="form-label">{% tr "Keywords (comma delimited)" %}</label><input type="text" class="form-control" name="keywords" placeholder="immigration, GDP, fertility"></div>
+          <div class="mb-3"><label class="form-label">{% tr "Links (JSON)" %}</label><textarea class="form-control" name="links_json" rows="3" placeholder='[{"label":"WAOH#immigration","url":"https://csq1.org/waoh#immigration"}]'></textarea></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">{% tr "Cancel" %}</button>
+          <button type="submit" class="btn btn-advance-red btn-sm"><i class="fas fa-save me-1"></i>{% tr "Save" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% for stat in stats %}
+<!-- Edit modal: title / description / keywords / links -->
+<div class="modal fade" id="editStatModal{{ stat.id }}" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="post" action="/stateditor/update/{{ stat.id }}/">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h6><i class="fas fa-edit text-advance-red me-2"></i>{% tr "Edit Stat #" %}{{ stat.id }}{% tr "—" %}{{ stat.title }}</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-8 mb-3"><label class="form-label">{% tr "Title" %}</label><input type="text" class="form-control" name="title" value="{{ stat.title }}" required></div>
+            <div class="col-md-4 mb-3"><label class="form-label">{% tr "Image Filename" %}</label><input type="text" class="form-control" name="image_filename" value="{{ stat.image_filename }}"></div>
+          </div>
+          <div class="mb-3"><label class="form-label">{% tr "Description" %}<span class="text-muted">{% tr "(shown with the image in the slideshow)" %}</span></label><textarea class="form-control" name="description" rows="6">{{ stat.description }}</textarea></div>
+          <div class="mb-3"><label class="form-label">{% tr "Keywords (comma delimited)" %}</label><input type="text" class="form-control" name="keywords" value="{{ stat.keywords }}"></div>
+          <div class="mb-3"><label class="form-label">{% tr "Links (JSON)" %}</label><textarea class="form-control" name="links_json" rows="3">{{ stat.links_json }}</textarea></div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" name="active" id="editActive{{ stat.id }}" {% if stat.active %}checked{% endif %}>
+            <label class="form-check-label text-sm" for="editActive{{ stat.id }}">{% tr "Active (shown in /stats gallery)" %}</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">{% tr "Cancel" %}</button>
+          <button type="submit" class="btn btn-advance-red btn-sm"><i class="fas fa-save me-1"></i>{% tr "Save Changes" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteStatModal{{ stat.id }}" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <form method="post" action="/stateditor/delete/{{ stat.id }}/">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h6 class="text-danger"><i class="fas fa-exclamation-triangle me-2"></i>{% tr "Delete Stat" %}</h6>
+        </div>
+        <div class="modal-body"><p class="text-sm">{% tr "Delete" %}<strong>{{ stat.title }}</strong>{% tr "?" %}</p></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">{% tr "Cancel" %}</button>
+          <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt me-1"></i>{% tr "Delete" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="imgModal{{ stat.id }}" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content bg-dark text-white border-0">
+      <div class="modal-header border-0">
+        <h6 class="modal-title">{{ stat.title }}</h6>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-0">
+        {% if stat.image_filename %}
+        <img src="/static/assets/img/{{ stat.image_filename }}" alt="{{ stat.title }}" class="img-fluid w-100">
+        {% else %}
+        <div class="d-flex align-items-center justify-content-center" style="min-height:300px;">
+          <span class="text-muted">{% tr "No image file set" %}</span>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</main>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+  $('#statsEditorTable').DataTable({
+    responsive: true,
+    order: [[0, 'asc']],
+    pageLength: 25,
+    language: { search: 'Filter:', lengthMenu: 'Show _MENU_ per page', zeroRecords: 'No stats found.' },
+    columnDefs: [{ targets: [6], orderable: false, searchable: false }]
+  });
+});
+</script>
+{% endblock extra_js %}

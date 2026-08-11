@@ -1,0 +1,490 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block body_class %}{% endblock body_class %}
+{% block footer %}{% endblock footer %}
+{% block extrastyle %}
+<style>
+  body, html { margin:0; padding:0; }
+  #particleCanvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-section {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(26,26,26,0.85) 0%, rgba(26,26,26,0.95) 100%);
+    pointer-events: auto;
+  }
+  .glitch-text {
+    font-size: clamp(4rem, 12vw, 10rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(204,0,0,0.3);
+  }
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .glitch-text::before {
+    color: #00AA00;
+    z-index: -1;
+    animation: glitch-offset 0.15s infinite linear alternate-reverse;
+  }
+  .glitch-text::after {
+    color: #0055CC;
+    z-index: -2;
+    animation: glitch-offset 0.1s infinite linear alternate;
+  }
+  @keyframes glitch-offset {
+    0% { transform: translate(0); }
+    20% { transform: translate(-4px, 2px); }
+    40% { transform: translate(4px, -2px); }
+    60% { transform: translate(-2px, -4px); }
+    80% { transform: translate(2px, 4px); }
+    100% { transform: translate(0); }
+  }
+  .glitch-text .glitch-scanline {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero-cta .btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .data-viz-bar {
+    height: 4px;
+    background: linear-gradient(90deg, #CC0000, #00AA00, #0055CC);
+    border-radius: 2px;
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+  .stat-item {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  .stat-item .story-stat {
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+  }
+  .pillar-card {
+    border: none;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.06);
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .pillar-card .pillar-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+  }
+  .pillar-card .pillar-number {
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1;
+    opacity: 0.06;
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    pointer-events: none;
+    user-select: none;
+  }
+  .timeline-milestone {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+  .timeline-milestone .tm-year {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #fff;
+    background: rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 0.25rem 1rem;
+    height: fit-content;
+    white-space: nowrap;
+    min-width: 80px;
+    text-align: center;
+  }
+  .timeline-milestone .tm-content {
+    flex: 1;
+    border-left: 2px solid rgba(255,255,255,0.25);
+    padding-left: 1.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .timeline-milestone .tm-content h4 {
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+  }
+  .timeline-milestone .tm-content p {
+    opacity: 0.8;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  .magnetic-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    will-change: transform;
+    text-decoration: none;
+  }
+  .magnetic-btn.btn-red {
+    background: #CC0000;
+    color: #fff;
+  }
+  .magnetic-btn.btn-red:hover { box-shadow: 0 10px 40px rgba(204,0,0,0.35); color: #fff; }
+  .magnetic-btn.btn-green {
+    background: #00AA00;
+    color: #fff;
+  }
+  .magnetic-btn.btn-green:hover { box-shadow: 0 10px 40px rgba(0,170,0,0.35); color: #fff; }
+  .magnetic-btn.btn-blue {
+    background: #0055CC;
+    color: #fff;
+  }
+  .magnetic-btn.btn-blue:hover { box-shadow: 0 10px 40px rgba(0,85,204,0.35); color: #fff; }
+  .magnetic-btn.btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  .magnetic-btn.btn-outline:hover {
+    border-color: #fff;
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+  }
+  .magnetic-btn i { margin-right: 0.5rem; }
+  .story-section { position: relative; z-index: 1; }
+  @media (max-width: 768px) {
+    .glitch-text { font-size: 3rem; }
+    .stat-item .story-stat { font-size: 2.2rem; }
+    .timeline-milestone { flex-direction: column; gap: 0.5rem; }
+    .timeline-milestone .tm-year { align-self: flex-start; }
+    .pillar-card .pillar-number { font-size: 3rem; }
+  }
+</style>
+{% endblock extrastyle %}
+{% block content %}
+
+<canvas id="particleCanvas"></canvas>
+
+<!-- HERO -->
+<section class="hero-section story-section" id="hero">
+  <div class="container text-center text-white py-5">
+    <p class="story-subhead mb-3" data-animate="fade-up">{% tr "Data-Driven Politics for a Scientific Society" %}</p>
+    <h1 class="glitch-text" data-text="ADVANCE" data-animate="fade-up">{% tr "ADVANCE" %}<span class="glitch-scanline"></span>
+    </h1>
+    <p class="lead fs-4 fw-light mb-5 opacity-75" data-animate="fade-up">{% tr "The numbers don't lie. Canada needs a new direction." %}</p>
+    <div class="hero-cta d-flex justify-content-center gap-3 flex-wrap" data-animate="fade-up">
+      <a href="/policies" class="magnetic-btn btn-red btn-lg">
+        <i class="fas fa-chart-bar"></i>{% tr "Explore Our Platform" %}</a>
+      {# Map page temporarily disabled — re-enable when the new /map is built. #}
+      {% comment %}<a href="/map" class="magnetic-btn btn-outline btn-lg">
+        <i class="fas fa-globe-americas"></i>See the Data
+      </a>{% endcomment %}
+    </div>
+    <div class="mt-5" data-animate="fade-up">
+      <a href="#chapter1" class="text-white opacity-50" style="font-size:1.8rem;">
+        <i class="fas fa-chevron-down"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 1 — The Numbers Don't Lie -->
+<section id="chapter1" class="story-section story-dark-section py-5" style="min-height:100vh;display:flex;align-items:center;">
+  <div class="container py-5 position-relative">
+    <span class="story-number">{% tr "01" %}</span>
+    <div class="row mb-5" data-animate="fade-up">
+      <div class="col-lg-8">
+        <h2 class="story-heading-xl">{% tr "Canada by the Numbers" %}</h2>
+        <div class="data-viz-bar mt-3 mb-3" style="width:120px;"></div>
+        <p class="story-body fs-5">{% tr "Hard data that demands hard answers. The status quo is failing Canadians." %}</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-3 col-6 stat-item" data-animate="fade-up">
+        <div class="story-stat" data-counter="4" data-suffix="B+/day">{% tr "0" %}</div>
+        <div class="data-viz-bar" style="width:80%;"></div>
+        <p class="story-stat-label mt-2">{% tr "Lost Economic Output" %}</p>
+      </div>
+      <div class="col-md-3 col-6 stat-item" data-animate="fade-up">
+        <div class="story-stat" data-counter="860" data-suffix="K">{% tr "0" %}</div>
+        <div class="data-viz-bar" style="width:65%;"></div>
+        <p class="story-stat-label mt-2">{% tr "Children in Poverty" %}</p>
+      </div>
+      <div class="col-md-3 col-6 stat-item" data-animate="fade-up">
+        <div class="story-stat" data-counter="138" data-suffix="th">{% tr "0" %}</div>
+        <div class="data-viz-bar" style="width:50%;"></div>
+        <p class="story-stat-label mt-2">{% tr "Global Suicide Rank" %}</p>
+      </div>
+      <div class="col-md-3 col-6 stat-item" data-animate="fade-up">
+        <div class="story-stat" data-counter="7" data-suffix="%">{% tr "0" %}</div>
+        <div class="data-viz-bar" style="width:35%;"></div>
+        <p class="story-stat-label mt-2">{% tr "GDP Since 1930s Low" %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 2 — Our Platform Pillars -->
+<section id="chapter2" class="story-section story-white-section py-5">
+  <div class="container py-5 position-relative">
+    <span class="story-number">{% tr "02" %}</span>
+    <div class="row mb-5" data-animate="fade-up">
+      <div class="col-lg-8">
+        <h2 class="story-heading-xl text-dark">{% tr "Our Platform Pillars" %}</h2>
+        <div class="data-viz-bar mt-3 mb-3" style="width:120px;"></div>
+        <p class="story-body fs-5 text-muted">{% tr "Three foundational pillars driving every policy decision." %}</p>
+      </div>
+    </div>
+    <div class="row g-5">
+      <div class="col-md-4" data-animate="fade-up" data-tilt>
+        <div class="pillar-card p-4 position-relative" style="transform-style:preserve-3d;">
+          <span class="pillar-number">{% tr "01" %}</span>
+          <div class="pillar-icon" style="background:linear-gradient(135deg,#CC0000,#990000);">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="fw-bold h4 mb-3">{% tr "Economic Prosperity" %}</h3>
+          <p class="text-muted mb-0">{% tr "Job creation, small business tax relief, and sovereign trade policy. We put Canadian workers and innovation first with a modern industrial strategy." %}</p>
+        </div>
+      </div>
+      <div class="col-md-4" data-animate="fade-up" data-tilt>
+        <div class="pillar-card p-4 position-relative" style="transform-style:preserve-3d;">
+          <span class="pillar-number">{% tr "02" %}</span>
+          <div class="pillar-icon" style="background:linear-gradient(135deg,#00AA00,#008800);">
+            <i class="fas fa-scale-balanced"></i>
+          </div>
+          <h3 class="fw-bold h4 mb-3">{% tr "Social Justice" %}</h3>
+          <p class="text-muted mb-0">{% tr "Universal pharmacare, affordable housing, and equal opportunity for every Canadian regardless of postal code or background." %}</p>
+        </div>
+      </div>
+      <div class="col-md-4" data-animate="fade-up" data-tilt>
+        <div class="pillar-card p-4 position-relative" style="transform-style:preserve-3d;">
+          <span class="pillar-number">{% tr "03" %}</span>
+          <div class="pillar-icon" style="background:linear-gradient(135deg,#0055CC,#003388);">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h3 class="fw-bold h4 mb-3">{% tr "Environmental Leadership" %}</h3>
+          <p class="text-muted mb-0">{% tr "Net-zero by 2040, massive green infrastructure investment, and protection of Canada's natural heritage for generations to come." %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 3 — The Timeline -->
+<section id="chapter3" class="story-section story-red-section py-5">
+  <div class="container py-5 position-relative">
+    <span class="story-number">{% tr "03" %}</span>
+    <div class="row mb-5" data-animate="fade-up">
+      <div class="col-lg-8">
+        <h2 class="story-heading-xl">{% tr "The Timeline" %}</h2>
+        <div class="data-viz-bar mt-3 mb-3" style="width:120px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.3));"></div>
+        <p class="story-body fs-5">{% tr "Our roadmap to rebuild Canada — phase by phase, year by year." %}</p>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="story-timeline-item story-fade-in" data-animate="fade-up">
+          <h4 class="fw-bold">{% tr "2024" %}</h4>
+          <p class="mb-0">{% tr "Founding convention. Grassroots movement launched across 200+ ridings with a bold policy framework rooted in data science." %}</p>
+        </div>
+        <div class="story-timeline-item story-fade-in" data-animate="fade-up">
+          <h4 class="fw-bold">{% tr "2025" %}</h4>
+          <p class="mb-0">{% tr "First national campaign. 338 candidates fielded. Breakthrough in public awareness with digital-first voter engagement." %}</p>
+        </div>
+        <div class="story-timeline-item story-fade-in" data-animate="fade-up">
+          <h4 class="fw-bold">{% tr "2026" %}</h4>
+          <p class="mb-0">{% tr "Policy white papers released: Economic Prosperity Act, Social Justice Charter, and Green New Deal for Canada." %}</p>
+        </div>
+        <div class="story-timeline-item story-fade-in" data-animate="fade-up">
+          <h4 class="fw-bold">{% tr "2027" %}</h4>
+          <p class="mb-0">{% tr "Major electoral breakthrough. Official Opposition status achieved. Advance MPs take seats in every province." %}</p>
+        </div>
+        <div class="story-timeline-item story-fade-in" data-animate="fade-up">
+          <h4 class="fw-bold">{% tr "2029" %}</h4>
+          <p class="mb-0">{% tr "Government formation. First Advance Party Cabinet sworn in. Legislation begins on all three pillar initiatives." %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 4 — Take Action -->
+<section id="chapter4" class="story-section story-cta-section py-5" style="min-height:80vh;display:flex;align-items:center;">
+  <div class="container py-5 text-center position-relative">
+    <span class="story-number" style="color:rgba(255,255,255,0.06);">{% tr "04" %}</span>
+    <div class="row justify-content-center" data-animate="fade-up">
+      <div class="col-lg-8">
+        <h2 class="story-heading-xl mb-4">{% tr "Join the Data Revolution" %}</h2>
+        <div class="data-viz-bar mx-auto mb-4" style="width:100px;background:linear-gradient(90deg,#CC0000,#00AA00);"></div>
+        <p class="story-body fs-5 mb-5 opacity-75">{% tr "Canada's future won't build itself. Be the signal in the noise." %}</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a href="/candidate-join" class="magnetic-btn btn-green btn-lg">
+            <i class="fas fa-user-tie"></i>{% tr "Become a Candidate" %}</a>
+          <a href="/member-join" class="magnetic-btn btn-blue btn-lg">
+            <i class="fas fa-user-plus"></i>{% tr "Become a Member" %}</a>
+          <a href="/certifications" class="magnetic-btn btn-outline btn-lg">
+            <i class="fas fa-certificate"></i>{% tr "View Certifications" %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include "includes/footer.html" %}
+{% endblock content %}
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  GSAPSetup.init({ duration: 1.2 });
+  document.querySelectorAll('[data-animate="fade-up"]').forEach(function(el) {
+    GSAPSetup.fadeInUp(el);
+  });
+  document.querySelectorAll('[data-tilt]').forEach(function(el) {
+    GSAPSetup.tiltCard(el);
+  });
+  document.querySelectorAll('.magnetic-btn').forEach(function(el) {
+    GSAPSetup.magneticButton(el);
+  });
+  document.querySelectorAll('[data-counter]').forEach(function(el) {
+    GSAPSetup.animateCounter(el, parseInt(el.getAttribute('data-counter')), el.getAttribute('data-suffix') || '');
+  });
+  /* Particle Canvas */
+  (function() {
+    var canvas = document.getElementById('particleCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var mouse = { x: -9999, y: -9999 };
+    var PARTICLE_COUNT = 150;
+    var CONNECT_DIST = 150;
+    var MOUSE_RADIUS = 200;
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function initParticles() {
+      particles = [];
+      for (var i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 1.2,
+          vy: (Math.random() - 0.5) * 1.2,
+          r: Math.random() * 2 + 1,
+        });
+      }
+    }
+    initParticles();
+
+    document.addEventListener('mousemove', function(e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    document.addEventListener('mouseleave', function() {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    });
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        var dx = mouse.x - p.x;
+        var dy = mouse.y - p.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_RADIUS && dist > 0) {
+          var force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
+          p.vx -= (dx / dist) * force * 0.5;
+          p.vy -= (dy / dist) * force * 0.5;
+        }
+        p.vx += (Math.random() - 0.5) * 0.05;
+        p.vy += (Math.random() - 0.5) * 0.05;
+        var speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (speed > 2) {
+          p.vx = (p.vx / speed) * 2;
+          p.vy = (p.vy / speed) * 2;
+        }
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < -10) p.x = canvas.width + 10;
+        if (p.x > canvas.width + 10) p.x = -10;
+        if (p.y < -10) p.y = canvas.height + 10;
+        if (p.y > canvas.height + 10) p.y = -10;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = '#CC0000';
+        ctx.globalAlpha = 0.7;
+        ctx.fill();
+      }
+      for (var i = 0; i < particles.length; i++) {
+        for (var j = i + 1; j < particles.length; j++) {
+          var a = particles[i];
+          var b = particles[j];
+          var dx = a.x - b.x;
+          var dy = a.y - b.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECT_DIST) {
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = '#CC0000';
+            ctx.globalAlpha = (1 - dist / CONNECT_DIST) * 0.25;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+});
+</script>
+{% endblock extra_js %}

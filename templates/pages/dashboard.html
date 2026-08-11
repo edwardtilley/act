@@ -1,0 +1,121 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block extrastyle %}
+<style>
+  body { background: #f5f7fa; }
+  .stats-hero { background: linear-gradient(135deg, #CC0000 0%, #1A1A1A 100%); padding: 100px 0 60px; }
+  .stats-hero h1, .stats-hero p { color: #fff; }
+  .stats-card { border: none; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); transition: all 0.3s ease; }
+  .stats-card:hover { box-shadow: 0 15px 35px rgba(204,0,0,0.12); transform: translateY(-4px); }
+</style>
+{% endblock %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block content %}
+<main class="main-content position-relative">
+<section class="stats-hero text-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 fw-bold"><i class="fas fa-chart-line me-2"></i>{% tr "Welcome" %}{% if user.is_authenticated %}{% tr "," %}{{ user.get_full_name|default:user.username }}{% endif %}</h1>
+        <p class="lead fs-5 opacity-90">{% tr "Your Advance Party member hub — evidence-based graphics and case studies from the Civic Science Library." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <a href="/cart" class="text-decoration-none">
+        <div class="card stats-card h-100 p-4">
+          <div class="d-flex align-items-center mb-3">
+            <div class="icon-shape icon-shape-sm bg-gradient-danger shadow-danger rounded-circle me-3"><i class="fas fa-shopping-cart text-white"></i></div>
+            <h5 class="fw-bold mb-0">{% tr "Cart / Checkout" %}</h5>
+          </div>
+          <p class="text-muted text-sm mb-0">{% tr "Hub shared service — add Certification Training or candidate nominations and pay at checkout." %}</p>
+        </div>
+      </a>
+      <a href="/checkout" class="text-decoration-none">
+        <div class="card stats-card h-100 p-4 mt-4">
+          <div class="d-flex align-items-center mb-3">
+            <div class="icon-shape icon-shape-sm bg-gradient-success shadow-success rounded-circle me-3"><i class="fas fa-credit-card text-white"></i></div>
+            <h5 class="fw-bold mb-0">{% tr "Hub Payment Gateway" %}</h5>
+            <span class="ms-auto badge {% if gateway_mode == 'hub' %}bg-success{% else %}bg-warning text-dark{% endif %}">{{ gateway_mode_display }}</span>
+          </div>
+          <p class="text-muted text-sm mb-0">{% tr "Shared service — charges route through the hub gateway" %}{% if gateway_mode == 'hub' %}{% tr "to" %}{{ gateway_url }}{% else %}{% tr "(simulated locally while HUB_GATEWAY_URL is unset)" %}{% endif %}{% tr "." %}</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="/stats" class="text-decoration-none">
+        <div class="card stats-card h-100 p-4">
+          <div class="d-flex align-items-center mb-3">
+            <div class="icon-shape icon-shape-sm bg-gradient-red shadow-red rounded-circle me-3"><i class="fas fa-image text-white"></i></div>
+            <h5 class="fw-bold mb-0">{% tr "Stats Gallery" %}</h5>
+          </div>
+          <p class="text-muted text-sm mb-0">{% tr "Interactive slideshow with filters, thumbnails, and modal links for each graphic." %}</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="/stateditor" class="text-decoration-none">
+        <div class="card stats-card h-100 p-4">
+          <div class="d-flex align-items-center mb-3">
+            <div class="icon-shape icon-shape-sm bg-gradient-dark shadow-dark rounded-circle me-3"><i class="fas fa-cog text-white"></i></div>
+            <h5 class="fw-bold mb-0">{% tr "Stats Editor" %}</h5>
+          </div>
+          <p class="text-muted text-sm mb-0">{% tr "Admin CRUD for image descriptions, keywords, and links." %}</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="/health" class="text-decoration-none">
+        <div class="card stats-card h-100 p-4">
+          <div class="d-flex align-items-center mb-3">
+            <div class="icon-shape icon-shape-sm bg-gradient-info shadow-info rounded-circle me-3"><i class="fas fa-heartbeat text-white"></i></div>
+            <h5 class="fw-bold mb-0">{% tr "Service Health" %}</h5>
+          </div>
+          <p class="text-muted text-sm mb-0">{% tr "Status for business manager &amp; sysops — same payload as /api/v1/health and /mcp/health_check." %}</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="https://csq1.org/waoh" target="_blank" class="text-decoration-none">
+        <div class="card stats-card h-100 p-4">
+          <div class="d-flex align-items-center mb-3">
+            <div class="icon-shape icon-shape-sm bg-gradient-primary shadow-primary rounded-circle me-3"><i class="fas fa-book text-white"></i></div>
+            <h5 class="fw-bold mb-0">{% tr "WAOH Library" %}</h5>
+          </div>
+          <p class="text-muted text-sm mb-0">{% tr "Civic Science case studies and evidence-based research." %}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="card shadow-sm rounded-4 border-0">
+    <div class="card-body p-5">
+      <h4 class="fw-bold mb-4"><i class="fas fa-database text-advance-red me-2"></i>{% tr "Data-Driven Stats" %}</h4>
+      <p class="text-sm mb-3">{% tr "Each image is presented as a data-table entry with filtering, sorting, and links to case studies at" %}<a href="https://csq1.org/waoh" target="_blank">{% tr "csq1.org/waoh" %}</a>{% tr "." %}</p>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Filter by keywords (e.g., immigration, fertility, GDP)" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Thumbnail navigation for quick focus" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Modal view with explanation text and More Info links" %}</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Right/left arrows for sequential browsing" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "JSON links for multiple references per image" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Similar to" %}<a href="/policies">{% tr "Policies" %}</a>{% tr "layout" %}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+{% endblock content %}

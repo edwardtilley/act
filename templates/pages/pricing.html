@@ -1,0 +1,110 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block extrastyle %}
+<style>
+  body { background: #f5f7fa; }
+  .pricing-hero { background: linear-gradient(135deg, #CC0000 0%, #1A1A1A 100%); padding: 80px 0 60px; }
+  .pricing-hero h1, .pricing-hero p { color: #fff; }
+  .price-card { border: none; border-radius: 20px; box-shadow: 0 10px 35px rgba(0,0,0,0.08); transition: all 0.3s ease; overflow: hidden; }
+  .price-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(204,0,0,0.15); }
+  .price-card .price { font-size: 3rem; font-weight: 800; }
+  .price-card .card-top { padding: 2rem 2rem 1.5rem; color: #fff; }
+</style>
+{% endblock %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block content %}
+<main class="main-content position-relative">
+<section class="pricing-hero text-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 fw-bold"><i class="fas fa-tags me-2"></i>{% tr "Pricing" %}</h1>
+        <p class="lead fs-5 opacity-90">{% tr "Simple, transparent costs to join the Advance Party of Canada." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  <div class="row g-4 justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card price-card h-100">
+        <div class="card-top bg-gradient-success">
+          <h5 class="fw-bold mb-0 text-white"><i class="fas fa-graduation-cap me-2"></i>{% tr "Certification Training" %}</h5>
+        </div>
+        <div class="card-body p-4 d-flex flex-column">
+          <div class="price text-advance-green">{% tr "$199" %}</div>
+          <p class="text-muted text-sm">{% tr "One-time enrollment in the Civic Science Certification Training program." %}</p>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Full training curriculum" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Official CSQ certification" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Evidence-based methods" %}</li>
+          </ul>
+          {% if user.is_authenticated %}
+          <form method="POST" action="/cart/add" class="mt-auto">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ certifications_id }}">
+            <button type="submit" class="btn btn-advance-green rounded-pill w-100">{% tr "Add to Cart — Enroll" %}</button>
+          </form>
+          {% else %}
+          <a href="/auth/login/?next=/pricing" class="btn btn-advance-green rounded-pill mt-auto">{% tr "Enroll Now" %}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card price-card h-100">
+        <div class="card-top bg-gradient-red">
+          <h5 class="fw-bold mb-0 text-white"><i class="fas fa-landmark me-2"></i>{% tr "Federal Member of Parliament" %}</h5>
+        </div>
+        <div class="card-body p-4 d-flex flex-column">
+          <div class="price text-advance-red">{% tr "$149" %}</div>
+          <p class="text-muted text-sm">{% tr "Stand as the Advance Party candidate in a federal riding." %}</p>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-red me-2"></i>{% tr "Candidate nomination fees" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-red me-2"></i>{% tr "Party support &amp; platform access" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-red me-2"></i>{% tr "Campaign tooling included" %}</li>
+          </ul>
+          {% if user.is_authenticated %}
+          <form method="POST" action="/cart/add" class="mt-auto">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ mp_id }}">
+            <button type="submit" class="btn btn-advance-red rounded-pill w-100">{% tr "Add to Cart — Run Federally" %}</button>
+          </form>
+          {% else %}
+          <a href="/auth/login/?next=/pricing" class="btn btn-advance-red rounded-pill mt-auto">{% tr "Run Federally" %}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card price-card h-100">
+        <div class="card-top bg-gradient-info">
+          <h5 class="fw-bold mb-0 text-white"><i class="fas fa-building me-2"></i>{% tr "Provincial Member of Parliament" %}</h5>
+        </div>
+        <div class="card-body p-4 d-flex flex-column">
+          <div class="price text-advance-blue">{% tr "$129" %}</div>
+          <p class="text-muted text-sm">{% tr "Candidate for the Advance Party in a provincial legislature." %}</p>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-blue me-2"></i>{% tr "Candidate registration fees" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-blue me-2"></i>{% tr "Provincial riding support" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-blue me-2"></i>{% tr "Campaign tooling included" %}</li>
+          </ul>
+          {% if user.is_authenticated %}
+          <form method="POST" action="/cart/add" class="mt-auto">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ mpp_id }}">
+            <button type="submit" class="btn btn-advance-blue rounded-pill w-100">{% tr "Add to Cart — Run Provincially" %}</button>
+          </form>
+          {% else %}
+          <a href="/auth/login/?next=/pricing" class="btn btn-advance-blue rounded-pill mt-auto">{% tr "Run Provincially" %}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+{% endblock content %}

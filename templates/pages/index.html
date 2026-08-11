@@ -1,0 +1,893 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+
+{% block body_class %}{% tr "story-landing" %}{% endblock body_class %}
+
+{% block extrastyle %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+  body.story-landing { font-family: 'Inter', sans-serif; background: #1A1A1A; overflow-x: hidden; }
+
+  .story-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; transition: background 0.4s ease; pointer-events: none; }
+  .story-nav > * { pointer-events: auto; }
+  .story-nav.scrolled { background: rgba(26,26,26,0.9); backdrop-filter: blur(12px); }
+  .story-nav .nav-brand { font-size: 1.35rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 0.15em; text-transform: uppercase; }
+  .story-nav .nav-brand i { color: #CC0000; margin-right: 10px; font-size: 1.6rem; vertical-align: middle; }
+  .story-nav .nav-links { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; align-items: center; }
+  .story-nav .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.3s; }
+  .story-nav .nav-links a:hover { color: #fff; }
+  .story-nav .nav-links .dropdown-menu a:hover { color: #fff !important; background: rgba(204,0,0,0.2); }
+  .story-nav .nav-links .dropdown-toggle::after { border-top-color: rgba(255,255,255,0.75); vertical-align: middle; }
+
+  .story-hero-pin { position: relative; z-index: 1; min-height: 400vh; }
+  .story-hero-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; will-change: transform; }
+
+  .story-section { position: relative; padding: 8rem 0; overflow: hidden; }
+  .story-section-inner { position: relative; z-index: 2; }
+  .story-red-section { background: #CC0000; color: #fff; }
+  .story-dark-section { background: #1A1A1A; color: #fff; }
+  .story-white-section { background: #fff; color: #1A1A1A; }
+  .story-number { font-size: 10rem; font-weight: 900; line-height: 1; opacity: 0.08; position: absolute; top: -2rem; right: 2rem; pointer-events: none; user-select: none; }
+  .story-red-section .story-number { color: rgba(255,255,255,0.12); }
+  .story-dark-section .story-number { color: rgba(255,255,255,0.06); }
+  .story-white-section .story-number { color: rgba(0,0,0,0.06); }
+  .story-heading { font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; font-size: clamp(2.2rem, 5vw, 3.5rem); }
+  .story-subhead { font-size: clamp(0.8rem, 1.5vw, 1rem); font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; margin-bottom: 0.5rem; }
+  .story-body { font-size: 1.125rem; line-height: 1.7; opacity: 0.85; }
+
+  .problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .problem-item { background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); border-radius: 16px; padding: 2rem; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease; }
+  .problem-item:hover { background: rgba(255,255,255,0.15); transform: translateY(-4px); }
+  .problem-item .icon { font-size: 2rem; margin-bottom: 1rem; color: rgba(255,255,255,0.9); }
+  .problem-item h4 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .problem-item p { font-size: 0.95rem; opacity: 0.75; margin: 0; }
+  @media (max-width: 640px) { .problem-grid { grid-template-columns: 1fr; } }
+
+  .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+  .pillar-card { background: #fff; border-radius: 24px; padding: 3rem 2rem; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04); transition: transform 0.3s ease; will-change: transform; }
+  .pillar-card .pillar-icon { width: 80px; height: 80px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto 1.5rem; }
+  .pillar-card h4 { font-weight: 800; font-size: 1.4rem; margin-bottom: 0.75rem; }
+  .pillar-card p { font-size: 0.95rem; opacity: 0.7; line-height: 1.6; }
+  .pillar-econ .pillar-icon { background: rgba(0,85,204,0.1); color: #0055CC; }
+  .pillar-soc .pillar-icon { background: rgba(204,0,0,0.1); color: #CC0000; }
+  .pillar-env .pillar-icon { background: rgba(0,170,0,0.1); color: #00AA00; }
+  @media (max-width: 768px) { .pillar-grid { grid-template-columns: 1fr; } }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
+  .stat-item { text-align: center; }
+  .story-stat { font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; line-height: 1; letter-spacing: -0.03em; }
+  .story-stat-label { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; font-weight: 600; margin-top: 0.5rem; }
+  @media (max-width: 640px) { .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; } }
+
+  .cta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 3rem; }
+  .cta-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: 3.5rem 2.5rem; text-align: center; transition: all 0.3s ease; }
+  .cta-card:hover { background: rgba(255,255,255,0.15); transform: translateY(-6px); }
+  .cta-card .cta-icon { font-size: 3rem; margin-bottom: 1.5rem; color: rgba(255,255,255,0.9); }
+  .cta-card h4 { font-weight: 800; font-size: 1.6rem; margin-bottom: 0.75rem; }
+  .cta-card p { font-size: 0.95rem; opacity: 0.75; line-height: 1.6; margin-bottom: 2rem; }
+  .magnetic-btn { display: inline-block; padding: 1rem 2.5rem; border-radius: 50px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: transform 0.2s ease; border: none; cursor: pointer; }
+  .magnetic-btn.btn-primary-advance { background: #fff; color: #CC0000; }
+  .magnetic-btn.btn-green { background: #00AA00; color: #fff; }
+  @media (max-width: 640px) { .cta-grid { grid-template-columns: 1fr; } }
+
+  .story-fade-in { opacity: 0; transform: translateY(40px); }
+  .story-divider-wave { height: 80px; background: #CC0000; clip-path: ellipse(70% 100% at 50% 100%); }
+  .story-divider-wave-reverse { height: 80px; background: #CC0000; clip-path: ellipse(70% 100% at 50% 0%); }
+  .data-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; }
+
+  .tilley-section { position: relative; overflow: hidden; }
+  .tilley-section::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(204,0,0,0.95) 0%, rgba(0,0,0,0.85) 100%); z-index: 1; }
+  .tilley-quote { font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.3; letter-spacing: -0.01em; }
+  .tilley-quote .highlight { color: #FFD700; }
+  .tilley-img { border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 100%; height: auto; }
+  .tilley-name { font-weight: 300; font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.7; }
+
+  .contact-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 3rem; }
+  .contact-card .form-control { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; color: #fff; padding: 1rem 1.25rem; font-size: 1rem; }
+  .contact-card .form-control:focus { background: rgba(255,255,255,0.15); border-color: #CC0000; box-shadow: 0 0 0 3px rgba(204,0,0,0.2); color: #fff; }
+  .contact-card .form-control::placeholder { color: rgba(255,255,255,0.4); }
+  .contact-card label { font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; color: rgba(255,255,255,0.7); }
+  .contact-card textarea.form-control { min-height: 120px; resize: vertical; }
+
+  @media (max-width: 768px) { .story-section { padding: 5rem 0; } .story-nav .nav-links { display: none; } }
+
+  /* ════════════════════════════════════════════
+     ANIMATED MOVIE HERO
+     ════════════════════════════════════════════ */
+  .movie-stage {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    overflow: hidden; z-index: 0; background: #0a0000;
+  }
+  .movie-scene {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+  }
+  .movie-scene.active { pointer-events: auto; }
+
+  /* ─── Scene 1: Tilley + ADVANCE title ─── */
+  #scene1 { justify-content: flex-start; }
+  .scene-tilley-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #0a0000 0%, #1a0000 30%, #2a0000 100%);
+  }
+  .scene-tilley-img {
+    position: absolute; right: 0; top: 0;
+    width: 75%; height: 100%;
+    object-fit: contain; object-position: right center;
+    opacity: 0;
+  }
+  .scene-tilley-content {
+    position: relative; z-index: 2;
+    padding: 4rem; max-width: 50%;
+  }
+  .scene-tilley-brand {
+    font-size: clamp(4rem, 10vw, 8rem); font-weight: 900;
+    letter-spacing: -0.04em; line-height: 0.85;
+    color: #fff; text-shadow: 0 4px 60px rgba(0,0,0,0.5);
+    margin: 0 0 0.25rem;
+  }
+  .scene-tilley-brand span { color: #CC0000; }
+  .scene-tilley-tagline {
+    font-size: clamp(0.7rem, 1.2vw, 0.95rem);
+    font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); margin-bottom: 1.5rem;
+  }
+  .scene-tilley-quote {
+    font-size: clamp(1.1rem, 2.2vw, 1.8rem);
+    font-weight: 700; line-height: 1.3;
+    color: #fff; text-shadow: 0 2px 30px rgba(0,0,0,0.3);
+  }
+  .scene-tilley-quote .highlight-gold { color: #FFD700; }
+  .scene-tilley-quote .highlight-red { color: #CC0000; }
+
+  /* ─── Scene 2: Problems List + ACT OF WAR ─── */
+  .scene-war-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #0a0000 0%, #1a0000 50%, #0a0000 100%);
+  }
+  .scene-war-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    width: 100%; height: 100%; position: relative; z-index: 2;
+  }
+  .scene-war-left {
+    display: flex; flex-direction: column;
+    justify-content: center; padding: 4rem 3rem 4rem 5rem;
+  }
+  .scene-war-left .bullet-item {
+    font-size: clamp(1rem, 1.8vw, 1.5rem);
+    font-weight: 300; color: rgba(255,255,255,0.9);
+    padding: 0.6rem 0; line-height: 1.4;
+    opacity: 0;
+  }
+  .scene-war-left .bullet-item::before {
+    content: '▸'; color: #CC0000; margin-right: 1rem;
+    font-weight: 900; font-size: 1.2em;
+  }
+  .scene-war-right {
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 4rem 5rem 4rem 3rem;
+    text-align: center;
+  }
+  .scene-war-right .war-headline {
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 900; line-height: 1.1;
+    color: #FFD700; text-shadow: 0 0 60px rgba(255,215,0,0.3);
+    opacity: 0; transform: scale(0.8);
+    text-transform: uppercase; letter-spacing: -0.03em;
+  }
+  .scene-war-right .war-headline.red { color: #CC0000; text-shadow: 0 0 60px rgba(204,0,0,0.3); }
+  .scene-war-right .war-sub {
+    font-size: clamp(1rem, 2vw, 1.8rem);
+    font-weight: 700; color: #fff;
+    opacity: 0; margin-top: 0.5rem;
+  }
+  .scene-war-right .war-stat {
+    font-size: clamp(0.85rem, 1.4vw, 1.2rem);
+    font-weight: 300; color: rgba(255,255,255,0.6);
+    opacity: 0; margin-top: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── Scene 3: Stats / Evidence burst ─── */
+  .scene-stats-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(ellipse at center, #1a0000 0%, #0a0000 70%);
+  }
+  .scene-stats-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 2rem; padding: 4rem;
+    width: 100%; position: relative; z-index: 2;
+  }
+  .scene-stat-block {
+    text-align: center; padding: 2rem;
+    opacity: 0; transform: translateY(40px);
+  }
+  .scene-stat-block .num {
+    font-size: clamp(3rem, 6vw, 5rem); font-weight: 900;
+    line-height: 1; color: #CC0000;
+    text-shadow: 0 0 40px rgba(204,0,0,0.3);
+  }
+  .scene-stat-block .label {
+    font-size: clamp(0.8rem, 1.2vw, 1rem);
+    font-weight: 300; color: rgba(255,255,255,0.7);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-top: 0.5rem;
+  }
+  .scene-stat-block .desc {
+    font-size: clamp(0.7rem, 1vw, 0.9rem);
+    color: rgba(255,255,255,0.4); margin-top: 0.5rem;
+    max-width: 280px; margin-left: auto; margin-right: auto;
+  }
+
+  /* ─── Scene nav dots ─── */
+  .scene-nav {
+    position: fixed; bottom: 2rem; left: 50%;
+    transform: translateX(-50%); z-index: 100;
+    display: flex; gap: 0.75rem;
+  }
+  .scene-nav .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,0.2); border: none;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .scene-nav .dot.active { background: #CC0000; width: 28px; border-radius: 5px; }
+
+  /* ─── Scroll indicator ─── */
+  .hero-scroll-indicator {
+    position: fixed; bottom: 4rem; left: 50%;
+    transform: translateX(-50%); z-index: 100;
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(255,255,255,0.4); font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    animation: hero-bounce 2s infinite;
+    opacity: 0; pointer-events: none;
+  }
+  .hero-scroll-indicator .scroll-line { width: 1px; height: 30px; background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent); }
+  @keyframes hero-bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+  @media (max-width: 768px) {
+    .scene-tilley-content { max-width: 90%; padding: 2rem; }
+    .scene-tilley-img { width: 100%; top: 0; left: 0; }
+    .scene-war-grid { grid-template-columns: 1fr; }
+    .scene-war-left { padding: 2rem 2rem 0; }
+    .scene-war-right { padding: 0 2rem 2rem; }
+    .scene-stats-grid { grid-template-columns: 1fr; gap: 1rem; padding: 2rem; }
+  }
+</style>
+{% endblock extrastyle %}
+
+{% block navigation %}
+<nav class="story-nav" id="storyNav">
+  <a href="/" class="nav-brand"><i class="fab fa-canadian-maple-leaf"></i>{% tr "The Advance Party of Canada" %}</a>
+  <ul class="nav-links">
+    <li><a href="/">{% tr "Home" %}</a></li>
+    {# Map page temporarily disabled — re-enable when the new /map is built. #}
+    {% comment %}<li><a href="/map">{% tr "Map" %}</a></li>{% endcomment %}
+    <li><a href="/candidates">{% tr "Candidates" %}</a></li>
+    <li><a href="/policies">{% tr "Policies" %}</a></li>
+    <li><a href="/stats">{% tr "Stats" %}</a></li>
+    <li class="nav-item dropdown" style="position:relative;">
+      <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" style="color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">{% tr "Join Us" %}</a>
+      <ul class="dropdown-menu dropdown-menu-end" style="min-width:200px;background:rgba(26,26,26,0.95);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.5rem;">
+        <li><a class="dropdown-item" href="/candidate-join" style="color:rgba(255,255,255,0.8);padding:0.5rem 1rem;"><i class="fas fa-user-tie me-2" style="color:#CC0000;"></i>{% tr "As Candidate" %}</a></li>
+        <li><a class="dropdown-item" href="/member-join" style="color:rgba(255,255,255,0.8);padding:0.5rem 1rem;"><i class="fas fa-user-plus me-2" style="color:#00AA00;"></i>{% tr "As Member" %}</a></li>
+        <li><hr class="dropdown-divider" style="border-color:rgba(255,255,255,0.1);margin:0.25rem 0;"></li>
+        <li><a class="dropdown-item" href="/certifications" style="color:rgba(255,255,255,0.8);padding:0.5rem 1rem;"><i class="fas fa-certificate me-2" style="color:#0055CC;"></i>{% tr "Certifications" %}</a></li>
+      </ul>
+    </li>
+    {% if user.is_authenticated %}
+    <li><a href="/dashboard">{% tr "My Dashboard" %}</a></li>
+    {% else %}
+    <li><a href="/auth/login">{% tr "Login" %}</a></li>
+    {% endif %}
+    <li><a href="?lang=en" class="lang-toggle" style="color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">{% tr "EN" %}</a></li>
+    <li><a href="?lang=fr" class="lang-toggle" style="color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">{% tr "FR" %}</a></li>
+  </ul>
+</nav>
+{% endblock navigation %}
+
+{% block content %}
+
+<!-- ════════════════════════════════════════════════
+     ANIMATED MOVIE HERO — Full-screen scene cycle
+     ════════════════════════════════════════════════ -->
+<div class="movie-stage" id="movieStage">
+  <canvas id="movieParticles" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+
+  <!-- SCENE 1: TILLEY + ADVANCE BRAND + QUOTE -->
+  <div class="movie-scene" id="scene1" style="z-index:3;">
+    <div class="scene-tilley-bg"></div>
+    <img src="{% static 'assets/img/edward-tilley.png' %}" alt="Edward Tilley"
+         class="scene-tilley-img" id="tilleyImg">
+    <div class="scene-tilley-content">
+      <p class="scene-tilley-tagline">{% tr "The Advance Party of Canada" %}</p>
+      <h1 class="scene-tilley-brand" id="scene1Brand"><span>{% tr "ADVANCE" %}</span></h1>
+      <p class="scene-tilley-quote" id="scene1Quote">
+        "{% tr "Canadians should be the" %} <span class="highlight-gold">{% tr "richest citizens" %}</span> {% tr "in the world" %}{% tr "," %}<br>
+        {% tr "but we are" %} <span class="highlight-red">{% tr "collapsing instead" %}</span>{% tr ".&quot;" %}</p>
+      <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;" id="scene1Ctas">
+        <a href="/policies" class="btn btn-advance-red btn-lg rounded-pill px-4 fw-bold shadow">{% tr "Our Plan" %}</a>
+        <a href="/member-join" class="btn btn-outline-light btn-lg rounded-pill px-4">{% tr "Join Us" %}</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 2: STATS EVIDENCE BURST -->
+  <div class="movie-scene" id="scene2" style="z-index:2;">
+    <div class="scene-stats-bg"></div>
+    <div class="scene-stats-grid">
+      <div class="scene-stat-block" data-idx="0">
+        <div class="num" data-target="4000000000" data-suffix="/day">{% tr "$0" %}</div>
+        <div class="label">{% tr "$4 Billion Lost Daily" %}</div>
+        <div class="desc">{% tr "Canada's GDP growth is the lowest in the G20" %}</div>
+      </div>
+      <div class="scene-stat-block" data-idx="1">
+        <div class="num" data-target="980000" data-suffix="/yr">{% tr "0" %}</div>
+        <div class="label">{% tr "Children Lost" %}</div>
+        <div class="desc">{% tr "To abortion & fertility collapse every year" %}</div>
+      </div>
+      <div class="scene-stat-block" data-idx="2">
+        <div class="num" data-target="138">{% tr "138th" %}</div>
+        <div class="label">{% tr "World Suicide Rank" %}</div>
+        <div class="desc">{% tr "Canada has the 138th highest suicide rate globally" %}</div>
+      </div>
+      <div class="scene-stat-block" data-idx="3">
+        <div class="num" data-target="1930">{% tr "1930s" %}</div>
+        <div class="label">{% tr "Productivity Level" %}</div>
+        <div class="desc">{% tr "Canadian productivity has fallen to 1930s levels" %}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 3: PROBLEMS LIST + ACT OF WAR -->
+  <div class="movie-scene" id="scene3" style="z-index:1;">
+    <div class="scene-war-bg"></div>
+    <div class="scene-war-grid">
+      <div class="scene-war-left">
+        <div class="bullet-item" data-idx="0"><strong>{% tr "6.6 Million election fraud immigrants" %}</strong> {% tr "brought in to swing ridings since 2015 in Ontario, Quebec, and B.C." %}</div>
+        <div class="bullet-item" data-idx="1">{% tr "Wars are measured by depopulation, workplace equality laws guarantee depopulation, an" %} <strong>{% tr "Act of War" %}</strong> {% tr "against the Canadian people" %}</div>
+        <div class="bullet-item" data-idx="2"><strong>{% tr "Gender Theory, Economic Treason" %}</strong> {% tr "lowest GDP growth since the 1930s, lowest GDP per Capita in the G20" %}</div>
+        <div class="bullet-item" data-idx="3"><strong>{% tr "980,000 children lost" %}</strong> {% tr "per year to fertility collapse, 300 abortions daily" %}</div>
+        <div class="bullet-item" data-idx="4"><strong>{% tr "Criminal legislatures" %}</strong> {% tr "in Canada repeat dozens of GFANZ/WEF election frauds in the EU and US States" %}</div>
+        <div class="bullet-item" data-idx="5"><strong>{% tr "Hate and Surveillance laws" %}</strong> {% tr "used to silence opposition to election fraud" %}</div>
+      </div>
+      <div class="scene-war-right">
+        <div class="war-headline" id="warHeadline1">{% tr "ACT OF WAR" %}</div>
+        <div class="war-headline red" id="warHeadline2">{% tr "ETHNIC CLEANSING" %}</div>
+        <div class="war-sub" id="warSub">{% tr "Against the Canadian People" %}</div>
+        <div class="war-stat" id="warStat">{% tr "138th in suicide · Lowest productivity since 1930s · Fertility rate 1.33" %}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="scene-nav" id="sceneNav">
+  <button class="dot active" data-scene="0"></button>
+  <button class="dot" data-scene="1"></button>
+  <button class="dot" data-scene="2"></button>
+</div>
+
+<div class="hero-scroll-indicator" id="scrollIndicator">
+  <span>{% tr "Scroll to explore our solutions" %}</span>
+  <div class="scroll-line"></div>
+</div>
+
+<!-- ════════ SPACER to push content below fixed hero ════════ -->
+<div style="height:100vh;"></div>
+
+<!-- ════════ CHAPTER 1 — The Crisis ════════ -->
+<section class="story-section story-white-section" id="diagnosis">
+  <div class="story-number" style="color:rgba(0,0,0,0.06);">{% tr "01" %}</div>
+  <div class="container story-section-inner">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <p class="story-subhead text-muted" data-animate="fade-up">{% tr "Chapter One — The Crisis" %}</p>
+        <h2 class="story-heading text-dark mb-4" data-animate="fade-up">{% tr "What's Wrong with Canadian Voters?" %}</h2>
+        <p class="story-body text-muted mb-5" data-animate="fade-up">
+          {% tr "Norway's 5.6 million population are the richest citizens in the world, UAE is 1 million citizens with 9 million work visas - same story, while the resources of Canada dwarf both of these countries, as the second largest resource basin in the world, and our country is being taken from us - by a Swiss banking lobby that easily affords to buy and control Conservative and Liberal groups in dozens of countries. It costs $20 million to buy an election in Canada, and the reward is hundreds of billions of dollars — as seen in a $25 billion money laundering scam in Ukraine. The Liberal's doubled national debt and world's largest housing bubble, alongside our important lowest-GDP Growth per Citizen in the G20, spell poverty for Canadians at the hands of an unprotected electoral system, without Human Rights of Security: a Home, Incomes, Pensions, Education." %}
+        </p>
+        <h3 class="text-center fw-bold fst-italic" data-animate="fade-up">{% tr "Why do Canadians vote for this?" %}</h3>
+      </div>
+    </div>
+    <div class="problem-grid" data-animate="fade-up" style="grid-template-columns:repeat(3,1fr);">
+      <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
+        <div class="icon" style="color:#CC0000;"><i class="fas fa-users"></i></div>
+        <h4 style="color:#1A1A1A;">{% tr "Election Fraud" %}</h4>
+        <p style="color:#1A1A1A;">{% tr "An army of 6.6 million low-compatibility election fraud immigrants, with laws changed to the shortest naturalization in any high-income nation, supported in our highest electoral seat swing ridings of ON, QC, and BC spells high treason by CC 46.1. 22,000 immigration consultancies ensure our criminal legislature are guaranteed to never lose an election while protecting treason with hate laws." %}</p>
+      </div>
+      <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
+        <div class="icon" style="color:#CC0000;"><i class="fas fa-skull"></i></div>
+        <h4 style="color:#1A1A1A;">{% tr "Depopulation & Genocide" %}</h4>
+        <p style="color:#1A1A1A;">% tr "980,000 Canadians lost annually — an entire generation. 2% depopulation per year (WWII-Europe levels). We've lost 20% of our 2015 population, with 300 abortions per day and the highest suicide rate in the world. Wars are measured by depopulation; and depopulation is guaranteed by equality laws - in 131 nations. Canada's Business Corporation Act is an Act of War and High Treason by CC 46(1), that Western media never explains." %}</p>
+      </div>
+      <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
+        <div class="icon" style="color:#CC0000;"><i class="fas fa-chart-line"></i></div>
+        <h4 style="color:#1A1A1A;">{% tr "Economic Collapse" %}</h4>
+        <p style="color:#1A1A1A;">{% tr "$4 Billion lost daily unreported. 1930s production growth levels. 1990s salaries. Lowest GDP per Capita in G20. World's largest housing bubble. 138th in suicide. Double income traps destroy families, our population, and Canada's future. Doubled Welfare roles, Doubled Homelessness, Food Banks run off their feet, with substandard food quality and housing." %}</p>
+      </div>
+      <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
+        <div class="icon" style="color:#CC0000;"><i class="fas fa-school"></i></div>
+        <h4 style="color:#1A1A1A;">{% tr "Harmful Indoctrination" %}</h4>
+        <p style="color:#1A1A1A;">% tr "Child abuse through harmful gender ideology and DEI/ESG indoctrination in our schools. Universities teach collapse theory. 60% of males drop out. CBC lies and propaganda. Church burning. Censorship of opposition." %}</p>
+      </div>
+      <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
+        <div class="icon" style="color:#CC0000;"><i class="fas fa-globe"></i></div>
+        <h4 style="color:#1A1A1A;">{% tr "Great Replacement" %}</h4>
+        <p style="color:#1A1A1A;">% tr "Open borders for 70M new immigrants via Century Initiative. CPP and McKinsey-led plan. No immigration when we can't integrate. WEF Senate. Foreign ownership surge at 42% — highest in G7. No human rights to a home or family." %}</p>
+      </div>
+      <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
+        <div class="icon" style="color:#CC0000;"><i class="fas fa-handcuffs"></i></div>
+        <h4 style="color:#1A1A1A;">{% tr "Criminal Legislature" %}</h4>
+        <p style="color:#1A1A1A;">{% tr "48 of 54 large democracies collapsing due to foreign interference. Canada's descent is worst. Globalist oligarchs fund SuperPACs. $6M/day public money on CBC propaganda. No accountability. High Treason under Canada's Criminal Code." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="story-divider-wave"></div>
+
+<!-- ════════ CHAPTER 2 — Edward Tilley Quote ════════ -->
+<section class="story-section tilley-section" style="background:url('https://images.unsplash.com/photo-1520085601670-ee14aa5fa3e8?w=1600&q=80') center/cover fixed;">
+  <div class="container story-section-inner" style="position:relative;z-index:2;">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5 text-center" data-animate="fade-up">
+        <h1 class="text-white fw-bold mb-4" style="font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.02em;"><a href="/policies" class="text-white text-decoration-none">{% tr "Our Policies" %}</a></h1>
+        <img src="{% static 'assets/img/advance-party-tile.png' %}" alt="Edward Tilley — President, Advance Party of Canada" class="tilley-img img-fluid" style="max-width:504px;border:4px solid rgba(255,255,255,0.2);">
+      </div>
+      <div class="col-lg-7" data-animate="fade-up">
+        <p class="tilley-quote text-white mb-3" style="font-size:clamp(0.95rem, 1.6vw, 1.3rem);">
+          <strong>{% tr "Advance says NO to" %}</strong> {% tr "INCOME TAX, ECONOMIC TREASON, A DOUBLED DEBT in just 10 years, CLIMATE AND TRUMP DYSPHORIA, CHILD ABUSING HARMFUL INDOCTRINATIONS IN OUR SCHOOLS, TREASONOUS IMMIGRATION ELECTION FRAUD, ACT OF WAR DEPOPULATION LAWS, THE WORLD'S LARGEST HOUSING BUBBLE, 1930s PRODUCTION GROWTH LEVELS, 1990s SALARIES, GREAT REPLACEMENT Opening Borders FOR 70 MILLION NEW IMMIGRANTS. DOUBLE INCOME TRAPS, COST OF LIVING MISMANAGEMENT, FOOD QUALITY, CBC LIES & PROPAGANDA, CENSORSHIP, CHURCH BURNING, a WEF SENATE, STUDENT LOANS, SPENDING WITHOUT INVESTMENT, and HOMELESSNESS" %}
+        </p>
+        <p class="tilley-quote text-white mb-0" style="font-size:clamp(0.95rem, 1.6vw, 1.3rem);">
+          {% tr "... and" %} <strong>{% tr "YES" %}</strong> % tr "to GOOD LIVES, 100% EMPLOYMENT, FAMILY VALUES, QUALIFIED LEADERSHIP, RESPECT of HUMAN RIGHTS like Home Ownership, CIVIC SCIENCE, NATIONAL ADVANCE, and ACCOUNTABILITY for crimes against our once Great Nation!" %}
+        </p>
+        <p class="mt-4 mb-0"><a href="/policies" class="btn btn-light btn-lg rounded-pill px-5 fw-bold shadow-sm">{% tr "Find out how. Click here" %} <i class="fas fa-arrow-right ms-2"></i></a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="story-divider-wave-reverse"></div>
+
+<!-- ════════ CHAPTER 3 — Prescription ════════ -->
+<section class="story-section story-white-section" id="prescription">
+  <div class="story-number">{% tr "02" %}</div>
+  <div class="container story-section-inner">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <p class="story-subhead" data-animate="fade-up">{% tr "Chapter Two" %}</p>
+        <h2 class="story-heading mb-4" data-animate="fade-up">{% tr "Civic Data Science — in 250 countries" %}</h2>
+        <p class="story-body text-muted mb-4" data-animate="fade-up">
+          % tr "Forget Right vs Left, Civic Science explains 100% evidence-based, context-validated realities in Country Building. Our Civic Scientist MP/MPP Candidates swear a certification oath to not harm the public, and Civic Science builds measurable good, respect, and human advance reliably." %}
+        </p>
+      </div>
+    </div>
+    <div class="pillar-grid" data-animate="fade-up">
+      <div class="pillar-card pillar-econ" data-tilt data-tilt-max="8" data-tilt-speed="400">
+        <div class="pillar-icon"><i class="fas fa-chart-bar"></i></div>
+        <h4>{% tr "Economic Prosperity" %}</h4>
+        <p>{% tr "Job creation, small business support, and innovative trade policies that put Canadian workers and industries first in a global economy." %}</p>
+      </div>
+      <div class="pillar-card pillar-soc" data-tilt data-tilt-max="8" data-tilt-speed="400">
+        <div class="pillar-icon"><i class="fas fa-hand-holding-heart"></i></div>
+        <h4>{% tr "Human Rights" %}</h4>
+        <p>{% tr "Security — home ownership is a human right, a good job and income are a human right, pensions, a good education (with zero ideology), a family, healthcare, all spell security that permits Canadians to make good decisions for moral purpose." %}</p>
+      </div>
+      <div class="pillar-card pillar-env" data-tilt data-tilt-max="8" data-tilt-speed="400">
+        <div class="pillar-icon"><i class="fas fa-leaf"></i></div>
+        <h4>{% tr "Reputation Restored" %}</h4>
+        <p>{% tr "Advance will turn around our collapsing laughing stock world view — restoring Canada's standing as a respected, prosperous, and sovereign nation through Civic Science leadership, industrial strength, and accountable governance." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="story-divider-wave"></div>
+
+<!-- ════════ CHAPTER 4 — Evidence ════════ -->
+<section class="story-section story-dark-section" id="evidence">
+  <div class="story-number">{% tr "03" %}</div>
+  <div class="container story-section-inner">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <p class="story-subhead" data-animate="fade-up">{% tr "Chapter Three" %}</p>
+        <h2 class="story-heading mb-4" data-animate="fade-up" style="color:#ffffff;">{% tr "Getting Started" %}</h2>
+        <p class="story-body mb-4" data-animate="fade-up">
+          {% tr "Advance is just getting started, and we need you to help build a bright future that has been lost for Canadians today. We can in short order be a 34 million population nation again, with sustainable birthrates, solid and successful families, and united by a shared vision of a bright future — of good, respect, and human advance. We are going to use these numbers to document our progress." %}
+        </p>
+      </div>
+    </div>
+    <div class="stats-grid" data-animate="fade-up">
+      <div class="stat-item">
+        <div class="story-stat"><span data-counter="338">{% tr "0" %}</span></div>
+        <div class="story-stat-label">{% tr "Ridings" %}</div>
+      </div>
+      <div class="stat-item">
+        <div class="story-stat"><span data-counter="10" data-suffix="">{% tr "0" %}</span></div>
+        <div class="story-stat-label">{% tr "Provinces" %}</div>
+      </div>
+      <div class="stat-item">
+        <div class="story-stat"><span data-counter="1" data-suffix="">{% tr "0" %}</span></div>
+        <div class="story-stat-label">{% tr "Vision" %}</div>
+      </div>
+      <div class="stat-item">
+        <div class="story-stat"><span data-counter="100" data-suffix="%">{% tr "0" %}</span></div>
+        <div class="story-stat-label">{% tr "Commitment" %}</div>
+      </div>
+    </div>
+    <div class="row mt-5 g-4" data-animate="fade-up">
+      <div class="col-md-4">
+        <div class="data-card text-center">
+          <i class="fas fa-map-marked-alt fs-1 mb-3" style="color:#CC0000;"></i>
+          <h5 class="fw-bold">{% tr "Nationwide Presence" %}</h5>
+          <p class="small opacity-75 mb-0">{% tr "Candidates and organizers in every province and territory across Canada." %}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="data-card text-center">
+          <i class="fas fa-users fs-1 mb-3" style="color:#00AA00;"></i>
+          <h5 class="fw-bold">{% tr "Grassroots Movement" %}</h5>
+          <p class="small opacity-75 mb-0">{% tr "Built by Canadians, for Canadians — with local chapters in every riding." %}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="data-card text-center">
+          <i class="fas fa-calendar-check fs-1 mb-3" style="color:#0055CC;"></i>
+          <h5 class="fw-bold">{% tr "Ready for Action" %}</h5>
+          <p class="small opacity-75 mb-0">{% tr "Fully registered, platform-ready, and committed to the next federal election." %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="story-divider-wave-reverse"></div>
+
+<!-- ════════ CHAPTER 5 — Contact Us ════════ -->
+<section class="story-section story-white-section" id="contact" style="padding:3rem 0;">
+  <div class="story-number">{% tr "04" %}</div>
+  <div class="container story-section-inner">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center mb-3" data-animate="fade-up">
+        <p class="story-subhead text-muted">{% tr "Support the Movement" %}</p>
+        <h2 class="story-heading mb-2">{% tr "Donate to the Advance Party" %}</h2>
+        <p class="story-body text-muted">{% tr "We have all seen what FREE buys you — a national, and dangerous collapse. Canadians need to change the way they build their governments, we must insist on Civic Science Certifications, and pay $5 per week or per month, to give you a Political Party that works for you only, and does not work for corruption or a Swiss banking lobby." %}</p>
+      </div>
+    </div>
+    <div class="row justify-content-center" data-animate="fade-up">
+      <div class="col-lg-6">
+        <div class="contact-card text-center" style="padding:1.5rem;">
+          <div class="mb-2">
+            <i class="fas fa-hand-holding-heart" style="font-size:2.5rem;color:#CC0000;opacity:0.8;"></i>
+          </div>
+          <h4 class="text-white fw-bold mb-2" style="font-size:1.1rem;">{% tr "Invest in Canada's Future" %}</h4>
+          <p class="text-white-50 mb-3" style="font-size:0.85rem;">% tr "$5 or $10 per month. Buy a Future for a Timmies coffee. Advance accepts NO Corporate SuperPAC Contributions — your donation 100% makes Advance possible." %}</p>
+          <a href="https://www.paypal.com/ncp/payment/GGEPRCLJTKM3Y" target="_blank" class="d-inline-block">
+            <img src="https://csq1.org/wp-content/uploads/2025/06/donate-300x50.png" alt="{% tr "Donate to the Advance Party of Canada" %}" class="img-fluid" style="max-width:220px;">
+          </a>
+          <p class="small text-white-50 mt-2 mb-0" style="font-size:0.75rem;">{% tr "Donations are to Worthwhile Industries initially, to pay our Not-for-Profit Incorporation costs." %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="story-divider-wave"></div>
+
+<!-- ════════ FOOTER ════════ -->
+<section class="story-section" style="background:#1A1A1A;color:rgba(255,255,255,0.8);padding:4rem 0 2rem;position:relative;z-index:10;">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <h4 class="fw-bold text-white mb-3"><i class="fas fa-flag text-advance-red me-2"></i>{% tr "Advance Party of Canada" %}</h4>
+        <p class="small opacity-75">{% tr "Canadians should be the richest citizens in the world. Civic Science. Certified Leadership. Real Results." %}</p>
+        <hr class="border-light opacity-25">
+        <h5 class="fw-bold text-white mb-2">{% tr "Contact Us" %}</h5>
+        <p class="small mb-1"><i class="fas fa-phone text-advance-red me-2"></i>{% tr "Toronto: +1(289) 998-1499" %}</p>
+        <p class="small"><i class="fas fa-envelope text-advance-red me-2"></i><a href="mailto:info@actcanadian.com" class="text-white-50 text-decoration-none">{% tr "info@actcanadian.com" %}</a></p>
+        <div class="d-flex gap-2 mt-3">
+          <a href="https://www.linkedin.com/company/advance-canada/" target="_blank" class="btn btn-outline-light btn-sm rounded-pill" style="width:38px;height:38px;padding:0;display:flex;align-items:center;justify-content:center;"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/ACTCanadian" target="_blank" class="btn btn-outline-light btn-sm rounded-pill" style="width:38px;height:38px;padding:0;display:flex;align-items:center;justify-content:center;"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com/advance_canada" target="_blank" class="btn btn-outline-light btn-sm rounded-pill" style="width:38px;height:38px;padding:0;display:flex;align-items:center;justify-content:center;"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://discord.gg/GAjQ3JJv" target="_blank" class="btn btn-outline-light btn-sm rounded-pill" style="width:38px;height:38px;padding:0;display:flex;align-items:center;justify-content:center;"><i class="fab fa-discord"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <h5 class="fw-bold text-white mb-3">{% tr "Quick Links" %}</h5>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><a href="/policies" class="text-white-50 text-decoration-none hover:text-white"><i class="fas fa-file-alt text-advance-red me-2"></i>{% tr "Our Policies" %}</a></li>
+          {# Map page temporarily disabled — re-enable when the new /map is built. #}
+          {% comment %}<li class="mb-2"><a href="/map" class="text-white-50 text-decoration-none hover:text-white"><i class="fas fa-map-marked-alt text-advance-red me-2"></i>{% tr "Map of Canada" %}</a></li>{% endcomment %}
+          <li class="mb-2"><a href="/candidates" class="text-white-50 text-decoration-none hover:text-white"><i class="fas fa-users text-advance-red me-2"></i>{% tr "Candidates" %}</a></li>
+          <li class="mb-2"><a href="/member-join" class="text-white-50 text-decoration-none hover:text-white"><i class="fas fa-user-plus text-advance-red me-2"></i>{% tr "Become a Member" %}</a></li>
+          <li class="mb-2"><a href="/candidate-join" class="text-white-50 text-decoration-none hover:text-white"><i class="fas fa-user-tie text-advance-red me-2"></i>{% tr "Run as Candidate" %}</a></li>
+          <li class="mb-2"><a href="/privacy" class="text-white-50 text-decoration-none hover:text-white"><i class="fas fa-shield-alt text-advance-red me-2"></i>{% tr "Privacy Policy" %}</a></li>
+          <li class="mb-2"><a href="/terms" class="text-white-50 text-decoration-none hover:text-white"><i class="fas fa-gavel text-advance-red me-2"></i>{% tr "Terms of Use" %}</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h5 class="fw-bold text-white mb-3">{% tr "Civic Science Resources" %}</h5>
+        <ul class="list-unstyled small">
+          <li class="mb-3">
+            <a href="https://csq1.org/certification" target="_blank" class="text-white-50 text-decoration-none d-flex align-items-center gap-2">
+              <img src="https://csq1.org/wp-content/uploads/2023/02/csq-cert-150x150.png" alt="{% tr "CSQ Certification" %}" style="width:32px;height:32px;border-radius:4px;">
+              <span>{% tr "CSQ Certification Training" %}</span>
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="https://csq1.org" target="_blank" class="text-white-50 text-decoration-none d-flex align-items-center gap-2">
+              <img src="https://csq1.org/wp-content/uploads/2024/08/WAOH-logo-square-lowres-300x300.jpg" alt="{% tr "WAOH" %}" style="width:32px;height:32px;border-radius:4px;">
+              <span>{% tr "CSQ Research — Civic Science Research" %}</span>
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="https://csq1.org/waoh/" target="_blank" class="text-white-50 text-decoration-none d-flex align-items-center gap-2">
+              <i class="fas fa-book-open text-advance-red me-1" style="font-size:1.2rem;"></i>
+              <span>{% tr "The World at Our Hands — Civics Library" %}</span>
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="https://investcs.com" target="_blank" class="text-white-50 text-decoration-none d-flex align-items-center gap-2">
+              <i class="fas fa-chart-line text-advance-green me-1" style="font-size:1.2rem;"></i>
+              <span>{% tr "Common Sense Test — InvestCS" %}</span>
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="https://transitioneconomics.info" target="_blank" class="text-white-50 text-decoration-none d-flex align-items-center gap-2">
+              <i class="fas fa-exchange-alt text-advance-blue me-1" style="font-size:1.2rem;"></i>
+              <span>{% tr "Transition Economics" %}</span>
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="https://actcanadian.com" target="_blank" class="text-white-50 text-decoration-none d-flex align-items-center gap-2">
+              <i class="fas fa-globe-americas text-advance-red me-1" style="font-size:1.2rem;"></i>
+              <span>{% tr "ACTCanadian.com — Main Site" %}</span>
+            </a>
+          </li>
+        </ul>
+        <div class="mt-2 p-2" style="background:rgba(255,255,255,0.06);border-radius:12px;border:1px solid rgba(255,255,255,0.08);">
+          <p class="small mb-1 text-white" style="font-size:0.75rem;">{% tr "Support the movement with $5 or $10/month. No corporate SuperPAC funding — just Canadians." %}</p>
+          <a href="https://www.paypal.com/ncp/payment/GGEPRCLJTKM3Y" target="_blank" class="btn btn-advance-red btn-sm rounded-pill w-100 fw-bold">
+            <i class="fas fa-heart me-2"></i>{% tr "Donate Now" %}
+          </a>
+        </div>
+      </div>
+    </div>
+    <hr class="border-light opacity-25 my-4">
+    <div class="row">
+      <div class="col-md-8">
+        <p class="small opacity-50 mb-0">{% tr "&copy;" %}{% now "Y" %} {% tr "The Advance Party of Canada. Authorized by the Chief Agent of the Advance Party of Canada. All rights reserved." %}</p>
+      </div>
+      <div class="col-md-4 text-md-end">
+        <a href="/privacy" class="text-white-50 text-decoration-none small me-3">{% tr "Privacy" %}</a>
+        <a href="/terms" class="text-white-50 text-decoration-none small">{% tr "Terms" %}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+/* ─── MOVIE HERO SCENE MANAGER ─── */
+(function(){
+  var scenes = document.querySelectorAll('.movie-scene');
+  var dots = document.querySelectorAll('.scene-nav .dot');
+  var currentScene = 0;
+  var isAnimating = false;
+  var autoPlayTimer = null;
+  var sceneTimelines = {};
+
+  function killScene(sceneId) {
+    if (sceneTimelines[sceneId]) {
+      sceneTimelines[sceneId].kill();
+      delete sceneTimelines[sceneId];
+    }
+  }
+
+  function showScene(idx) {
+    if (isAnimating || idx === currentScene) return;
+    isAnimating = true;
+    killScene('scene' + currentScene);
+    var oldIdx = currentScene;
+    currentScene = idx;
+
+    var oldEl = scenes[oldIdx];
+    var newEl = scenes[idx];
+    var goingForward = idx > oldIdx;
+    var dir = goingForward ? 1 : -1;
+
+    // Kill auto timer for Scene 2 (stats counters)
+    if (sceneTimelines['scene2timer']) {
+      sceneTimelines['scene2timer'].kill();
+      delete sceneTimelines['scene2timer'];
+    }
+
+    // OUT: old scene slides out
+    gsap.to(oldEl, {
+      x: -dir * 100, opacity: 0, duration: 0.7, ease: 'power3.inOut',
+      onComplete: function() {
+        oldEl.classList.remove('active');
+        gsap.set(oldEl, { x: 0 });
+      }
+    });
+
+    // IN: new scene slides in
+    gsap.set(newEl, { x: dir * 100, opacity: 0 });
+    newEl.classList.add('active');
+    gsap.to(newEl, { x: 0, opacity: 1, duration: 0.7, ease: 'power3.inOut', delay: 0.1,
+      onComplete: function() {
+        isAnimating = false;
+        animateSceneElements(idx);
+        startAutoTimer();
+      }
+    });
+
+    // Update dots
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+    // Scroll indicator visible only on last scene
+    var scrollInd = document.getElementById('scrollIndicator');
+    gsap.to(scrollInd, { opacity: idx === scenes.length - 1 ? 1 : 0, duration: 0.5 });
+  }
+
+  function animateSceneElements(idx) {
+    if (idx === 0) animateScene1();
+    else if (idx === 1) animateScene2();
+    else if (idx === 2) animateScene3();
+  }
+
+  /* ─── SCENE 1: Tilley entrance ─── */
+  function animateScene1() {
+    var tl = gsap.timeline();
+    sceneTimelines['scene1'] = tl;
+
+    tl.fromTo('#tilleyImg', { x: 200, opacity: 0 }, { x: 0, opacity: 1, duration: 1.2, ease: 'power3.out' }, 0);
+    tl.fromTo('#scene1Brand', { y: -60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, 0.2);
+    tl.fromTo('#scene1Quote', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, 0.5);
+    tl.fromTo('#scene1Ctas', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }, 0.8);
+  }
+
+  /* ─── SCENE 2: Stats counter blocks ─── */
+  function animateScene2() {
+    var tl = gsap.timeline();
+    sceneTimelines['scene2'] = tl;
+
+    var blocks = document.querySelectorAll('#scene2 .scene-stat-block');
+    tl.to(blocks, { opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'power3.out' }, 0);
+
+    // Animate counters
+    var timerTl = gsap.timeline({ delay: 0.4 });
+    sceneTimelines['scene2timer'] = timerTl;
+    blocks.forEach(function(block) {
+      var numEl = block.querySelector('.num');
+      var targetStr = numEl.getAttribute('data-target');
+      var suffix = numEl.getAttribute('data-suffix') || '';
+      var target = parseInt(targetStr.replace(/,/g, ''));
+      if (isNaN(target)) return;
+      var obj = { val: 0 };
+      timerTl.to(obj, {
+        val: target, duration: 2.5, ease: 'power2.out',
+        onUpdate: function() {
+          var display = target > 1000 ? Math.round(obj.val).toLocaleString() : Math.round(obj.val);
+          numEl.textContent = display + suffix;
+        },
+        onComplete: function() { numEl.textContent = targetStr + suffix; }
+      }, 0);
+    });
+  }
+
+  /* ─── SCENE 3: Bullet list stagger + WAR text ─── */
+  function animateScene3() {
+    var tl = gsap.timeline();
+    sceneTimelines['scene3'] = tl;
+
+    var bullets = document.querySelectorAll('#scene3 .bullet-item');
+    tl.to(bullets, { opacity: 1, duration: 0.5, stagger: 4, ease: 'power3.out' }, 0.2);
+
+    tl.fromTo('#warHeadline1', { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: 'back.out(2)' }, 0.3);
+    tl.fromTo('#warHeadline2', { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: 'back.out(2)' }, 0.6);
+    tl.fromTo('#warSub', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, 0.9);
+    tl.fromTo('#warStat', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, 1.1);
+  }
+
+  function startAutoTimer() {
+    if (autoPlayTimer) clearTimeout(autoPlayTimer);
+    autoPlayTimer = setTimeout(function() {
+      var next = (currentScene + 1) % scenes.length;
+      showScene(next);
+    }, currentScene === 0 ? 8000 : currentScene === 2 ? 22000 : 12000);
+  }
+
+  // ─── DOT CLICKS ───
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var idx = parseInt(this.getAttribute('data-scene'));
+      if (idx !== currentScene) {
+        if (autoPlayTimer) clearTimeout(autoPlayTimer);
+        showScene(idx);
+      }
+    });
+  });
+
+  // ─── PARTICLE CANVAS ───
+  (function(){
+    var canvas = document.getElementById('movieParticles');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+    for (var i = 0; i < 60; i++) {
+      particles.push({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2,
+        r: Math.random() * 1.5 + 0.5, alpha: Math.random() * 0.3 + 0.1
+      });
+    }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(function(p) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = '#CC0000'; ctx.globalAlpha = p.alpha; ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  // ─── INIT ───
+  gsap.set('#scene1', { opacity: 1, x: 0 });
+  document.getElementById('scene1').classList.add('active');
+  animateScene1();
+  startAutoTimer();
+
+  // ─── FALLBACK NAV HIDE ON SCROLL ───
+  var storyNav = document.getElementById('storyNav');
+  window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY || window.pageYOffset;
+    storyNav.classList.toggle('scrolled', scrollY > 200);
+    // Keep nav visible but adjust style
+    storyNav.style.background = scrollY > 100 ? 'rgba(26,26,26,0.9)' : 'transparent';
+    storyNav.style.backdropFilter = scrollY > 100 ? 'blur(12px)' : 'none';
+  });
+
+  // ─── Expose for debugging ───
+  window.__movie = { showScene: showScene, currentScene: function() { return currentScene; } };
+})();
+
+/* ─── FADE-IN ON SCROLL for sections below ─── */
+document.addEventListener('DOMContentLoaded', function() {
+  var fadeEls = document.querySelectorAll('[data-animate="fade-up"]');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  fadeEls.forEach(function(el) { observer.observe(el); });
+
+  // Tilt cards
+  document.querySelectorAll('[data-tilt]').forEach(function(el) {
+    el.addEventListener('mousemove', function(e) {
+      var rect = el.getBoundingClientRect();
+      var x = e.clientX - rect.left, y = e.clientY - rect.top;
+      var cx = rect.width / 2, cy = rect.height / 2;
+      var mx = parseFloat(el.getAttribute('data-tilt-max')) || 8;
+      el.style.transform = 'perspective(600px) rotateX(' + ((y - cy) / cy * mx) + 'deg) rotateY(' + ((x - cx) / cx * -mx) + 'deg) scale3d(1.02,1.02,1.02)';
+    });
+    el.addEventListener('mouseleave', function() { el.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)'; });
+  });
+});
+</script>
+{% endblock extra_js %}

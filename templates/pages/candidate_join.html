@@ -1,0 +1,123 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block extrastyle %}
+<style>
+  .join-header { background: linear-gradient(135deg, #CC0000, #660000); padding: 80px 0 40px; }
+  .join-form-card { border: none; border-radius: 20px; box-shadow: 0 20px 60px rgba(204,0,0,0.15); margin-top: -30px; position: relative; z-index: 2; }
+  .benefit-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: white; }
+</style>
+{% endblock extrastyle %}
+{% block body_class %}{% tr "bg-gray-100" %}{% endblock body_class %}
+{% block content %}
+
+<section class="join-header text-white">
+  <div class="container">
+    <h1 class="display-4 fw-bold"><i class="fas fa-user-tie me-2"></i>{% tr "Run for Office" %}</h1>
+    <p class="lead fs-5 opacity-90">{% tr "Become an Advance Party candidate and represent your community." %}</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-7">
+      <div class="card join-form-card p-4">
+        <div class="card-body p-4">
+          {% if request.GET.submitted %}
+          <div class="text-center py-5">
+            <div class="display-1 text-advance-green mb-3"><i class="fas fa-check-circle"></i></div>
+            <h2 class="fw-bold">{% tr "Application Submitted!" %}</h2>
+            <p class="lead text-muted">{% tr "Thank you for your interest. Our team will contact you within 48 hours." %}</p>
+            <a href="/" class="btn btn-advance-red rounded-pill px-5 mt-3">{% tr "Return Home" %}</a>
+          </div>
+          {% else %}
+          <h3 class="fw-bold mb-2">{% tr "Candidate Application Form" %}</h3>
+          <p class="text-muted mb-4">{% tr "Complete the form below to apply as an Advance Party candidate." %}</p>
+          <form method="POST" action="/candidate-join">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">{% tr "First Name" %}<span class="text-danger">{% tr "*" %}</span></label>
+                <input type="text" class="form-control" name="first_name" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">{% tr "Last Name" %}<span class="text-danger">{% tr "*" %}</span></label>
+                <input type="text" class="form-control" name="last_name" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">{% tr "Email" %}<span class="text-danger">{% tr "*" %}</span></label>
+                <input type="email" class="form-control" name="email" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">{% tr "Phone" %}</label>
+                <input type="tel" class="form-control" name="phone" placeholder="(555) 123-4567">
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-semibold">{% tr "Address" %}</label>
+                <input type="text" class="form-control" name="address" placeholder="Street address">
+              </div>
+              <div class="col-md-5">
+                <label class="form-label fw-semibold">{% tr "City" %}</label>
+                <input type="text" class="form-control" name="city">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold">{% tr "Province" %}</label>
+                <select class="form-select" name="province">
+                  <option value="">{% tr "Select..." %}</option>
+                  <option>{% tr "Alberta" %}</option><option>{% tr "British Columbia" %}</option><option>{% tr "Manitoba" %}</option>
+                  <option>{% tr "New Brunswick" %}</option><option>{% tr "Newfoundland and Labrador" %}</option>
+                  <option>{% tr "Nova Scotia" %}</option><option>{% tr "Ontario" %}</option><option>{% tr "Prince Edward Island" %}</option>
+                  <option>{% tr "Quebec" %}</option><option>{% tr "Saskatchewan" %}</option>
+                  <option>{% tr "Northwest Territories" %}</option><option>{% tr "Nunavut" %}</option><option>{% tr "Yukon" %}</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-semibold">{% tr "Postal Code" %}</label>
+                <input type="text" class="form-control" name="postal_code" placeholder="A1A 1A1">
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-semibold">{% tr "Why do you want to be a candidate?" %}</label>
+                <textarea class="form-control" name="message" rows="4" placeholder="Tell us about your vision for your community..."></textarea>
+              </div>
+              <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-advance-red btn-lg rounded-pill w-100 py-3 fw-bold">
+                  <i class="fas fa-paper-plane me-2"></i>{% tr "Submit Application" %}</button>
+              </div>
+            </div>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card border-0 shadow-sm rounded-4 p-4 mb-4" style="margin-top: -10px;">
+        <h4 class="fw-bold mb-3">{% tr "Why Become a Candidate?" %}</h4>
+        <div class="d-flex mb-3">
+          <div class="benefit-icon bg-advance-red me-3 flex-shrink-0"><i class="fas fa-bullhorn"></i></div>
+          <div><h6 class="fw-bold mb-1">{% tr "Voice for Your Community" %}</h6><p class="small text-muted mb-0">{% tr "Represent the issues that matter to your neighbours." %}</p></div>
+        </div>
+        <div class="d-flex mb-3">
+          <div class="benefit-icon bg-advance-green me-3 flex-shrink-0"><i class="fas fa-handshake"></i></div>
+          <div><h6 class="fw-bold mb-1">{% tr "Support Network" %}</h6><p class="small text-muted mb-0">{% tr "Full training, resources, and party support." %}</p></div>
+        </div>
+        <div class="d-flex mb-3">
+          <div class="benefit-icon bg-advance-blue me-3 flex-shrink-0"><i class="fas fa-chart-line"></i></div>
+          <div><h6 class="fw-bold mb-1">{% tr "Make Real Change" %}</h6><p class="small text-muted mb-0">{% tr "Shape policy that impacts millions of Canadians." %}</p></div>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm rounded-4 p-4" style="background: #f8f9fa;">
+        <h5 class="fw-bold mb-3"><i class="fas fa-question-circle text-advance-red me-2"></i>{% tr "Requirements" %}</h5>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><i class="fas fa-check text-advance-green me-2"></i>{% tr "Canadian citizen aged 18+" %}</li>
+          <li class="mb-2"><i class="fas fa-check text-advance-green me-2"></i>{% tr "Resident of the riding you seek to represent" %}</li>
+          <li class="mb-2"><i class="fas fa-check text-advance-green me-2"></i>{% tr "Commitment to Advance Party values" %}</li>
+          <li class="mb-2"><i class="fas fa-check text-advance-green me-2"></i>{% tr "Clean criminal record check" %}</li>
+          <li class="mb-2"><i class="fas fa-check text-advance-green me-2"></i>{% tr "$1,000 refundable candidacy deposit" %}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

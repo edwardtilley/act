@@ -1,0 +1,37 @@
+{% load translate_en %}
+<nav class="navbar navbar-expand-lg position-absolute top-0 w-100 z-index-3">
+  <div class="container">
+    <a class="navbar-brand text-white fw-bold" href="/">
+      <i class="fas fa-flag me-2"></i>{% tr "ADVANCE PARTY" %}</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-white" href="/"><i class="fas fa-home me-1"></i>{% tr "Home" %}</a></li>
+        {# Map page temporarily disabled — re-enable when the new /map is built. #}
+        {% comment %}<li class="nav-item"><a class="nav-link text-white" href="/map"><i class="fas fa-map me-1"></i>Map</a></li>{% endcomment %}
+        <li class="nav-item"><a class="nav-link text-white" href="/candidates"><i class="fas fa-users me-1"></i>{% tr "Candidates" %}</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="/policies"><i class="fas fa-file-alt me-1"></i>{% tr "Policies" %}</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="/stats"><i class="fas fa-chart-line me-1"></i>{% tr "Stats" %}</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link text-white dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            <i class="fas fa-handshake me-1"></i>{% tr "Join Us" %}</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/candidate-join"><i class="fas fa-user-tie me-2"></i>{% tr "As Candidate" %}</a></li>
+            <li><a class="dropdown-item" href="/member-join"><i class="fas fa-user-plus me-2"></i>{% tr "As Member" %}</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/certifications"><i class="fas fa-certificate me-2"></i>{% tr "Certifications" %}</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link text-white" href="?lang=en"><i class="fas fa-globe me-1"></i>EN</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="?lang=fr"><i class="fas fa-globe me-1"></i>FR</a></li>
+        {% if user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link text-white" href="/dashboard"><i class="fas fa-tachometer-alt me-1"></i>{% tr "My Dashboard" %}</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link text-white" href="/auth/login"><i class="fas fa-sign-in-alt me-1"></i>{% tr "Login" %}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

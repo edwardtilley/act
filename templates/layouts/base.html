@@ -1,0 +1,21 @@
+{% load static %}
+{% load translate_en %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "includes/head.html" %}
+  {% block extrastyle %}{% endblock extrastyle %}
+</head>
+<body class="{% block body_class %}{% endblock body_class %}">
+  {% block sidebar %}{% endblock sidebar %}
+  {% block navigation %}
+    {% include "includes/navigation.html" %}
+  {% endblock navigation %}
+  {% block content %}{% endblock content %}
+  {% block footer %}
+    {% include "includes/footer.html" %}
+  {% endblock footer %}
+  {% include "includes/scripts.html" %}
+  {% block extra_js %}{% endblock extra_js %}
+</body>
+</html>

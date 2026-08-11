@@ -1,0 +1,137 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block extrastyle %}
+<style>
+  body { background: #f5f7fa; }
+  .profile-hero { background: linear-gradient(135deg, #CC0000 0%, #1A1A1A 100%); padding: 80px 0 60px; }
+  .profile-hero h1, .profile-hero p { color: #fff; }
+  .profile-card { border: none; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); }
+</style>
+{% endblock %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block content %}
+<main class="main-content position-relative">
+<section class="profile-hero text-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 fw-bold"><i class="fas fa-user-circle me-2"></i>{% tr "My Profile" %}</h1>
+        <p class="lead fs-5 opacity-90">{% tr "Manage your Advance Party account details." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  {% if saved %}
+  <div class="alert alert-success d-flex align-items-center" role="alert">
+    <i class="fas fa-check-circle me-2"></i>{% if saved == 'pwd' %}{% tr "Password changed successfully." %}{% else %}{% tr "Profile updated successfully." %}{% endif %}
+  </div>
+  {% endif %}
+
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="card profile-card p-4 mb-4">
+        <div class="d-flex align-items-center mb-4">
+          {% if profile_obj.photo %}
+          <img src="{{ profile_obj.photo.url }}" class="rounded-circle me-3" alt="{{ user.get_full_name|default:user.username }}" style="width:64px; height:64px; object-fit:cover;">
+          {% else %}
+          <div class="avatar avatar-lg bg-gradient-dark text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width:64px; height:64px; font-size:22px; font-weight:700;">
+            {{ user.username|slice:":2"|upper }}
+          </div>
+          {% endif %}
+          <div>
+            <h5 class="fw-bold mb-0">{{ user.get_full_name|default:user.username }}</h5>
+            <span class="text-sm text-muted">{% tr "@" %}{{ user.username }}</span>
+          </div>
+        </div>
+        <form method="POST" action="/profile" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label text-sm">{% tr "First Name" %}</label>
+              <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-sm">{% tr "Last Name" %}</label>
+              <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}">
+            </div>
+            <div class="col-12">
+              <label class="form-label text-sm">{% tr "Email" %}</label>
+              <input type="email" name="email" class="form-control" value="{{ user.email }}">
+            </div>
+            <div class="col-12">
+              <label class="form-label text-sm">{% tr "Username" %}</label>
+              <input type="text" class="form-control" value="{{ user.username }}" disabled>
+              <small class="text-muted">{% tr "Username cannot be changed." %}</small>
+            </div>
+            <div class="col-12">
+              <label class="form-label text-sm">{% tr "Party Role" %}<span class="text-advance-red">{% tr "*" %}</span></label>
+              <select name="role" class="form-select">
+                {% for value, label in profile_obj.ROLE_CHOICES %}
+                <option value="{{ value }}" {% if profile_obj.role == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+              <small class="text-muted">{% tr "Role held within the party organization." %}</small>
+            </div>
+            <div class="col-12">
+              <label class="form-label text-sm">{% tr "Professional Civic Scientist Certification" %}</label>
+              <select name="certification" class="form-select">
+                {% for value, label in profile_obj.CERTIFICATION_CHOICES %}
+                <option value="{{ value }}" {% if profile_obj.certification == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+              <small class="text-muted">{% tr "Certified Professional Civic Scientist trainees and graduates display the certification badge on their Electoral Riding Office page." %}</small>
+            </div>
+            <div class="col-12">
+              <label class="form-label text-sm">{% tr "Profile Photo" %}</label>
+              <input type="file" name="profile_photo" class="form-control" accept="image/*">
+              <small class="text-muted d-block">{% tr "JPG or PNG. Shown on your profile and public party roles." %}</small>
+              {% if profile_obj.photo %}
+              <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" id="removePhoto" name="remove_photo" value="1">
+                <label class="form-check-label text-sm text-muted" for="removePhoto">{% tr "Remove current photo" %}</label>
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-12 text-end">
+              <button type="submit" class="btn btn-advance-red rounded-pill px-4"><i class="fas fa-save me-2"></i>{% tr "Save Changes" %}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card profile-card p-4">
+        <h5 class="fw-bold mb-1"><i class="fas fa-lock me-2 text-advance-red"></i>{% tr "Change Password" %}</h5>
+        <p class="text-sm text-muted mb-4">{% tr "Use a strong, unique password." %}</p>
+        <form method="POST" action="/profile">
+          {% csrf_token %}
+          <input type="hidden" name="change_password" value="1">
+          <div class="mb-3">
+            <label class="form-label text-sm">{% tr "Current Password" %}</label>
+            {{ pw_form.old_password }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-sm">{% tr "New Password" %}</label>
+            {{ pw_form.new_password1 }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-sm">{% tr "Confirm New Password" %}</label>
+            {{ pw_form.new_password2 }}
+          </div>
+          {% if pw_form.errors %}
+          <div class="alert alert-danger py-2 small">
+            {% for field in pw_form %}{% for error in field.errors %}{{ error }}<br>{% endfor %}{% endfor %}
+          </div>
+          {% endif %}
+          <button type="submit" class="btn btn-outline-dark rounded-pill w-100"><i class="fas fa-key me-2"></i>{% tr "Update Password" %}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+{% endblock content %}

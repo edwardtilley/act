@@ -1,0 +1,21 @@
+{% load static %}
+{% load translate_en %}
+<script src="{% static 'assets/vendor/jquery-3.7.0.min.js' %}"></script>
+<script src="{% static 'assets/vendor/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/vendor/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'assets/vendor/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'assets/vendor/responsive.bootstrap5.min.js' %}"></script>
+<script src="{% static 'assets/js/core/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/perfect-scrollbar.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/smooth-scrollbar.min.js' %}"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = { damping: '0.5' };
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+</script>
+<script src="{% static 'assets/js/soft-ui-dashboard.min.js' %}?v=1.1.0"></script>
+<script src="{% static 'assets/js/gsap-setup.js' %}"></script>

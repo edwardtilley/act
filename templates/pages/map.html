@@ -1,0 +1,224 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block extrastyle %}
+<style>
+  #canada-map { height: 600px; border-radius: 16px; }
+  .map-filter-card { border-radius: 16px; border: none; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+  .riding-info-card { position: absolute; bottom: 20px; left: 20px; right: 20px; background: white; border-radius: 12px; padding: 1rem; box-shadow: 0 10px 40px rgba(0,0,0,0.2); display: none; z-index: 1000; }
+</style>
+{% endblock extrastyle %}
+{% block body_class %}{% tr "bg-gray-100" %}{% endblock body_class %}
+{% block content %}
+
+<section class="py-5" style="margin-top:80px;">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-lg-8">
+        <h1 class="display-5 fw-bold"><i class="fas fa-map-marked-alt text-advance-red me-2"></i>{% tr "Riding Map of Canada" %}</h1>
+        <p class="lead text-muted">{% tr "Explore all 338 ridings. Click any marker to see MP, MPP, and Advance Party candidate info." %}</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <div class="dropdown">
+          <button class="btn btn-advance-red dropdown-toggle rounded-pill px-4" type="button" data-bs-toggle="dropdown">
+            <i class="fas fa-filter me-2"></i>{% tr "Filter by Province" %}</button>
+          <ul class="dropdown-menu" id="provinceFilter">
+            <li><a class="dropdown-item active" href="#" data-province="all">{% tr "All Provinces" %}</a></li>
+            {% for p in provinces %}
+            <li><a class="dropdown-item" href="#" data-province="{{ p }}">{{ p }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card map-filter-card p-3 mb-4">
+      <div class="row g-2 align-items-center">
+        <div class="col-md-3">
+          <input type="text" class="form-control" id="searchRiding" placeholder="Search riding...">
+        </div>
+        <div class="col-md-3">
+          <select class="form-select" id="regionFilter">
+            <option value="">{% tr "All Regions" %}</option>
+            <option value="Western Canada">{% tr "Western Canada" %}</option>
+            <option value="Prairies">{% tr "Prairies" %}</option>
+            <option value="Central Canada">{% tr "Central Canada" %}</option>
+            <option value="Atlantic">{% tr "Atlantic" %}</option>
+            <option value="Northern">{% tr "Northern" %}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select class="form-select" id="partyFilter">
+            <option value="">{% tr "All Parties" %}</option>
+            <option value="Liberal">{% tr "Liberal" %}</option>
+            <option value="Conservative">{% tr "Conservative" %}</option>
+            <option value="NDP">{% tr "NDP" %}</option>
+            <option value="Bloc Québécois">{% tr "Bloc Québécois" %}</option>
+            <option value="Green">{% tr "Green" %}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-outline-danger rounded-pill w-100" id="resetFilters">
+            <i class="fas fa-undo me-1"></i>{% tr "Reset" %}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="position-relative" id="mapContainer">
+      <div id="canada-map"></div>
+      <div class="riding-info-card" id="ridingInfoCard">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <h5 class="fw-bold mb-1" id="infoRidingName"></h5>
+            <p class="text-muted small mb-1" id="infoProvince"></p>
+          </div>
+          <button type="button" class="btn-close" onclick="closeRidingInfo()"></button>
+        </div>
+        <hr class="my-1">
+        <div class="row small">
+          <div class="col-6"><strong>{% tr "MP:" %}</strong> <span id="infoMP"></span></div>
+          <div class="col-6"><strong>{% tr "Party:" %}</strong> <span id="infoMPParty"></span></div>
+          <div class="col-6"><strong>{% tr "MPP:" %}</strong> <span id="infoMPP"></span></div>
+          <div class="col-6"><strong>{% tr "Party:" %}</strong> <span id="infoMPPParty"></span></div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="mt-2" id="infoCandidate">
+          <strong>{% tr "Advance Candidate:" %}</strong> <span id="infoCandidateName"></span>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Riding list below map -->
+    <div class="mt-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0" id="ridingTable">
+              <thead class="bg-advance-red text-white">
+                <tr>
+                  <th>{% tr "Riding" %}</th><th>{% tr "Province" %}</th><th>{% tr "MP" %}</th><th>{% tr "Party" %}</th><th>{% tr "Candidate" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for riding in ridings %}
+                <tr data-lat="{{ riding.latitude }}" data-lng="{{ riding.longitude }}" data-riding="{{ riding.riding_name }}" data-province="{{ riding.province }}">
+                  <td>{{ riding.riding_name }}</td>
+                  <td>{{ riding.province }}</td>
+                  <td>{{ riding.mp_name|default:"—" }}</td>
+                  <td><span class="badge bg-secondary">{{ riding.mp_party|default:"—" }}</span></td>
+                  <td>{{ riding.candidate_name|default:"<span class='text-muted' style='font-style:italic'>Open</span>" }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="text-center text-muted py-4">{% tr "No riding data loaded yet. Add ridings via the Django admin." %}</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+{% block extra_js %}
+<script>
+var map = L.map('canada-map').setView([56, -106], 4);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 18, attribution: 'OpenStreetMap'
+}).addTo(map);
+
+var markers = [];
+var ridingsData = [];
+
+{% for riding in ridings %}
+{% if riding.latitude and riding.longitude %}
+ridingsData.push({
+  id: {{ riding.id }},
+  name: "{{ riding.riding_name|escapejs }}",
+  province: "{{ riding.province|escapejs }}",
+  region: "{{ riding.region|escapejs }}",
+  mp: "{{ riding.mp_name|default:''|escapejs }}",
+  mpParty: "{{ riding.mp_party|default:''|escapejs }}",
+  mpp: "{{ riding.mpp_name|default:''|escapejs }}",
+  mppParty: "{{ riding.mpp_party|default:''|escapejs }}",
+  candidate: "{{ riding.candidate_name|default:''|escapejs }}",
+  lat: {{ riding.latitude }},
+  lng: {{ riding.longitude }}
+});
+{% endif %}
+{% endfor %}
+
+function addMarkers(data) {
+  clearMarkers();
+  data.forEach(function(r) {
+    var color = r.mpParty === 'Liberal' ? '#D22B2B' :
+                r.mpParty === 'Conservative' ? '#1A5276' :
+                r.mpParty === 'NDP' ? '#F1C40F' :
+                r.mpParty === 'Bloc Québécois' ? '#2980B9' :
+                r.mpParty === 'Green' ? '#27AE60' : '#888';
+    var marker = L.circleMarker([r.lat, r.lng], {
+      radius: 7, fillColor: color, color: '#fff', weight: 2, opacity: 1, fillOpacity: 0.8
+    }).addTo(map);
+    marker.bindPopup('<b>' + r.name + '</b><br>' + r.province + '<br>MP: ' + (r.mp || '—') + ' (' + (r.mpParty || '—') + ')<br>Candidate: ' + (r.candidate || 'Open'));
+    marker.on('click', function() {
+      document.getElementById('ridingInfoCard').style.display = 'block';
+      document.getElementById('infoRidingName').textContent = r.name;
+      document.getElementById('infoProvince').textContent = r.province + (r.region ? ' — ' + r.region : '');
+      document.getElementById('infoMP').textContent = r.mp || '—';
+      document.getElementById('infoMPParty').textContent = r.mpParty || '—';
+      document.getElementById('infoMPP').textContent = r.mpp || '—';
+      document.getElementById('infoMPPParty').textContent = r.mppParty || '—';
+      document.getElementById('infoCandidateName').textContent = r.candidate || 'Open — No candidate yet';
+    });
+    marker._ridingData = r;
+    markers.push(marker);
+  });
+}
+
+function clearMarkers() {
+  markers.forEach(function(m) { map.removeLayer(m); });
+  markers = [];
+}
+
+function filterMarkers() {
+  var search = document.getElementById('searchRiding').value.toLowerCase();
+  var region = document.getElementById('regionFilter').value;
+  var party = document.getElementById('partyFilter').value;
+  var province = document.querySelector('#provinceFilter .active').getAttribute('data-province');
+  var filtered = ridingsData.filter(function(r) {
+    if (province !== 'all' && r.province !== province) return false;
+    if (region && r.region !== region) return false;
+    if (party && r.mpParty !== party) return false;
+    if (search && !r.name.toLowerCase().includes(search) && !r.province.toLowerCase().includes(search)) return false;
+    return true;
+  });
+  addMarkers(filtered);
+}
+
+function closeRidingInfo() {
+  document.getElementById('ridingInfoCard').style.display = 'none';
+}
+
+document.getElementById('searchRiding').addEventListener('input', filterMarkers);
+document.getElementById('regionFilter').addEventListener('change', filterMarkers);
+document.getElementById('partyFilter').addEventListener('change', filterMarkers);
+document.querySelectorAll('#provinceFilter a').forEach(function(el) {
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector('#provinceFilter .active').classList.remove('active');
+    this.classList.add('active');
+    filterMarkers();
+  });
+});
+document.getElementById('resetFilters').addEventListener('click', function() {
+  document.getElementById('searchRiding').value = '';
+  document.getElementById('regionFilter').value = '';
+  document.getElementById('partyFilter').value = '';
+  document.querySelector('#provinceFilter a[data-province="all"]').click();
+});
+
+addMarkers(ridingsData);
+</script>
+{% endblock extra_js %}

@@ -1,0 +1,598 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block extrastyle %}
+<style>
+  .policies-header { background: linear-gradient(135deg, #1A1A1A 0%, #333 100%); padding: 80px 0 40px; }
+  .policies-header,
+  .policies-header h1,
+  .policies-header p,
+  .policies-header .lead { color: #ffffff !important; }
+  .policy-card { border: none; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+  .policy-card:hover { box-shadow: 0 15px 50px rgba(204,0,0,0.1); transform: translateY(-3px); }
+  .policy-card .card-header { background: transparent; border-bottom: 3px solid #CC0000; padding: 1.5rem; }
+  .policy-card .card-header h3 { margin: 0; }
+  .policy-accordion .accordion-item { border: none; margin-bottom: 0.5rem; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+  .policy-accordion .accordion-button { font-weight: 600; padding: 1.2rem 1.5rem; background: white; box-shadow: none; }
+  .policy-accordion .accordion-button:not(.collapsed) { background: #CC0000; color: white; }
+  .policy-accordion .accordion-button:not(.collapsed)::after { filter: brightness(0) invert(1); }
+  .policy-accordion .accordion-body { padding: 1.5rem; background: white; }
+  .pillar-icon { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; }
+</style>
+{% endblock extrastyle %}
+{% block body_class %}{% tr "bg-gray-100" %}{% endblock body_class %}
+{% block content %}
+
+<section class="policies-header text-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 fw-bold"><i class="fas fa-file-alt me-2"></i>{% tr "Our Policies" %}</h1>
+        <p class="lead fs-5 opacity-90">{% tr "Practical, evidence-based policy solutions that fix problems facing Canadians." %}</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="/member-join" class="btn btn-advance-green btn-lg rounded-pill px-4 shadow">
+          <i class="fas fa-handshake me-2"></i>{% tr "Support Our Platform" %}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  
+  <!-- Policy Pillars — Solutions -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-4">
+      <div class="card policy-card h-100">
+        <div class="card-header text-center">
+          <div class="pillar-icon bg-advance-red mx-auto mb-3"><i class="fas fa-chart-line"></i></div>
+          <h3 class="fw-bold">{% tr "Economy" %}</h3>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Civic Science puts an end to Wealth Theory's" %}<i>{% tr "Profit is Everything" %}</i>{% tr "guaranteed collapse. This theory-only curricula collapses 90% (48) of 54 countries for decades now." %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Advance politicians are Professional Civic Scientists - Certified Country Builders. See" %}<a href="https://csq1.org/transition-economics" class="text-advance-red text-decoration-underline" target="_blank" rel="noopener">{% tr "Transition Economics" %}</a></li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Social Contract doubles economy, recovers $4B/day" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "SEED investment, not trickle-down" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "National Investment Fund (Norgesbanc model)" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Buy Canada First, small business tax cut" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Strategic Sovereignty Fund" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "No Income Tax — state ownership of just a handful of strategic companies — similar to Aramco — the world's largest Oil Company and Norgesfund" %}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card policy-card h-100">
+        <div class="card-header text-center">
+          <div class="pillar-icon bg-advance-green mx-auto mb-3"><i class="fas fa-star"></i></div>
+          <h3 class="fw-bold">{% tr "Reputation" %}</h3>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Canada holds nationalism and culture proudly again" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Industrialization and Monetization of Canada's vast resources" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Canadians become the richest citizens in the world - GDP/Capita" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Housing bubbles end so our kids can afford homes and families again" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Return to 6 year Naturalization" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Deportation or Work Visas for millions of backstabbing election fraud low lifes since 2015" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "A refocus on families" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Correction of treasonous depopulation laws" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "No Cancer causing vaccine mandate requirements for employment" %}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card policy-card h-100">
+        <div class="card-header text-center">
+          <div class="pillar-icon bg-advance-blue mx-auto mb-3"><i class="fas fa-users"></i></div>
+          <h3 class="fw-bold">{% tr "Communities" %}</h3>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Security - Human Rights of a Pension, Home, good education, good job, affordable high food quality, and great healthcare with no cancer causing innoculations and focus on cures instead of treatments" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Autonomous supply chains &amp; dark factories" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Family Values restored in schools &amp; law" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "No harmful ideologies in our schools, NO Pride Flags' with 8x suicide rates, No depopulation and Act of War Equality indoctrination instead of education" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Good, Respect, Human Advance civics" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Single Income households supported coast to coast" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Home ownership is a human right of every Canadian family" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Walk-away mortgages, SEED construction lending" %}</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Merit wins zero obstacles to productive free education" %}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Advance Party Policies — YES / NO with explanations -->
+  <style>
+    .policy-toggle { cursor: pointer; padding: 0.6rem 1rem; border-radius: 8px; transition: background 0.2s; display: flex; align-items: center; gap: 0.75rem; }
+    .policy-toggle:hover { background: rgba(204,0,0,0.06); }
+    .policy-toggle .arrow { transition: transform 0.2s; font-size: 0.7rem; }
+    .policy-toggle[aria-expanded="true"] .arrow { transform: rotate(90deg); }
+    .policy-explanation { font-size: 0.9rem; padding: 0.5rem 1rem 1rem 2.8rem; color: #555; line-height: 1.6; }
+  </style>
+  <div class="row g-4 mb-5">
+    <div class="col-12">
+      <div class="card policy-card h-100 border-advance-red">
+        <div class="card-header text-center" style="background:#1A1A1A;border-bottom:none;">
+          <div class="pillar-icon bg-advance-red mx-auto mb-3"><i class="fas fa-flag"></i></div>
+          <h3 class="fw-bold text-white">{% tr "Advance Party Policies" %}</h3>
+        </div>
+        <div class="card-body">
+          <div class="accordion policy-accordion" id="yesNoAccordion">
+            <!-- NO SECTION -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#noPolicies">
+                  <i class="fas fa-times-circle text-advance-red me-3"></i> <strong>{% tr "Advance says NO to" %}</strong>
+                </button>
+              </h2>
+              <div id="noPolicies" class="accordion-collapse collapse show" data-bs-parent="#yesNoAccordion">
+                <div class="accordion-body p-3">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no1" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "INCOME TAX" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no1">
+                          <div class="policy-explanation">{% tr "Nations that have outpaced the G7 for 25 years have no income tax, relying instead on 7/24 Oil and Gas production, or tourism, or other sources of income that are profitable, beneficial to the country, and don't require an army of immigrant election fraud #dei government employees to collect from retirees and out of work white Canadian family men. Norway, Saudi Arabia, UAE, Cayman Islands, Monaco, Bermuda, Kuwait, Bahrain, Qatar and others self-fund through part-ownership of monetizable assets. In Canada, 60% of citizens own nothing — taxing a dry well creates nothing but poverty. Our $4B/day lost productivity is unreported. Corporate tax avoidance and tax havens are ignored by economists trained in failed Wealth Theory." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no2" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "CHILD ABUSING HARMFUL INDOCTRINATIONS IN OUR SCHOOLS" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no2">
+                          <div class="policy-explanation">{% tr "Gender theory, DEI, ESG, and race theory are taught to children as young as kindergarten — this is child abuse that depopulates nations reliably (guaranteed infanticides and an Act of War) while creating trans-kids with 8x suicide rates and the last 8 major school mass shootings. 75% of university degrees train students in proven-failed theory that collapses any society. 60% of males drop out of 4-year programs. Universities teach Wealth Theory, not Civic Science. We must return to science-only curricula that builds successful families and communities." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no3" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "TREASONOUS IMMIGRATION ELECTION FRAUD" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no3">
+                          <div class="policy-explanation">{% tr "6.6 million low-compatibility migrants have been herded into swing ridings in Ontario, Quebec, and B.C. 22,000 immigration consultancies are paid by federal debt. Immigrants are selected based on their likelihood to vote Liberal or NDP. OUR CURRENT CRIMINAL LEGISLATURES CAN NEVER LOSE AN ELECTION. This election fraud is protected by new Hate Laws that silence opposition." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no4" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "ACT OF WAR DEPOPULATION LAWS" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no4">
+                          <div class="policy-explanation">{% tr "Wars are measured by depopulation. Canada's workplace equality laws guarantee depopulation of 2% per year — the same as WWII Europe. This is High Treason under Canada's Criminal Code 46(1). An Ideology War has been brought to Canada with an army of millions, and that is the very definition of High Treason." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no5" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "LOSING 860,000 CANADIANS ANNUALLY" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no5">
+                          <div class="policy-explanation">{% tr "Canada's fertility rate is 1.33 — a break-even rate is 2.4. We lose 1.5% of our population annually to infertility alone. 300 abortions daily. 660,000 infanticide caused by harmful feminism ideology and double income traps. 100,000 avoidable deaths from highest male suicide in G7, highest euthanasia worldwide, runaway drug overdoses, and record homelessness. Longevity has dropped 3 years in a row." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no6" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "THE WORLD's LARGEST HOUSING BUBBLE" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no6">
+                          <div class="policy-explanation">{% tr "Housing costs consume 75% of take-home incomes — it should be 30%. Trillions in private-equity dollars were permitted to compete against young adults wanting to start families. Foreign investment, speculation, and money laundering have sent home prices to ten times their 25-year-ago costs. 9,000 people per night in Toronto shelters alone. Homelessness in -30°C is a death sentence." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no7" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "1930s PRODUCTION GROWTH LEVELS" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no7">
+                          <div class="policy-explanation">{% tr "Canada has the lowest GDP per Capita in the G20 and loses $4 billion daily — completely unreported by our media. For 40 years, Economics faculties have collapsed 62% of 207 nations by teaching Wealth Theory. The same failed policies that created the 1920s Great Depression are being taught today. FDR's proven-successful policies were abandoned for ideology." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no8" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "1990s SALARIES" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no8">
+                          <div class="policy-explanation">{% tr "Wages have been stagnant since the 1990s while costs have skyrocketed. In 1985 a home in Hamilton was $90k with a $40k salary — today that same home is $600k with salaries barely changed. 75% of income goes to housing. Canadians are being priced out of existence in the country they built. Starvation wages and double income traps destroy any hope of family life." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no9" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "GREAT REPLACEMENT — Open Borders for 70 Million" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no9">
+                          <div class="policy-explanation">{% tr "The Century Initiative, led by CPP and McKinsey, plans to increase Canada's population to 100 million by 2030 — almost exclusively through Indian immigration. Foreign ownership has surged to 42%, the highest in the G7. Nations that have outpaced the G7 for 25 years have NO immigration — only Work VISAs. Canada cannot integrate newcomers into housing, schools, healthcare, or jobs." %}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no10" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "DOUBLE INCOME TRAPS" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no10">
+                          <div class="policy-explanation">{% tr "Both parents must now work just to survive — this destroys families and depopulates the nation. Divorce rates are so high that StatsCan stopped reporting them. Single-income families are impossible under current policies. Children are raised by strangers in daycare while parents work to pay the mortgage. This is a deliberate depopulation policy." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no11" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "COST OF LIVING MISMANAGEMENT" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no11">
+                          <div class="policy-explanation">{% tr "National debt has doubled. Welfare roles are double. The Canadian Dollar is garbage. Food banks can't keep up with demand. Rents and housing costs are double what they should be. Government money laundering and conflicts of interest abound. Every metric of national wellbeing has collapsed under current mismanagement. Canada loses $4 billion per day in lost productivity alone." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no12" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "FOOD QUALITY" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no12">
+                          <div class="policy-explanation">{% tr "Shrinkflation has filled our shelves with expensive fillers instead of food. Xanthum and Guar Guums — bacteria-based thickeners — are now in nearly everything. Real cheese has been replaced in restaurants and frozen pizzas. Meat prices have skyrocketed while bug-based proteins are promoted. Food monopolies by foreign-owned companies control our supply. Longevity dropped 3 years running." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no13" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "CBC LIES &amp; PROPAGANDA" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no13">
+                          <div class="policy-explanation">{% tr "CBC receives $6 million per day of public money — that's a 1930s German Propaganda Ministry level of messaging control. Massive public rallies in dozens of European countries went completely unreported. Canada's collapse — the $4B/day loss, 860,000 annual depopulation, 138th in suicide — none of it reported. Censorship disguised as journalism." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no14" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "CENSORSHIP" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no14">
+                          <div class="policy-explanation">{% tr "The Truckers Convoy was suppressed while European protests dozens of times larger marched against WEF open borders — and CBC reported none of it. Hate Laws are used to silence opposition to election fraud. Canadians have no idea what is happening in their own country because the media and government collude to hide the collapse." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no15" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "CHURCH BURNING" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no15">
+                          <div class="policy-explanation">{% tr "Over 100 churches — community centers — have burned down in Canada in just the last 3 years, and the media barely reports it. Churches are important community and civic gathering places that teach the values of Good, Respect, and Human Advance. Their destruction is an attack on Canadian culture and values." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no16" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "WEF SENATE" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no16">
+                          <div class="policy-explanation">{% tr "Canada's Senate is filled with WEF-aligned globalist oligarchs who serve corporate interests, not Canadians. 48 of 54 large democracies are collapsing due to foreign interference, and Canada's descent is worse than others. Globalist oligarchs sponsor big political parties with multi-billion SuperPAC advertising campaigns." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no17" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "STUDENT LOANS" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no17">
+                          <div class="policy-explanation">{% tr "Usury — loans we can never pay back. Students graduate with crushing debt, starvation wages, and no hope of buying a home or starting a family. Our universities have shifted from 3-year to 4-year programs while Masters and PhDs take even longer. Staffing at major Universities has risen to 8,000+ while runaway education costs create nationwide student debt collapse." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#no18" aria-expanded="false">
+                          <i class="fas fa-times-circle text-advance-red"></i>{% tr "HOMELESSNESS" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="no18">
+                          <div class="policy-explanation">{% tr "Homelessness is a democracy problem — there is no homelessness in monarchies worldwide. A homeless individual in Canada is handed a death sentence for being poor in a cold climate. Poverty is not a crime. 9,000 people per night in Toronto shelters. FDR's 1944 Second Bill of Rights guaranteed a good home as a human right — Canada abandoned this 4,000-year-old civics lesson." %}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- YES SECTION -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#yesPolicies">
+                  <i class="fas fa-check-circle text-advance-green me-3"></i> <strong>{% tr "Advance says YES to" %}</strong>
+                </button>
+              </h2>
+              <div id="yesPolicies" class="accordion-collapse collapse" data-bs-parent="#yesNoAccordion">
+                <div class="accordion-body p-3">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#yes1" aria-expanded="false">
+                          <i class="fas fa-check-circle text-advance-green"></i>{% tr "GOOD LIVES for every Canadian" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="yes1">
+                          <div class="policy-explanation">{% tr "Every problem is solvable. Advance identifies and assigns each problem to a professionally change-managed project, reported and monitored transparently in a Canada-wide Advance Program. No one gets hurt or left behind in the change. We can advance as a nation again instead of collapsing without a rudder." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#yes2" aria-expanded="false">
+                          <i class="fas fa-check-circle text-advance-green"></i>{% tr "100% EMPLOYMENT" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="yes2">
+                          <div class="policy-explanation">{% tr "Full employment through SEED investment — not trickle-down. Autonomous supply chains, dark factories, and a National Investment Fund (Norgesbanc model) ensure every Canadian who wants to work can work. Living wages, single-income family support, and pension security for all. Productivity through Social Contract, not exploitation." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#yes3" aria-expanded="false">
+                          <i class="fas fa-check-circle text-advance-green"></i>{% tr "FAMILY VALUES" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="yes3">
+                          <div class="policy-explanation">{% tr "Father, Son, and Holy Spirit are teaching tools whose lessons taught our country the essential Canadian Values of Good, Respect, and Human Advance. Timeless hard-learned lessons have been lost and replaced with harmful ideologies. Advance restores family values in schools, law, and culture. Single-income families with home ownership, pensions, and 3 children is the minimum standard." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#yes4" aria-expanded="false">
+                          <i class="fas fa-check-circle text-advance-green"></i>{% tr "QUALIFIED LEADERSHIP" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="yes4">
+                          <div class="policy-explanation">{% tr "Civic Scientist certified leaders who swear a certification oath to not harm the public. Expert leadership — not marketing teams. Performance monitored and reported transparently. Never make a voting decision based on one or two points — it takes a full constitution to build a country. Never confuse a group that lists problems with a group that can fix them." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#yes5" aria-expanded="false">
+                          <i class="fas fa-check-circle text-advance-green"></i>{% tr "RESPECT of HUMAN RIGHTS" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="yes5">
+                          <div class="policy-explanation">{% tr "Home ownership is a human right — it has been for 4,000 years of civics lessons since the Old Testament. FDR's Second Bill of Rights (1944) guaranteed a good home, a good job, a good education, and pension security. Diefenbaker's 1960 Bill of Rights adopted these for Canadians. We restore security: a home, income, pension, education, and family as human rights." %}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#yes6" aria-expanded="false">
+                          <i class="fas fa-check-circle text-advance-green"></i>{% tr "CIVIC SCIENCE" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="yes6">
+                          <div class="policy-explanation">{% tr "Evidence-based country building analyzed across 200 nations. Forget Right vs Left — Civic Science explains 100% evidence-based, context-validated realities. A real science proven over 4,000 years since Hammurabi. Scientific method applied to civics: observe, measure, validate, repeat. Not theory, not belief — proven policies that build successful nations reliably." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#yes7" aria-expanded="false">
+                          <i class="fas fa-check-circle text-advance-green"></i>{% tr "NATIONAL ADVANCE" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="yes7">
+                          <div class="policy-explanation">{% tr "Canada is the second most resource-wealthy nation in the world. Once managed properly, we will become the UAE of the North — with great cities, space programs, bright futures, and an exemplary G7 economy. Our unique blend of English, French, and First Nations people creates a decent, fair, fierce, and reliable nation. Canada should be the richest country in the world." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#yes8" aria-expanded="false">
+                          <i class="fas fa-check-circle text-advance-green"></i>{% tr "ACCOUNTABILITY" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="yes8">
+                          <div class="policy-explanation">{% tr "Accountability for crimes against our once Great Nation. Transparent reporting of all programs. Civic Scientist certified leaders who can lose their license and position if they harm the public. We owe allegiance to Canadians and Human Advance, not to corporations or globalist agendas. Every policy measured, reported, and accountable to the people." %}</div>
+                        </div>
+                      </div>
+                      <div class="mb-1">
+                        <div class="policy-toggle" data-bs-toggle="collapse" data-bs-target="#yes9" aria-expanded="false">
+                          <i class="fas fa-check-circle text-advance-green"></i>{% tr "CERTIFIED CIVIC SCIENTIST LEADERS" %}<span class="arrow ms-auto"><i class="fas fa-chevron-right"></i></span>
+                        </div>
+                        <div class="collapse" id="yes9">
+                          <div class="policy-explanation">{% tr "Our Civic Scientist MP/MPP/MNLA Candidates swear a certification oath to not harm the public. They are trained in Transition Economics, Public Civics Libraries, and the Global Leadership Book of Knowledge. Unlike all other political groups, Advance leaders are certified and monitored — they can be decertified if they violate their oath. This ensures allegiance to Canadians, not to corporate SuperPACs." %}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problems Card -->
+  <div class="row g-4 mb-5">
+    <div class="col-12">
+      <div class="card policy-card h-100 border-advance-red">
+        <div class="card-header text-center" style="background:#CC0000;border-bottom:none;">
+          <div class="pillar-icon bg-white mx-auto mb-3" style="color:#CC0000;"><i class="fas fa-exclamation-triangle"></i></div>
+          <h3 class="fw-bold text-white">{% tr "What are Canadian Voters doing wrong" %}</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <ul class="list-unstyled">
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i><strong>{% tr "We are not insisting on monitored and certified Civic Science Parties" %}</strong></li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i><strong>{% tr "We are accepting FREE political parties that are sponsored by criminals." %}</strong>{% tr "We need to pay for political teams with a $5 or $10 monthly membership." %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i><strong>{% tr "Election Fraud:" %}</strong>{% tr "6.6M low-compatibility migrants herded into swing ridings (ON, QC, BC)" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "22,000 immigration consultancies paid by federal debt" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "Criminal legislatures that can never lose an election" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "Hate Laws protect election fraud" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i><strong>{% tr "Economic Collapse:" %}</strong>{% tr "$4B lost daily unreported" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "Lowest GDP per Capita in G20" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "1930s production growth levels, 1990s salaries" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "World's largest housing bubble" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "138th in suicide — highest male suicide in G7" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i><strong>{% tr "Depopulation:" %}</strong>{% tr "860,000 Canadians lost annually" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "Lowest fertility rate (1.33) — 300 abortions daily" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "2% depopulation per year (WWII-Europe levels)" %}</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <ul class="list-unstyled">
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i><strong>{% tr "Great Replacement:" %}</strong>{% tr "Open borders for 70M via Century Initiative" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "CPP and McKinsey-led plan to 100M population" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "Foreign ownership surge at 42% — highest in G7" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i><strong>{% tr "Harmful Indoctrination:" %}</strong>{% tr "Gender theory, DEI/ESG in schools" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "Universities teach collapse theory, 60% male dropout" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i><strong>{% tr "CBC Lies &amp; Propaganda:" %}</strong>{% tr "$6M/day public money" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "Censorship of opposition, church burning, WEF Senate" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "Double income traps, cost of living mismanagement" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "No human rights: no homes, no families, no security" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "Student loans, homelessness in -30°C is murder" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "48 of 54 large democracies collapsing — Canada worst" %}</li>
+                <li class="mb-2"><i class="fas fa-times-circle text-advance-red me-2"></i>{% tr "Globalist oligarchs fund SuperPACs, buy all parties" %}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Policy Accordion — Solutions & Problems -->
+  <div class="card shadow-sm border-0 rounded-4">
+    <div class="card-header bg-white rounded-4 border-0 p-4">
+      <h2 class="fw-bold mb-0"><i class="fas fa-list text-advance-red me-2"></i>{% tr "Detailed Solutions &amp; Problems — from ACTCanadian.com" %}</h2>
+    </div>
+    <div class="card-body p-4">
+      <div class="accordion policy-accordion" id="policyAccordion">
+        
+        <!-- PROBLEMS SECTION -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#policyProblems">
+              <i class="fas fa-exclamation-triangle text-advance-red me-3"></i>{% tr "Problems — The Crisis" %}</button>
+          </h2>
+          <div id="policyProblems" class="accordion-collapse collapse show" data-bs-parent="#policyAccordion">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <h5 class="fw-bold text-advance-red">{% tr "Election Fraud &amp; Criminal Legislature" %}</h5>
+                  <ul>
+                    <li>{% tr "6.6 Million low-compatibility migrants herded into swing ridings in Ontario, Quebec, and B.C." %}</li>
+                    <li>{% tr "22,000 immigration consultancies paid by federal debt" %}</li>
+                    <li>{% tr "Our current criminal legislatures can never lose an election" %}</li>
+                    <li>{% tr "Election Fraud is protected by new Hate Laws" %}</li>
+                    <li>{% tr "48 of 54 large democracies are collapsing due to foreign interference — Canada's descent is worst" %}</li>
+                    <li>{% tr "Globalist oligarchs fund SuperPACs — $6M/day public money on CBC propaganda" %}</li>
+                    <li>{% tr "That's a 1930s German Propaganda Ministry" %}</li>
+                  </ul>
+
+                  <h5 class="fw-bold text-advance-red mt-4">{% tr "Economic Collapse" %}</h5>
+                  <ul>
+                    <li>{% tr "$4 Billion lost daily unreported" %}</li>
+                    <li>{% tr "Lowest GDP per Capita in G20 — lowest since the 1930s" %}</li>
+                    <li>{% tr "1990s salaries, world's largest housing bubble" %}</li>
+                    <li>{% tr "138th in suicide — highest male suicide in G7" %}</li>
+                    <li>{% tr "Record opioid deaths, record euthanasia in the world" %}</li>
+                    <li>{% tr "Canadian Dollar is garbage, rents and housing are double" %}</li>
+                    <li>{% tr "Food banks can't keep up — homelessness in -30°C is murder" %}</li>
+                  </ul>
+
+                  <h5 class="fw-bold text-advance-red mt-4">{% tr "Great Replacement &amp; Open Borders" %}</h5>
+                  <ul>
+                    <li>{% tr "Century Initiative: CPP and McKinsey-led plan for 100M population" %}</li>
+                    <li>{% tr "Open borders for 70 million new immigrants" %}</li>
+                    <li>{% tr "No immigration when we can't integrate into housing, schools, healthcare, jobs" %}</li>
+                    <li>{% tr "Foreign ownership surge at 42% — highest in G7" %}</li>
+                    <li>{% tr "Tax havens, foreign-owned companies, FDI-In unsustainable policies" %}</li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="fw-bold text-advance-red">{% tr "Depopulation &amp; Genocide" %}</h5>
+                  <ul>
+                    <li>{% tr "860,000 Canadians lost annually — an entire generation" %}</li>
+                    <li>{% tr "2% depopulation per year (WWII-Europe levels)" %}</li>
+                    <li>{% tr "Lowest fertility rate (1.33) — 300 abortions daily" %}</li>
+                    <li>{% tr "Wars are measured by depopulation — High Treason under Criminal Code 46(1)" %}</li>
+                    <li>{% tr "Anti-family values and double income traps destroy families" %}</li>
+                    <li>{% tr "Canada loses 30% of its population, culture &amp; language every 20 years" %}</li>
+                    <li>{% tr "Longevity dropped 3 years in a row" %}</li>
+                  </ul>
+
+                  <h5 class="fw-bold text-advance-red mt-4">{% tr "Harmful Indoctrination &amp; Ideology War" %}</h5>
+                  <ul>
+                    <li>{% tr "Child abuse through harmful gender ideology in our schools" %}</li>
+                    <li>{% tr "DEI/ESG indoctrination — universities teach collapse theory" %}</li>
+                    <li>{% tr "60% of males drop out of 4-year degrees" %}</li>
+                    <li>{% tr "75% of degrees don't train truth, facts, and science" %}</li>
+                    <li>{% tr "CBC lies and propaganda — censorship of opposition" %}</li>
+                    <li>{% tr "100 churches (community centers) burned in last 3 years" %}</li>
+                    <li>{% tr "No human rights: no homes, no children, no families, no security" %}</li>
+                    <li>{% tr "Student loans, double income traps, cost of living mismanagement" %}</li>
+                    <li>{% tr "Food quality — shrinkflation, bug fillers, guum additives" %}</li>
+                    <li>{% tr "WEF Senate, no accountability for crimes against our nation" %}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOLUTIONS SECTION -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#policySolutions">
+              <i class="fas fa-check-circle text-advance-green me-3"></i>{% tr "Solutions — The Advance Plan" %}</button>
+          </h2>
+          <div id="policySolutions" class="accordion-collapse collapse" data-bs-parent="#policyAccordion">
+            <div class="accordion-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <h5 class="fw-bold text-advance-green">{% tr "Economic Reform" %}</h5>
+                  <ul>
+                    <li>{% tr "End Wealth Theory — adopt Civic Science economics proven in 200 nations" %}</li>
+                    <li>{% tr "Social Contract doubles economy — recovers $4 billion lost daily" %}</li>
+                    <li>{% tr "SEED investment, not trickle-down — National Investment Fund (Norgesbanc model)" %}</li>
+                    <li>{% tr "Autonomous supply chains and dark factories — self-sufficiency" %}</li>
+                    <li>{% tr "Buy Canada First, small business tax cut, Strategic Sovereignty Fund" %}</li>
+                    <li>{% tr "No Income Tax — state ownership of monetizable assets (UAE model)" %}</li>
+                    <li>{% tr "High productivity + high social contract = strong economy 100%" %}</li>
+                    <li>{% tr "FDR's Second Bill of Rights restored — Human Rights in our Constitution" %}</li>
+                  </ul>
+
+                  <h5 class="fw-bold text-advance-green mt-4">{% tr "Education &amp; Truth" %}</h5>
+                  <ul>
+                    <li>{% tr "Science-only curricula — no woke, no harmful ideology" %}</li>
+                    <li>{% tr "Family Values, Good, Respect, Human Advance taught in schools" %}</li>
+                    <li>{% tr "Memory training, music, language, civics restored" %}</li>
+                    <li>{% tr "Free community college and trades training for in-demand fields" %}</li>
+                    <li>{% tr "Single-income family support — men and women trained for family life" %}</li>
+                    <li>{% tr "End indoctrination: no gender theory, no DEI, no race theory" %}</li>
+                    <li>{% tr "Expert leadership — Civic Scientist certified, oath to not harm public" %}</li>
+                  </ul>
+
+                  <h5 class="fw-bold text-advance-green mt-4">{% tr "Nationalism &amp; Sovereignty" %}</h5>
+                  <ul>
+                    <li>{% tr "NO &quot;Great Replacement&quot; — Work VISAs only, no immigration when we can't integrate" %}</li>
+                    <li>{% tr "End election fraud — stop immigration herding into swing ridings" %}</li>
+                    <li>{% tr "National culture and resources are our greatest strength" %}</li>
+                    <li>{% tr "Canada's unique English, French, First Nations heritage protected" %}</li>
+                    <li>{% tr "End foreign ownership loopholes — bring supply chains home" %}</li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="fw-bold text-advance-green">{% tr "Home Ownership &amp; Housing" %}</h5>
+                  <ul>
+                    <li>{% tr "Home ownership is a human right — restored from FDR's Bill of Rights" %}</li>
+                    <li>{% tr "SEED Construction Lending — housing costs government nothing in FIAT system" %}</li>
+                    <li>{% tr "Automated assembly lines that crank out affordable homes 7/24" %}</li>
+                    <li>{% tr "Walk-away mortgages (FDR model) — end usury lending contracts" %}</li>
+                    <li>{% tr "No homelessness — there is no homelessness in monarchies, it's a democracy problem" %}</li>
+                    <li>{% tr "A Good Home is a human right for 4,000 years of civics lessons" %}</li>
+                  </ul>
+
+                  <h5 class="fw-bold text-advance-green mt-4">{% tr "Family &amp; Communities" %}</h5>
+                  <ul>
+                    <li>{% tr "Family Values restored — Father, Son, Holy Spirit as civic teaching tools" %}</li>
+                    <li>{% tr "Christianity's lessons of Good, Respect, and Human Advance restored" %}</li>
+                    <li>{% tr "End anti-family values, double income traps, divorce culture" %}</li>
+                    <li>{% tr "Families can afford homes, cottages, pensions, and 3 children again" %}</li>
+                    <li>{% tr "No gay pride in schools, no cross-dressing storytime, no drag shows" %}</li>
+                    <li>{% tr "NO harmful utopic ideologies — NAZIism, Neoliberalism, Feminism made illegal" %}</li>
+                  </ul>
+
+                  <h5 class="fw-bold text-advance-green mt-4">{% tr "Accountability &amp; Good Government" %}</h5>
+                  <ul>
+                    <li>{% tr "Civic Science Certified and Monitored political party" %}</li>
+                    <li>{% tr "Civic Scientist MPs/MPPs/MNLAs swear oath to not harm the public" %}</li>
+                    <li>{% tr "Advance Program Management Offices — transparent reporting" %}</li>
+                    <li>{% tr "Performance management — measured outcomes, not marketing" %}</li>
+                    <li>{% tr "End CBC propaganda — truthful news for a change" %}</li>
+                    <li>{% tr "Accountability for crimes against our once Great Nation" %}</li>
+                    <li>{% tr "Constitutional reform to protect against future collapse" %}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

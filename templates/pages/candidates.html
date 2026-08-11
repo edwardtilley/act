@@ -1,0 +1,137 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block extrastyle %}
+<style>
+  .candidates-header { background: linear-gradient(135deg, #CC0000, #990000); padding: 80px 0 40px; margin-bottom: 2rem; }
+  .candidate-table-card { border: none; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+  .candidate-table-card .table { margin-bottom: 0; }
+  .candidate-table-card .table th { background: #CC0000; color: white; border-bottom: none; }
+  .dataTables_wrapper .dataTables_filter input { border: 2px solid #dee2e6; border-radius: 50px; padding: 0.5rem 1rem; }
+  .dataTables_wrapper .dataTables_filter input:focus { border-color: #CC0000; box-shadow: 0 0 0 3px rgba(204,0,0,0.15); }
+  .dataTables_wrapper .dataTables_length select { border-radius: 8px; }
+  .badge-party { font-size: 0.75rem; padding: 0.3rem 0.6rem; }
+</style>
+{% endblock extrastyle %}
+{% block body_class %}{% tr "bg-gray-100" %}{% endblock body_class %}
+{% block content %}
+
+<section class="candidates-header text-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 fw-bold"><i class="fas fa-users me-2"></i>{% tr "Candidates" %}</h1>
+        <p class="lead fs-5 opacity-90">{% tr "Searchable directory of all 338 federal ridings and Advance Party candidates across Canada." %}</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="/candidate-join" class="btn btn-light btn-lg rounded-pill px-4 fw-bold shadow">
+          <i class="fas fa-user-plus me-2"></i>{% tr "Become a Candidate" %}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container" style="margin-top:-20px;position:relative;z-index:2;">
+  <div class="card candidate-table-card">
+    <div class="card-body p-4">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle" id="candidatesTable">
+          <thead>
+            <tr>
+              <th>{% tr "Riding Number" %}</th>
+              <th>{% tr "Province / Territory" %}</th>
+              <th>{% tr "Riding Name" %}</th>
+              <th>{% tr "Current MP" %}</th>
+              <th>{% tr "Party" %}</th>
+              <th>{% tr "Advance Candidate" %}</th>
+              <th>{% tr "Status" %}</th>
+              <th>{% tr "Action" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for riding in ridings %}
+            <tr>
+              <td><code>{{ riding.riding_number|default:"—" }}</code></td>
+              <td><span class="fw-bold">{{ riding.province }}</span></td>
+              <td>
+                <a href="{% if riding.candidate_url %}/candidates/{{ riding.candidate_url }}{% else %}#{% endif %}" class="text-decoration-none fw-bold">
+                  {{ riding.riding_name }}
+                </a>
+              </td>
+              <td>{{ riding.mp_name|default:"<span class='text-muted'>Vacant</span>" }}</td>
+              <td>
+                {% if riding.mp_party %}
+                <span class="badge badge-party 
+                  {% if riding.mp_party == 'Liberal' %}bg-danger
+                  {% elif riding.mp_party == 'Conservative' %}bg-primary
+                  {% elif riding.mp_party == 'NDP' %}bg-warning text-dark
+                  {% elif riding.mp_party == 'Bloc Québécois' %}bg-info
+                  {% elif riding.mp_party == 'Green' %}bg-success
+                  {% else %}bg-secondary{% endif %}">
+                  {{ riding.mp_party }}
+                </span>
+                {% else %}
+                <span class="text-muted">{% tr "—" %}</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if riding.candidate_name %}
+                <span class="fw-bold text-advance-red">{{ riding.candidate_name }}</span>
+                {% else %}
+                <span class="text-muted" style="font-style:italic;">{% tr "Open" %}</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if riding.candidate_name %}
+                <span class="badge bg-success">{% tr "Contested" %}</span>
+                {% else %}
+                <span class="badge bg-secondary">{% tr "Open" %}</span>
+                {% endif %}
+              </td>
+              <td>
+                <a href="{% if riding.candidate_url %}/candidates/{{ riding.candidate_url }}{% else %}/candidate-join?riding={{ riding.id %}{% endif %}" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                  {% if riding.candidate_name %}{% tr "Profile" %}{% else %}{% tr "Run Here" %}{% endif %}
+                </a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="8" class="text-center py-5">
+                <div class="py-4">
+                  <div class="display-4 text-muted mb-3"><i class="fas fa-database"></i></div>
+                  <h4 class="text-muted">{% tr "No Riding Data Loaded" %}</h4>
+                  <p class="text-muted">{% tr "Add riding data via the" %}<a href="/admin" class="text-advance-red">{% tr "Django admin panel" %}</a>{% tr "." %}</p>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+  $('#candidatesTable').DataTable({
+    responsive: true,
+    pageLength: 25,
+    order: [[1, 'asc'], [2, 'asc']],
+    language: {
+      search: '<i class="fas fa-search me-1"></i> Search:',
+      searchPlaceholder: 'Type to filter...',
+      lengthMenu: 'Show _MENU_ entries',
+      info: 'Showing _START_ to _END_ of _TOTAL_ ridings',
+      infoEmpty: 'No ridings found',
+      infoFiltered: '(filtered from _MAX_ total)'
+    },
+    columnDefs: [
+      { targets: 7, orderable: false }
+    ]
+  });
+});
+</script>
+{% endblock extra_js %}

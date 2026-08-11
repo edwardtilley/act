@@ -1,0 +1,76 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block extrastyle %}
+<style>
+  body { background: #f5f7fa; }
+  .shop-hero { background: linear-gradient(135deg, #CC0000 0%, #1A1A1A 100%); padding: 80px 0 60px; }
+  .shop-hero h1, .shop-hero p { color: #fff; }
+  .shop-card { border: none; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); }
+</style>
+{% endblock %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block content %}
+<main class="main-content position-relative">
+<section class="shop-hero text-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 fw-bold"><i class="fas fa-receipt me-2"></i>{% tr "My Orders" %}</h1>
+        <p class="lead fs-5 opacity-90">{% tr "Your purchase history with the Advance Party." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  <div class="card shop-card p-4">
+    {% if orders %}
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+            <th>{% tr "Order" %}</th><th>{% tr "Items" %}</th><th>{% tr "Date" %}</th><th>{% tr "Total" %}</th><th>{% tr "Status" %}</th><th>{% tr "Payment" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+          <tr>
+            <td class="fw-bold">{% tr "#" %}{{ order.pk }}</td>
+            <td>
+              {% for item in order.items.all %}
+              <span class="text-sm">{{ item.quantity }}{% tr "x" %}{{ item.name }}</span>{% if not forloop.last %}<br>{% endif %}
+              {% endfor %}
+            </td>
+            <td class="text-sm">{{ order.created_at|date:"M d, Y" }}</td>
+            <td class="fw-bold">{{ order.total_display }}</td>
+            <td>
+              {% if order.status == 'paid' %}<span class="badge bg-success">{% tr "Paid" %}</span>
+              {% elif order.status == 'failed' %}<span class="badge bg-danger">{% tr "Failed" %}</span>
+              {% elif order.status == 'refunded' %}<span class="badge bg-secondary">{% tr "Refunded" %}</span>
+              {% elif order.status == 'cancelled' %}<span class="badge bg-dark">{% tr "Cancelled" %}</span>
+              {% else %}<span class="badge bg-warning">{% tr "Pending" %}</span>{% endif %}
+            </td>
+            <td class="text-sm">
+              {% for p in order.payments.all %}
+              <span class="badge bg-dark">{{ p.gateway|upper }}</span>
+              <small class="text-muted d-block text-truncate" style="max-width:180px;" title="{{ p.gateway_transaction_id }}">{{ p.gateway_transaction_id }}</small>
+              {% empty %}<span class="text-xs text-muted">{% tr "—" %}</span>{% endfor %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+      <div class="display-3 text-muted mb-3"><i class="fas fa-receipt"></i></div>
+      <h5 class="fw-bold">{% tr "No orders yet" %}</h5>
+      <a href="/pricing" class="btn btn-advance-red rounded-pill px-4 mt-2">{% tr "Get Started" %}</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</main>
+{% endblock content %}

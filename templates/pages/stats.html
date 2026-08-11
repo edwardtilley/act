@@ -1,0 +1,287 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block extrastyle %}
+<style>
+  .stats-slide { background: linear-gradient(135deg, #1A1A1A 0%, #333 100%); padding: 80px 0 40px; }
+  .stats-slide, .stats-slide h1, .stats-slide p { color: #fff; }
+  .slide-main { position: relative; background: #111; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(204,0,0,0.15); }
+  .slide-main img { max-height: 520px; width: 100%; object-fit: contain; display: block; }
+  .slide-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; width: 48px; height: 48px; border-radius: 50%; background: rgba(204,0,0,0.85); color: #fff; display: flex; align-items: center; justify-content: center; border: none; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(204,0,0,0.3); transition: all 0.2s ease; }
+  .slide-arrow:hover { background: #CC0000; transform: translateY(-50%) scale(1.1); }
+  .slide-arrow.prev { left: 20px; }
+  .slide-arrow.next { right: 20px; }
+  .slide-caption { padding: 1.5rem 1rem; background: #fff; border-top: 3px solid #CC0000; }
+  .thumb-strip { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; }
+  .thumb-strip .thumb { width: 90px; height: 70px; flex-shrink: 0; border-radius: 8px; overflow: hidden; border: 2px solid transparent; cursor: pointer; opacity: 0.6; transition: all 0.2s ease; }
+  .thumb-strip .thumb.active { border-color: #CC0000; opacity: 1; box-shadow: 0 4px 10px rgba(204,0,0,0.15); }
+  .thumb-strip .thumb:hover { opacity: 0.9; }
+  .thumb-strip .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .filter-box { background: #fff; border: 1px solid #e2e2e2; border-radius: 8px; padding: 0.5rem 0.75rem; width: 100%; max-width: 320px; font-size: 0.9rem; }
+  .modal-slide img { max-height: 80vh; width: 100%; object-fit: contain; }
+</style>
+{% endblock %}
+{% block body_class %}{% tr "bg-gray-100" %}{% endblock body_class %}
+{% block content %}
+<section class="stats-slide">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 fw-bold"><i class="fas fa-chart-line me-2"></i>{% tr "Stats Gallery" %}</h1>
+        <p class="lead fs-5 opacity-90">{% tr "Evidence-based charts and graphics from the Civic Science Library." %}</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="/dashboard" class="btn btn-outline-light btn-lg rounded-pill px-4 shadow"><i class="fas fa-arrow-left me-2"></i>{% tr "Dashboard" %}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  <!-- Filter -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex align-items-center gap-3 flex-wrap">
+      <label for="statsFilter" class="fw-bold text-sm mb-0">{% tr "Filter:" %}</label>
+      <input type="text" id="statsFilter" class="filter-box" placeholder="Type keywords..." autocomplete="off">
+      <span class="text-xs text-muted" id="statCount">{% tr "Showing" %}{{ stats|length }}{% tr "images" %}</span>
+    </div>
+  </div>
+
+  <!-- Main slideshow -->
+  <div class="slide-main mb-4" id="slideMain">
+    <button class="slide-arrow prev" onclick="changeSlide(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+    <button class="slide-arrow next" onclick="changeSlide(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+    <img id="mainSlideImage" src="" alt="" onclick="openModal()">
+    <div class="slide-caption" id="slideCaption">
+      <h5 class="fw-bold mb-2" id="slideTitle"></h5>
+      <p class="text-sm text-muted mb-0" id="slideDesc"></p>
+    </div>
+  </div>
+
+  <!-- Thumbnails -->
+  <div class="thumb-strip" id="thumbStrip"></div>
+</div>
+
+<!-- Civic Science Reality Section -->
+<section class="civic-science-section" style="background: linear-gradient(135deg, #CC0000 0%, #990000 100%); padding: 60px 0; margin-top: 60px;">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h2 class="display-5 fw-bold text-white mb-3">{% tr "Canada's Civic Science Reality Explained" %}</h2>
+        <p class="lead text-white mb-4" style="font-size: 1.1rem; line-height: 1.7;">{% tr "Civic Science is statistical data explained in a truthful context. An important social or economic measure has a certified high TEP Score (near 1) and is provably important. Consider every chart and case study here as evidence-based validation — not theory, not ideology. The WAOH Civic Science Library curates 130+ case studies across 220 nations, ranked by Transition Economics causality scoring. Each anchor below links directly to a verified case study at the World at Our Hands Library." %}</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="https://csq1.org/certification" target="_blank" rel="noopener" title="CSQ Research Civic Science Certification">
+          <img src="https://csq1.org/wp-content/uploads/2023/02/csq-cert-480x480.png" alt="CSQ Certified" style="height: 220px; max-width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        </a>
+        <a href="https://csq1.org/waoh-civic-science" target="_blank" rel="noopener" title="World at Our Hands Civics Library" style="margin-left: 1rem; display: inline-block;">
+          <img src="https://csq1.org/wp-content/uploads/2024/08/WAOH-logo-square-lowres-480x480.jpg" alt="WAOH Library" style="height: 220px; max-width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAOH Anchors DataTable -->
+<section class="waoh-anchors-section" style="padding: 60px 0; background: #f8f9fa;">
+  <div class="container">
+    <div class="card shadow-sm border-0 rounded-4">
+      <div class="card-header bg-white border-0 pb-0">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+          <div>
+            <h5 class="mb-0"><i class="fas fa-book-open text-advance-red me-2"></i>{% tr "WAOH Civic Science Library — Anchor Index" %}</h5>
+            <p class="text-sm text-muted mb-0">{{ waoh_anchors|length }}{% tr "case study anchors cached from" %}<a href="https://csq1.org/waoh" target="_blank">{% tr "csq1.org/waoh" %}</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="card-body px-0 pt-0 pb-2">
+        <div class="table-responsive p-0">
+          <table id="waohAnchorsTable" class="table align-items-center mb-0 display" style="width:100%;">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Anchor Topic" %}</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Image" %}</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "WAOH Library Link" %}</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Anchor URL" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for anchor in waoh_anchors %}
+              <tr>
+                <td><p class="text-xs font-weight-bold mb-0">{{ anchor.name }}</p></td>
+                <td>
+                  {% if anchor.stat_image %}
+                  <img src="/static/assets/img/{{ anchor.stat_image.image_filename }}" alt="{{ anchor.stat_image.title }}" style="width:60px;height:40px;object-fit:cover;border-radius:4px;" data-bs-toggle="modal" data-bs-target="#waohImgModal{{ anchor.id }}">
+                  {% else %}<span class="text-xs text-muted">{% tr "No image" %}</span>{% endif %}
+                </td>
+                <td>
+                  <a href="https://csq1.org/waoh#{{ anchor.anchor }}" target="waoh" class="btn btn-sm btn-outline-advance-red">
+                    <i class="fas fa-external-link-alt me-1"></i>{% tr "View Case Study" %}</a>
+                </td>
+                <td>
+                  <a href="{{ anchor.url }}" target="waoh" class="text-xs text-truncate d-block" style="max-width: 300px;" title="{{ anchor.url }}">{{ anchor.url }}</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="statModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold" id="modalTitle"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="modal-slide text-center p-3">
+          <img id="modalImage" src="" alt="">
+        </div>
+        <div class="p-4">
+          <p class="text-sm mb-3" id="modalDesc"></p>
+          <div id="modalLinks" class="d-flex gap-2 flex-wrap"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% for anchor in waoh_anchors %}
+{% if anchor.stat_image %}
+<div class="modal fade" id="waohImgModal{{ anchor.id }}" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content bg-dark text-white border-0">
+      <div class="modal-header border-0">
+        <h6 class="modal-title">{{ anchor.stat_image.title }}</h6>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-0">
+        <img src="/static/assets/img/{{ anchor.stat_image.image_filename }}" alt="{{ anchor.stat_image.title }}" class="img-fluid w-100">
+        <div class="p-3">
+          <p class="text-sm">{{ anchor.stat_image.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+<script>
+const statsData = [
+  {% for s in stats %}
+  {
+    id: {{ s.id }},
+    title: "{{ s.title|escapejs }}",
+    filename: "{{ s.image_filename|escapejs }}",
+    description: "{{ s.description|escapejs }}",
+    keywords: "{{ s.keywords|escapejs }}",
+    links_json: `{{ s.links_json|escapejs }}` || '[]',
+  },
+  {% endfor %}
+];
+
+let currentIndex = 0;
+
+function renderSlide(i) {
+  if (statsData.length === 0) return;
+  const s = statsData[i];
+  document.getElementById('mainSlideImage').src = '/static/assets/img/' + s.filename;
+  document.getElementById('mainSlideImage').alt = s.title;
+  document.getElementById('slideTitle').textContent = s.title;
+  document.getElementById('slideDesc').textContent = s.description;
+  document.getElementById('statCount').textContent = 'Image ' + (i + 1) + ' of ' + statsData.length;
+  document.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === i));
+  currentIndex = i;
+}
+
+function changeSlide(dir) {
+  let idx = currentIndex + dir;
+  if (statsData.length > 0) {
+    idx = (idx + statsData.length) % statsData.length;
+    renderSlide(idx);
+  }
+}
+
+function openModal() {
+  const s = statsData[currentIndex];
+  document.getElementById('modalTitle').textContent = s.title;
+  document.getElementById('modalImage').src = '/static/assets/img/' + s.filename;
+  document.getElementById('modalDesc').textContent = s.description;
+  let linksHtml = '';
+  try {
+    const links = JSON.parse(s.links_json);
+    links.forEach(l => {
+      linksHtml += '<a href="' + l.url + '" target="_blank" class="btn btn-sm btn-outline-light">' + (l.label || 'Link') + '</a>';
+    });
+  } catch(e) {}
+  document.getElementById('modalLinks').innerHTML = linksHtml || '<span class="text-xs text-muted">No links set.</span>';
+  new bootstrap.Modal(document.getElementById('statModal')).show();
+}
+
+function buildThumbs() {
+  const strip = document.getElementById('thumbStrip');
+  strip.innerHTML = '';
+  statsData.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'thumb' + (i === 0 ? ' active' : '');
+    div.innerHTML = '<img src="/static/assets/img/' + s.filename + '" alt="' + s.title.replace(/"/g, '&quot;') + '">';
+    div.onclick = () => renderSlide(i);
+    strip.appendChild(div);
+  });
+}
+
+function filterStats(query) {
+  const q = query.toLowerCase();
+  const filtered = statsData.filter(s => (s.title + ' ' + s.description + ' ' + s.keywords).toLowerCase().includes(q));
+  // For simplicity, rebuild array reference temporarily (in full app, use separate state variable)
+  // Here we just filter display by hiding thumbnails and resetting main to first match
+  const thumbs = document.querySelectorAll('.thumb');
+  if (filtered.length === 0) {
+    thumbs.forEach(t => t.style.display = 'none');
+    document.getElementById('mainSlideImage').src = '';
+    document.getElementById('slideTitle').textContent = 'No results';
+    document.getElementById('slideDesc').textContent = '';
+  } else {
+    statsData.forEach((s, i) => {
+      const match = filtered.find(f => f.id === s.id);
+      thumbs[i].style.display = match ? 'block' : 'none';
+    });
+    renderSlide(statsData.indexOf(filtered[0]));
+  }
+}
+
+document.getElementById('statsFilter').addEventListener('input', e => filterStats(e.target.value));
+
+if (statsData.length > 0) {
+  buildThumbs();
+  renderSlide(0);
+} else {
+  document.getElementById('mainSlideImage').src = '';
+  document.getElementById('slideTitle').textContent = 'No stats configured';
+  document.getElementById('slideDesc').textContent = 'Add images via the Stats Editor or admin.';
+}
+</script>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+  $('#waohAnchorsTable').DataTable({
+    responsive: true,
+    order: [[0, 'asc']],
+    pageLength: 25,
+    language: { search: 'Filter anchors:', lengthMenu: 'Show _MENU_ per page', zeroRecords: 'No anchors found.' },
+    columnDefs: [
+      { targets: [1, 2], orderable: false, searchable: false }
+    ]
+  });
+});
+</script>
+{% endblock extra_js %}

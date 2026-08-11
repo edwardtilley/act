@@ -1,0 +1,438 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block body_class %}{% endblock body_class %}
+{% block navigation %}{% endblock navigation %}
+{% block footer %}{% endblock footer %}
+{% block extrastyle %}
+<style>
+  body, html { margin:0; overflow-x:hidden; background:#1A1A1A; cursor:default; }
+  ::selection { background:#CC0000; color:white; }
+
+  .story-hero-video { position:fixed; top:0; left:0; width:100vw; height:100vh; object-fit:cover; z-index:-1; }
+  .story-progress { position:fixed; top:0; left:0; width:0; height:3px; background:linear-gradient(90deg,#CC0000,#00AA00); z-index:9999; transition:width 0.1s linear; }
+
+  .story-chapter-label { font-size:clamp(0.75rem,1.2vw,0.95rem); font-weight:700; letter-spacing:0.15em; text-transform:uppercase; opacity:0.5; margin-bottom:0.5rem; }
+
+  .story-nav { position:fixed; top:0; left:0; width:100%; z-index:1000; padding:1.5rem 2rem; display:flex; align-items:center; justify-content:space-between; pointer-events:none; }
+  .story-nav > * { pointer-events:auto; }
+  .story-nav-brand { font-weight:900; font-size:1.25rem; letter-spacing:0.05em; }
+  .story-nav-brand i { color:#CC0000; }
+  .story-nav-links { display:flex; gap:1.5rem; list-style:none; margin:0; padding:0; }
+  .story-nav-links a { color:rgba(255,255,255,0.75); text-decoration:none; font-size:0.85rem; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; transition:color 0.3s; }
+  .story-nav-links a:hover { color:white; }
+
+  .story-hero-title { font-size:clamp(3.5rem,10vw,9rem); font-weight:900; line-height:0.95; letter-spacing:-0.04em; text-transform:uppercase; }
+  .story-hero-subtitle { font-size:clamp(1.2rem,2.8vw,1.8rem); font-weight:300; letter-spacing:0.08em; max-width:40rem; }
+  .story-hero-tagline { font-size:clamp(0.85rem,1.4vw,1.1rem); font-weight:600; letter-spacing:0.1em; text-transform:uppercase; opacity:0.6; }
+
+  .story-scroll-indicator { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:0.5rem; opacity:0.5; animation:scrollPulse 2s ease-in-out infinite; }
+  .story-scroll-indicator span { font-size:0.65rem; text-transform:uppercase; letter-spacing:0.15em; font-weight:600; }
+  @keyframes scrollPulse { 0%,100%{transform:translateX(-50%) translateY(0);opacity:0.5} 50%{transform:translateX(-50%) translateY(8px);opacity:1} }
+
+  .story-btn { display:inline-flex; align-items:center; gap:0.75rem; padding:1rem 2.5rem; border-radius:100px; font-weight:700; font-size:1rem; text-decoration:none; transition:all 0.3s ease; border:none; cursor:pointer; letter-spacing:0.02em; }
+  .story-btn-primary { background:#CC0000; color:white; box-shadow:0 8px 30px rgba(204,0,0,0.3); }
+  .story-btn-primary:hover { background:#aa0000; color:white; box-shadow:0 12px 40px rgba(204,0,0,0.45); transform:translateY(-2px); }
+  .story-btn-outline { background:transparent; color:white; border:2px solid rgba(255,255,255,0.3); }
+  .story-btn-outline:hover { border-color:white; color:white; transform:translateY(-2px); }
+  .story-btn-green { background:#00AA00; color:white; box-shadow:0 8px 30px rgba(0,170,0,0.3); }
+  .story-btn-green:hover { background:#008800; color:white; box-shadow:0 12px 40px rgba(0,170,0,0.45); transform:translateY(-2px); }
+  .story-btn-dark { background:#1A1A1A; color:white; box-shadow:0 8px 30px rgba(0,0,0,0.2); }
+  .story-btn-dark:hover { background:#000; color:white; transform:translateY(-2px); }
+
+  .story-pillar-accent-red { border-left:4px solid #CC0000; }
+  .story-pillar-accent-red .story-pillar-icon { color:#CC0000; }
+  .story-pillar-accent-green { border-left:4px solid #00AA00; }
+  .story-pillar-accent-green .story-pillar-icon { color:#00AA00; }
+  .story-pillar-accent-blue { border-left:4px solid #0055CC; }
+  .story-pillar-accent-blue .story-pillar-icon { color:#0055CC; }
+
+  .story-pillar-icon { font-size:2.5rem; margin-bottom:1rem; }
+  .story-pillar-number { font-size:5rem; font-weight:900; line-height:1; opacity:0.08; position:absolute; top:-0.25rem; right:1rem; pointer-events:none; user-select:none; }
+
+  .story-policy-item { background:rgba(255,255,255,0.08); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:1.75rem; transition:all 0.3s ease; height:100%; }
+  .story-policy-item:hover { background:rgba(255,255,255,0.14); transform:translateY(-4px); }
+  .story-policy-label { font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; opacity:0.5; margin-bottom:0.5rem; }
+  .story-policy-name { font-size:1.25rem; font-weight:800; margin-bottom:0.5rem; }
+  .story-policy-desc { font-size:0.9rem; opacity:0.7; line-height:1.6; }
+  .story-policy-no { color:#ff6b6b; font-weight:700; }
+  .story-policy-yes { color:#51cf66; font-weight:700; }
+
+  .story-social-link { display:inline-flex; align-items:center; justify-content:center; width:3rem; height:3rem; border-radius:50%; border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.7); text-decoration:none; font-size:1.2rem; transition:all 0.3s; }
+  .story-social-link:hover { border-color:#CC0000; color:#CC0000; background:rgba(204,0,0,0.1); }
+
+  .story-spacer { height:4rem; }
+
+  .story-red-gradient { background:linear-gradient(135deg,#CC0000 0%,#990000 100%); }
+
+  .story-counter-number { font-size:clamp(2.5rem,5vw,4rem); font-weight:900; line-height:1; letter-spacing:-0.03em; }
+  .story-counter-suffix { font-size:0.6em; vertical-align:super; opacity:0.6; }
+  .story-counter-label { font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; opacity:0.6; font-weight:600; margin-top:0.3rem; }
+
+  .story-section-inner { padding:8rem 0; position:relative; z-index:1; }
+
+  @media (max-width:768px) {
+    .story-section-inner { padding:5rem 0; }
+    .story-hero-title { font-size:2.5rem; }
+    .story-pillar-icon { font-size:1.8rem; }
+    .story-counter-number { font-size:2.5rem; }
+    .story-nav-links { display:none; }
+  }
+</style>
+{% endblock extrastyle %}
+{% block content %}
+
+<div class="story-progress" id="progressBar"></div>
+
+<video class="story-hero-video" autoplay muted loop playsinline poster="{% static 'assets/img/canada-bg.jpg' %}">
+  <source src="https://cdn.coverr.co/videos/coverr-canadian-flag-waving-in-the-wind-5675/1080p.mp4" type="video/mp4">
+</video>
+
+<nav class="story-nav">
+  <a href="/" class="text-white story-nav-brand"><i class="fas fa-flag me-2"></i>{% tr "ADVANCE" %}</a>
+  <ul class="story-nav-links">
+    {# Map page temporarily disabled — re-enable when the new /map is built. #}
+    {% comment %}<li><a href="/map">Map</a></li>{% endcomment %}
+    <li><a href="/candidates">{% tr "Candidates" %}</a></li>
+    <li><a href="/policies">{% tr "Policies" %}</a></li>
+    <li><a href="/member-join">{% tr "Join" %}</a></li>
+    <li><a href="?lang=en" style="font-size:0.8rem;opacity:0.8;">EN</a></li>
+    <li><a href="?lang=fr" style="font-size:0.8rem;opacity:0.8;">FR</a></li>
+  </ul>
+</nav>
+
+<!-- ============================== -->
+<!-- SECTION 1: THE VISION — HERO  -->
+<!-- ============================== -->
+<section class="story-hero position-relative" style="min-height:100vh;">
+  <div class="story-hero-overlay"></div>
+  <div class="story-hero-content container text-white d-flex align-items-center" style="min-height:100vh;">
+    <div class="row w-100">
+      <div class="col-lg-9">
+        <p class="story-chapter-label story-fade-in" data-delay="0.1">{% tr "01 &mdash; The Vision" %}</p>
+        <p class="story-hero-tagline story-fade-in" data-delay="0.2">{% tr "THE ADVANCE PARTY OF CANADA" %}</p>
+        <h1 class="story-hero-title story-fade-in mb-3" data-delay="0.3">{% tr "A Canada" %}<br>{% tr "That Works" %}<br><span style="color:#CC0000;">{% tr "for Everyone" %}</span></h1>
+        <p class="story-hero-subtitle story-fade-in mb-5" data-delay="0.4">{% tr "No Theory. No Collapse. Just Reliable Advance." %}</p>
+        <div class="d-flex flex-wrap gap-3 story-fade-in" data-delay="0.5">
+          <a href="/policies" class="story-btn story-btn-primary magnetic-btn" data-cursor-hover>
+            <i class="fas fa-file-alt"></i>{% tr "Our Platform" %}</a>
+          <a href="/member-join" class="story-btn story-btn-outline magnetic-btn" data-cursor-hover>
+            <i class="fas fa-user-plus"></i>{% tr "Join the Movement" %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="story-scroll-indicator">
+    <span>{% tr "Scroll" %}</span>
+    <i class="fas fa-chevron-down text-white"></i>
+  </div>
+</section>
+
+<!-- Wave divider: red -->
+<div class="story-divider-wave" style="background:#CC0000;"></div>
+
+<!-- ============================== -->
+<!-- SECTION 2: THE CRISIS          -->
+<!-- ============================== -->
+<section class="story-red-section position-relative overflow-hidden">
+  <div class="story-number">{% tr "02" %}</div>
+  <div class="story-section-inner">
+    <div class="container">
+      <p class="story-chapter-label story-fade-in" style="color:rgba(255,255,255,0.4);">{% tr "02 &mdash; The Crisis" %}</p>
+      <h2 class="story-heading display-3 fw-bold mb-5 story-fade-in" style="max-width:900px; text-wrap:balance;">{% tr "Canada's Sovereignty Has Been Taken" %}</h2>
+      <div class="row g-5">
+        <div class="col-lg-6">
+          <div class="row g-4">
+            <div class="col-sm-6 story-fade-in" data-delay="0.1">
+              <div class="story-counter-number"><span class="story-stat" data-target="4" data-suffix="B">{% tr "0" %}</span><span class="story-counter-suffix">{% tr "B" %}</span></div>
+              <div class="story-counter-label">{% tr "Lost Daily to Foreign Control" %}</div>
+            </div>
+            <div class="col-sm-6 story-fade-in" data-delay="0.2">
+              <div class="story-counter-number"><span class="story-stat" data-target="860" data-suffix="K">{% tr "0" %}</span><span class="story-counter-suffix">{% tr "K" %}</span></div>
+              <div class="story-counter-label">{% tr "Children Lost to the System" %}</div>
+            </div>
+            <div class="col-sm-6 story-fade-in" data-delay="0.3">
+              <div class="story-counter-number"><span class="story-stat" data-target="138" data-suffix="">{% tr "0" %}</span><span class="story-counter-suffix" style="font-size:0.4em;vertical-align:middle;">{% tr "th" %}</span></div>
+              <div class="story-counter-label">{% tr "in Youth Suicide Rankings" %}</div>
+            </div>
+            <div class="col-sm-6 story-fade-in" data-delay="0.4">
+              <div class="story-counter-number"><span class="story-stat" data-target="1930" data-suffix="s">{% tr "0" %}</span><span class="story-counter-suffix">{% tr "s" %}</span></div>
+              <div class="story-counter-label">{% tr "Lowest GDP Growth Since" %}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 story-fade-in" data-delay="0.3">
+          <div class="story-timeline-item">
+            <p class="fw-bold mb-1" style="color:#ff9999;">{% tr "2006 &mdash; The Hollowing Out" %}</p>
+            <p class="story-body mb-0">{% tr "Foreign takeovers of Canadian flagship corporations began accelerating. Resource sector sold off." %}</p>
+          </div>
+          <div class="story-timeline-item">
+            <p class="fw-bold mb-1" style="color:#ff9999;">{% tr "2015 &mdash; Broken Promises" %}</p>
+            <p class="story-body mb-0">{% tr "Electoral reform abandoned. Debt-to-GDP ratio climbed. Housing became unaffordable nationwide." %}</p>
+          </div>
+          <div class="story-timeline-item">
+            <p class="fw-bold mb-1" style="color:#ff9999;">{% tr "2020 &mdash; The Great Divergence" %}</p>
+            <p class="story-body mb-0">{% tr "Pandemic policies widened the wealth gap. Small businesses collapsed. Youth mental health crisis deepened." %}</p>
+          </div>
+          <div class="story-timeline-item">
+            <p class="fw-bold mb-1" style="color:#ff9999;">{% tr "Today &mdash; The Reckoning" %}</p>
+            <p class="story-body mb-0">{% tr "Canada stands at a crossroads. Decline is not destiny &mdash; but only bold action can reverse the trend." %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider: dark -->
+<div style="height:80px; background:#1A1A1A; clip-path:ellipse(70% 100% at 50% 0%);"></div>
+
+<!-- ============================== -->
+<!-- SECTION 3: THE EVIDENCE        -->
+<!-- ============================== -->
+<section class="story-dark-section position-relative overflow-hidden">
+  <div class="story-number">{% tr "03" %}</div>
+  <div class="story-section-inner">
+    <div class="container">
+      <p class="story-chapter-label story-fade-in" style="color:rgba(255,255,255,0.3);">{% tr "03 &mdash; The Evidence" %}</p>
+      <h2 class="story-heading display-4 fw-bold mb-5 story-fade-in" style="max-width:700px;">{% tr "Data Doesn't Lie" %}</h2>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3 story-fade-in" data-delay="0.1">
+          <div class="data-card tilt-card h-100" style="cursor:pointer;">
+            <div class="display-4 mb-3" style="color:#CC0000;"><i class="fas fa-dollar-sign"></i></div>
+            <div class="story-stat mb-2" style="font-size:2rem;" data-target="42" data-suffix="%">{% tr "0%" %}</div>
+            <p class="fw-bold mb-1">{% tr "Foreign Ownership Surge" %}</p>
+            <p style="font-size:0.85rem;opacity:0.6;">{% tr "Canadian resource sector now 42% foreign-owned &mdash; highest in G7." %}</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 story-fade-in" data-delay="0.2">
+          <div class="data-card tilt-card h-100" style="cursor:pointer;">
+            <div class="display-4 mb-3" style="color:#00AA00;"><i class="fas fa-home"></i></div>
+            <div class="story-stat mb-2" style="font-size:2rem;" data-target="73" data-suffix="%">{% tr "0%" %}</div>
+            <p class="fw-bold mb-1">{% tr "Housing Affordability Crisis" %}</p>
+            <p style="font-size:0.85rem;opacity:0.6;">{% tr "73% of Canadians under 35 say homeownership is out of reach." %}</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 story-fade-in" data-delay="0.3">
+          <div class="data-card tilt-card h-100" style="cursor:pointer;">
+            <div class="display-4 mb-3" style="color:#0055CC;"><i class="fas fa-heartbeat"></i></div>
+            <div class="story-stat mb-2" style="font-size:2rem;" data-target="62" data-suffix="%">{% tr "0%" %}</div>
+            <p class="fw-bold mb-1">{% tr "Healthcare Wait Times Up" %}</p>
+            <p style="font-size:0.85rem;opacity:0.6;">{% tr "62% increase in median surgical wait times since 2015." %}</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 story-fade-in" data-delay="0.4">
+          <div class="data-card tilt-card h-100" style="cursor:pointer;">
+            <div class="display-4 mb-3" style="color:#CC0000;"><i class="fas fa-industry"></i></div>
+            <div class="story-stat mb-2" style="font-size:2rem;" data-target="18" data-suffix="%">{% tr "0%" %}</div>
+            <p class="fw-bold mb-1">{% tr "Manufacturing Collapse" %}</p>
+            <p style="font-size:0.85rem;opacity:0.6;">{% tr "Canada's share of North American manufacturing at 18% &mdash; down from 26%." %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider: white -->
+<div style="height:80px; background:white; clip-path:ellipse(70% 100% at 50% 100%);"></div>
+
+<!-- ============================== -->
+<!-- SECTION 4: THE SOLUTION        -->
+<!-- ============================== -->
+<section class="story-white-section position-relative overflow-hidden">
+  <div class="story-number" style="color:rgba(0,0,0,0.06);">{% tr "04" %}</div>
+  <div class="story-section-inner">
+    <div class="container">
+      <p class="story-chapter-label story-fade-in" style="color:rgba(0,0,0,0.3);">{% tr "04 &mdash; The Solution" %}</p>
+      <h2 class="story-heading display-4 fw-bold mb-3 story-fade-in text-dark" style="max-width:800px;">{% tr "Civic Science. Certified Leadership. Real Results." %}</h2>
+      <p class="lead text-muted mb-5 story-fade-in" style="max-width:600px;">{% tr "Three pillars. One mission. A government built on evidence, integrity, and measurable outcomes." %}</p>
+      <div class="row g-4">
+        <div class="col-md-4 story-fade-in" data-delay="0.1">
+          <div class="story-pillar story-pillar-accent-red bg-white shadow-lg tilt-card" style="cursor:default;">
+            <div class="story-pillar-number">{% tr "01" %}</div>
+            <div class="story-pillar-icon"><i class="fas fa-chart-line"></i></div>
+            <h3 class="fw-bold h4 mb-3" style="color:#1A1A1A;">{% tr "Economic Reform" %}</h3>
+            <p class="text-muted" style="font-size:0.95rem;line-height:1.7;">{% tr "End foreign ownership loopholes. Reinvest in Canadian manufacturing. Cut bureaucratic red tape for small businesses. Bring supply chains home." %}</p>
+            <ul class="list-unstyled mt-3 mb-0" style="font-size:0.9rem;">
+              <li class="mb-2"><i class="fas fa-check-circle" style="color:#00AA00;width:1.5rem;"></i>{% tr "Buy Canada First" %}</li>
+              <li class="mb-2"><i class="fas fa-check-circle" style="color:#00AA00;width:1.5rem;"></i>{% tr "Small Business Tax Cut" %}</li>
+              <li class="mb-2"><i class="fas fa-check-circle" style="color:#00AA00;width:1.5rem;"></i>{% tr "Strategic Sovereignty Fund" %}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4 story-fade-in" data-delay="0.2">
+          <div class="story-pillar story-pillar-accent-green bg-white shadow-lg tilt-card" style="cursor:default;">
+            <div class="story-pillar-number">{% tr "02" %}</div>
+            <div class="story-pillar-icon"><i class="fas fa-scale-balanced"></i></div>
+            <h3 class="fw-bold h4 mb-3" style="color:#1A1A1A;">{% tr "Social Justice" %}</h3>
+            <p class="text-muted" style="font-size:0.95rem;line-height:1.7;">{% tr "Universal pharmacare. Indigenous reconciliation through action. Housing as a human right. Mental health funding on par with physical health." %}</p>
+            <ul class="list-unstyled mt-3 mb-0" style="font-size:0.9rem;">
+              <li class="mb-2"><i class="fas fa-check-circle" style="color:#00AA00;width:1.5rem;"></i>{% tr "National Pharmacare" %}</li>
+              <li class="mb-2"><i class="fas fa-check-circle" style="color:#00AA00;width:1.5rem;"></i>{% tr "Mental Health Parity" %}</li>
+              <li class="mb-2"><i class="fas fa-check-circle" style="color:#00AA00;width:1.5rem;"></i>{% tr "Affordable Housing Plan" %}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4 story-fade-in" data-delay="0.3">
+          <div class="story-pillar story-pillar-accent-blue bg-white shadow-lg tilt-card" style="cursor:default;">
+            <div class="story-pillar-number">{% tr "03" %}</div>
+            <div class="story-pillar-icon"><i class="fas fa-leaf"></i></div>
+            <h3 class="fw-bold h4 mb-3" style="color:#1A1A1A;">{% tr "Green Future" %}</h3>
+            <p class="text-muted" style="font-size:0.95rem;line-height:1.7;">{% tr "Canada as a clean energy superpower. Net-zero by 2050 with a just transition. Carbon border adjustments. Protect 30% of lands and waters by 2030." %}</p>
+            <ul class="list-unstyled mt-3 mb-0" style="font-size:0.9rem;">
+              <li class="mb-2"><i class="fas fa-check-circle" style="color:#00AA00;width:1.5rem;"></i>{% tr "Clean Energy Grid by 2035" %}</li>
+              <li class="mb-2"><i class="fas fa-check-circle" style="color:#00AA00;width:1.5rem;"></i>{% tr "Green Job Corps" %}</li>
+              <li class="mb-2"><i class="fas fa-check-circle" style="color:#00AA00;width:1.5rem;"></i>{% tr "30x30 Conservation" %}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-5 story-fade-in">
+        <a href="/policies" class="story-btn story-btn-primary magnetic-btn" data-cursor-hover>
+          <i class="fas fa-book-open"></i>{% tr "Read Our Full Platform" %}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider: green -->
+<div style="height:80px; background:#00AA00; clip-path:ellipse(70% 100% at 50% 100%);"></div>
+
+<!-- ============================== -->
+<!-- SECTION 5: THE PLATFORM        -->
+<!-- ============================== -->
+<section class="story-green-section position-relative overflow-hidden">
+  <div class="story-number" style="color:rgba(255,255,255,0.1);">{% tr "05" %}</div>
+  <div class="story-section-inner">
+    <div class="container">
+      <p class="story-chapter-label story-fade-in" style="color:rgba(255,255,255,0.4);">{% tr "05 &mdash; The Platform" %}</p>
+      <h2 class="story-heading display-4 fw-bold mb-5 story-fade-in" style="max-width:700px;">{% tr "What We Stand For" %}</h2>
+      <div class="row g-4">
+        <div class="col-md-4 story-fade-in" data-delay="0.1">
+          <div class="story-policy-item">
+            <p class="story-policy-label"><span class="story-policy-no">{% tr "NO" %}</span>{% tr "to Foreign Control" %}</p>
+            <p class="story-policy-name">{% tr "Energy Sovereignty" %}</p>
+            <p class="story-policy-desc">{% tr "Reclaim Canadian energy assets. Stop hostile takeovers of strategic resources. Build east-west pipelines." %}</p>
+          </div>
+        </div>
+        <div class="col-md-4 story-fade-in" data-delay="0.2">
+          <div class="story-policy-item">
+            <p class="story-policy-label"><span class="story-policy-yes">{% tr "YES" %}</span>{% tr "to Innovation" %}</p>
+            <p class="story-policy-name">{% tr "Tech &amp; AI Leadership" %}</p>
+            <p class="story-policy-desc">{% tr "Invest 5% of GDP in R&amp;D. Create a Canadian AI regulatory framework that protects citizens." %}</p>
+          </div>
+        </div>
+        <div class="col-md-4 story-fade-in" data-delay="0.3">
+          <div class="story-policy-item">
+            <p class="story-policy-label"><span class="story-policy-no">{% tr "NO" %}</span>{% tr "to Bureaucracy" %}</p>
+            <p class="story-policy-name">{% tr "Small Business Freedom" %}</p>
+            <p class="story-policy-desc">{% tr "Cut regulatory burden by 30%. Eliminate interprovincial trade barriers within 2 years." %}</p>
+          </div>
+        </div>
+        <div class="col-md-4 story-fade-in" data-delay="0.1">
+          <div class="story-policy-item">
+            <p class="story-policy-label"><span class="story-policy-yes">{% tr "YES" %}</span>{% tr "to Universal Care" %}</p>
+            <p class="story-policy-name">{% tr "Healthcare Modernization" %}</p>
+            <p class="story-policy-desc">{% tr "National pharmacare. Dental care. Mental health coverage. Digital health records by 2027." %}</p>
+          </div>
+        </div>
+        <div class="col-md-4 story-fade-in" data-delay="0.2">
+          <div class="story-policy-item">
+            <p class="story-policy-label"><span class="story-policy-no">{% tr "NO" %}</span>{% tr "to Inaction" %}</p>
+            <p class="story-policy-name">{% tr "Climate Accountability" %}</p>
+            <p class="story-policy-desc">{% tr "Carbon border adjustments. Green infrastructure bank. Mandatory net-zero plans for all federal operations." %}</p>
+          </div>
+        </div>
+        <div class="col-md-4 story-fade-in" data-delay="0.3">
+          <div class="story-policy-item">
+            <p class="story-policy-label"><span class="story-policy-yes">{% tr "YES" %}</span>{% tr "to Democracy" %}</p>
+            <p class="story-policy-name">{% tr "Electoral Reform" %}</p>
+            <p class="story-policy-desc">{% tr "Mixed-member proportional representation. Mandatory voting. Lower the voting age to 16." %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider: dark -->
+<div style="height:80px; background:#1A1A1A; clip-path:ellipse(70% 100% at 50% 0%);"></div>
+
+<!-- ============================== -->
+<!-- SECTION 6: CALL TO ACTION      -->
+<!-- ============================== -->
+<section class="story-cta-section position-relative overflow-hidden">
+  <div class="story-number" style="color:rgba(255,255,255,0.06);">{% tr "06" %}</div>
+  <div class="story-section-inner">
+    <div class="container text-center">
+      <p class="story-chapter-label story-fade-in" style="color:rgba(255,255,255,0.3);">{% tr "06 &mdash; Join Us" %}</p>
+      <h2 class="story-heading-xl story-fade-in mb-4">{% tr "The Future" %}<br>{% tr "Is Ours to Build" %}</h2>
+      <p class="lead mb-5 story-fade-in" style="opacity:0.6;max-width:600px;margin-left:auto;margin-right:auto;">{% tr "Every great movement begins with a single step. Yours starts here." %}</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3 mb-5 story-fade-in" data-delay="0.2">
+        <a href="/candidate-join" class="story-btn story-btn-primary magnetic-btn" data-cursor-hover>
+          <i class="fas fa-user-tie"></i>{% tr "Become a Candidate" %}</a>
+        <a href="/member-join" class="story-btn story-btn-green magnetic-btn" data-cursor-hover>
+          <i class="fas fa-user-plus"></i>{% tr "Join the Party" %}</a>
+      </div>
+      <div class="d-flex flex-wrap justify-content-center gap-3 story-fade-in" data-delay="0.3">
+        <a href="#" class="story-social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="story-social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="story-social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="story-social-link"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="story-social-link"><i class="fab fa-tiktok"></i></a>
+      </div>
+      <div class="mt-5 story-fade-in" data-delay="0.4">
+        <p style="font-size:0.85rem;opacity:0.3;">{% tr "&copy;" %}{% now "Y" %}{% tr "Advance Party of Canada. Authorized by the Chief Agent of the Advance Party of Canada." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  GSAPSetup.init({ duration: 1.2 });
+
+  // Progress bar
+  var progressBar = document.getElementById('progressBar');
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+    requestAnimationFrame(updateProgress);
+  }
+  requestAnimationFrame(updateProgress);
+
+  // Fade-in elements with staggered delays
+  document.querySelectorAll('.story-fade-in').forEach(function(el) {
+    var delay = parseFloat(el.getAttribute('data-delay')) || 0;
+    gsap.set(el, { opacity: 0, y: 50 });
+    GSAPSetup.fadeInUp(el, delay, 0.9);
+  });
+
+  // Tilt cards
+  document.querySelectorAll('.tilt-card').forEach(function(el) {
+    GSAPSetup.tiltCard(el);
+  });
+
+  // Magnetic buttons
+  document.querySelectorAll('.magnetic-btn').forEach(function(el) {
+    GSAPSetup.magneticButton(el);
+  });
+
+  // Animated counters
+  document.querySelectorAll('.story-stat').forEach(function(el) {
+    var target = parseInt(el.getAttribute('data-target')) || 0;
+    var suffix = el.getAttribute('data-suffix') || '';
+    el.textContent = '0';
+    GSAPSetup.animateCounter(el, target, suffix);
+  });
+
+  // Custom cursor
+  GSAPSetup.customCursor();
+});
+</script>
+{% endblock extra_js %}

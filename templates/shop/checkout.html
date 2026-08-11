@@ -1,0 +1,119 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block extrastyle %}
+<style>
+  body { background: #f5f7fa; }
+  .shop-hero { background: linear-gradient(135deg, #CC0000 0%, #1A1A1A 100%); padding: 80px 0 60px; }
+  .shop-hero h1, .shop-hero p { color: #fff; }
+  .shop-card { border: none; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); }
+</style>
+{% endblock %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block content %}
+<main class="main-content position-relative">
+<section class="shop-hero text-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="display-4 fw-bold"><i class="fas fa-credit-card me-2"></i>{% tr "Checkout" %}</h1>
+        <p class="lead fs-5 opacity-90">{% tr "Pay securely through the shared hub payment gateway." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  {% if placed.order %}
+  <div class="card shop-card p-5 text-center">
+    <div class="display-3 text-advance-green mb-3"><i class="fas fa-check-circle"></i></div>
+    <h3 class="fw-bold mb-1">{% tr "Order Confirmed" %}</h3>
+    <p class="text-muted">{% tr "Thank you," %}{{ request.user.get_full_name|default:request.user.username }}{% tr "!" %}</p>
+    <table class="table table-sm mx-auto text-start mt-4" style="max-width:520px;">
+      <tbody>
+        <tr><td class="text-muted">{% tr "Order #" %}</td><td class="fw-bold">{{ placed.order.pk }}</td></tr>
+        <tr><td class="text-muted">{% tr "Status" %}</td><td><span class="badge bg-success">{{ placed.order.status|title }}</span></td></tr>
+        <tr><td class="text-muted">{% tr "Total" %}</td><td class="fw-bold">{{ placed.order.total_display }}</td></tr>
+        <tr><td class="text-muted">{% tr "Gateway" %}</td><td><span class="badge bg-dark">{{ placed.payment.gateway|upper }}</span> <small class="text-muted">{{ placed.payment.gateway_transaction_id }}</small></td></tr>
+        <tr><td class="text-muted">{% tr "Payment" %}</td><td><span class="badge bg-success">{{ placed.payment.status|title }}</span></td></tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center gap-2">
+      <a href="/" class="btn btn-outline-dark rounded-pill px-4">{% tr "Back to Home" %}</a>
+      <a href="/dashboard" class="btn btn-advance-red rounded-pill px-4">{% tr "Member Dashboard" %}</a>
+    </div>
+  </div>
+  {% elif placed.error %}
+  <div class="card shop-card p-5 text-center">
+    <div class="display-3 text-danger mb-3"><i class="fas fa-exclamation-triangle"></i></div>
+    <h4 class="fw-bold">{% tr "Checkout failed" %}</h4>
+    <p class="text-muted">{{ placed.error }}</p>
+    <a href="/cart" class="btn btn-outline-dark rounded-pill px-4 mt-2">{% tr "Back to Cart" %}</a>
+  </div>
+  {% elif cart.items.all %}
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="card shop-card p-4">
+        <h5 class="fw-bold mb-3"><i class="fas fa-list me-2 text-advance-red"></i>{% tr "Order Summary" %}</h5>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0">
+            <thead>
+              <tr class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                <th>{% tr "Item" %}</th><th class="text-center">{% tr "Qty" %}</th><th class="text-end">{% tr "Subtotal" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in cart.items.all %}
+              <tr>
+                <td class="fw-bold">{{ item.product.name }}</td>
+                <td class="text-center">{{ item.quantity }}</td>
+                <td class="text-end">{{ item.subtotal_display }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+          <span class="fw-bold">{% tr "Total due" %}</span>
+          <span class="fw-bold fs-5 text-advance-red">{{ cart.total_display }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card shop-card p-4">
+        <h5 class="fw-bold mb-3"><i class="fas fa-shield-alt me-2 text-advance-green"></i>{% tr "Payment" %}</h5>
+        <p class="text-sm text-muted">{% tr "Paid via the" %}<strong>{% tr "Hub Payment Gateway" %}</strong>{% tr "(shared service)." %}<br>{% tr "Development mode simulates charges — production charges route to the hub." %}</p>
+        <form method="POST" action="/checkout">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label text-sm">{% tr "Payment Method" %}</label>
+            <select name="payment_method" class="form-control">
+              <option value="card">{% tr "Credit / Debit Card" %}</option>
+              <option value="e-transfer">{% tr "Interac e-Transfer" %}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-sm">{% tr "Hub Reference" %}<span class="text-muted">{% tr "(optional)" %}</span></label>
+            <input type="text" name="hub_ref" class="form-control" placeholder="e.g. PAY-ORD-001">
+          </div>
+          <button type="submit" class="btn btn-advance-green btn-lg rounded-pill w-100 fw-bold">
+            <i class="fas fa-lock me-2"></i>{% tr "Pay" %}{{ cart.total_display }}
+          </button>
+          <a href="/cart" class="btn btn-outline-dark rounded-pill w-100 mt-2">{% tr "Back to Cart" %}</a>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="card shop-card p-5 text-center">
+    <div class="display-3 text-muted mb-3"><i class="fas fa-shopping-cart"></i></div>
+    <h5 class="fw-bold">{% tr "Nothing to check out" %}</h5>
+    <p class="text-muted">{% tr "Your cart is empty." %}</p>
+    <a href="/pricing" class="btn btn-advance-red rounded-pill px-4 mt-2">{% tr "See Pricing" %}</a>
+  </div>
+  {% endif %}
+</div>
+</main>
+{% endblock content %}
