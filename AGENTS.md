@@ -305,3 +305,72 @@ see `SOP-HUB-INTEGRATION.md` (first-store integration record).
 14. Build certifications page
 15. Wire up URLs in `core/urls.py`
 16. Verify `python manage.py runserver` works and `/api/health` responds
+
+<!-- HUB-MCP-CHANGE-REQUESTS -->
+## Hub MCP — filing change requests (hub-side fixes)
+
+You are the AI agent working inside this storefront's repo. Edit THIS store's
+files directly — that is your job.
+
+> **🚫 NEVER update the hub directly.** The hub lives at `~/projects/hub/`
+> (and its production equivalents). You must not edit, commit, push, or run
+> management commands against the hub repo, the hub database, or the hub's
+> services — and never try to "fix" the hub by writing to it. The ONLY
+> sanctioned channel for hub changes is a change request (below), which the
+> hub's human admin approves before anything happens.
+
+### 1. Get your hub MCP key
+
+Every store is provisioned with an AI-developer key (role `ai_developer`) on
+the hub. Legacy stores like this one: ask the hub admin (or the user) to mint
+one at **/hub/admin/agent-keys** (sidebar: Admin → Agent API Keys) with:
+
+- **Label:** `advance store IDE agent`
+- **Role:** `ai_developer`
+- **Owner user:** the store's hub owner
+
+Then add it to this repo's gitignored `.env` (perms 600):
+
+    HUB_AI_DEVELOPER_API_KEY=<minted key>
+
+A key is shown exactly once at mint time and can never be recovered (only
+sha256 hashes are stored) — if it is lost or revoked, a new one must be
+minted. Env-var presence alone grants nothing: the key VALUE must match an
+ACTIVE registered row, and its role must be active in the role catalogue.
+
+### 2. Present the key per call
+
+The hub MCP gateway is streamable HTTP at `http://ubuntu:5001/mcp`
+(`http://<hub-host>:5001/mcp` in the cloud). It is stateless — no login, no
+session. Present the key on **every call** as the `api_key` argument or an
+`Authorization: Bearer <key>` header.
+
+### 3. File a change request
+
+Use the `change_request_submit` tool. ANY authenticated agent role may submit
+(change_request_submit and support_ticket_submit are *ALL_ROLES tools), so
+your `ai_developer` key is sufficient:
+
+    change_request_submit(
+        summary="Short problem (<300 chars)",
+        description="Your full requested change",
+        priority="medium",            # low | medium | high | critical
+        user_name="<your display name>",
+        api_key="<HUB_AI_DEVELOPER_API_KEY value>",
+    )
+
+- The ticket gets a number (#1, #2, ...) and appears on the admin's
+  **Change Requests** page (/hub/changes).
+- The admin records a recommended solution and approves/rejects with a
+  written reason; the approved answer becomes the record for future agents.
+
+For a user-facing problem ticket (subscription / shared-service
+connectivity), use `support_ticket_submit` instead — it lands on the
+Problem Tickets queue (/hub-tickets).
+
+### Rules
+
+- Edit THIS store's files directly — no ticket needed for store work.
+- Use `change_request_submit` for changes TO THE HUB, not for this store.
+- Never work around the system: file the ticket and wait for the decision.
+- Never commit `.env` — it holds your key and the store's other secrets.

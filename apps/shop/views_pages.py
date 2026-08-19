@@ -60,7 +60,7 @@ def checkout_view(request):
             error = str(e)
             placed = {'error': error}
     context = {
-        'segment': 'cart',
+        'segment': 'checkout',
         'cart': cart,
         'placed': placed,
         'products': Product.objects.filter(active=True),

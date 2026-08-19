@@ -29,7 +29,7 @@
           </div>
           <i class="fas fa-chevron-down ms-auto text-xs opacity-6"></i>
         </a>
-        <div class="collapse {% if segment == 'profile' or segment == 'pricing' or segment == 'cart' or segment == 'orders' %}show{% endif %}" id="profileSubmenu">
+        <div class="collapse {% if segment == 'profile' or segment == 'pricing' or segment == 'cart' or segment == 'checkout' or segment == 'orders' %}show{% endif %}" id="profileSubmenu">
           <ul class="navbar-nav ps-2 mb-1">
             <li class="nav-item">
               <a class="nav-link {% if segment == 'profile' %}active{% endif %}" href="/profile">
@@ -44,6 +44,11 @@
             <li class="nav-item">
               <a class="nav-link {% if segment == 'cart' %}active{% endif %}" href="/cart">
                 <span class="nav-link-text ms-2 text-xs"><i class="fas fa-shopping-cart me-1"></i>{% tr "Cart" %}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'checkout' %}active{% endif %}" href="/checkout">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-credit-card me-1"></i>{% tr "Checkout" %}</span>
               </a>
             </li>
             <li class="nav-item">
