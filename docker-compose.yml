@@ -1,12 +1,11 @@
-services:
-  libretranslate:
-    image: libretranslate/libretranslate:latest
-    container_name: libretranslate
-    restart: unless-stopped
-    ports:
-      - "5030:5000"
-    environment:
-      - LT_LOAD_ONLY=en,fr
-      - LT_HOST=0.0.0.0
-      - LT_PORT=5000
-    mem_limit: 2g
+# LibreTranslate is now a HUB-owned shared service.
+#
+# This file previously defined the LibreTranslate container here in the
+# advance repo. That was the coupling we removed: a store repo must not own
+# mall-wide infrastructure (a change here could take down translation for
+# every store). The service now lives in the hub repo at
+#   deploy/docker-compose.libretranslate.yml
+# and runs on :5030. this advance app CONSUMES it via
+#   LIBRETRANSLATE_URL=http://localhost:5030  (set in advance/.env)
+# There are no services to define here any more — do not recreate the
+# container from this file.
