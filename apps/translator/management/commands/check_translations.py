@@ -7,7 +7,9 @@ from apps.translator.libretranslate import batch_translate
 from apps.translator.models import TranslationCache
 
 
-TR_RE = re.compile(r"{%\s*tr\s+['\"]([^'\"]+)['\"]\s*%}")
+# Matches {% tr "text" %} or {% tr 'text' %}, allowing apostrophes inside
+# double-quoted strings (and double quotes inside single-quoted strings).
+TR_RE = re.compile(r'''{%\s*tr\s+(?:"((?:[^"\\]|\\.)*)"|'((?:[^'\\]|\\.)*)')\s*%}''')
 
 
 class Command(BaseCommand):
@@ -38,7 +40,7 @@ class Command(BaseCommand):
                     with open(path) as fh:
                         content = fh.read()
                     for match in TR_RE.finditer(content):
-                        strings.add(match.group(1))
+                        strings.add(match.group(1) if match.group(1) is not None else match.group(2))
 
         if not strings:
             self.stdout.write(self.style.WARNING('No {% tr %} strings found in templates.'))
@@ -78,15 +80,12 @@ class Command(BaseCommand):
 
             objs = []
             for src, tgt in zip(needed, results):
-                if tgt == src:
-                    continue
                 objs.append(TranslationCache(
                     string_hash=hashlib.sha256(src.encode()).hexdigest(),
                     source_text=src,
                     target_lang=lang,
                     translated_text=tgt,
                 ))
-            failed = len(needed) - len(objs)
             TranslationCache.objects.bulk_create(objs, ignore_conflicts=True)
 
             total_missing += len(objs)
