@@ -250,7 +250,40 @@ python -c "from apps.translator.models import TranslationCache; print(Translatio
 
 ---
 
-## 10. Hub Shared-Services Access Rules (MANDATORY)
+## 10. Production Database Bootstrap (ensure_database)
+
+Railway's filesystem is ephemeral — the SQLite DB is recreated on every
+deploy. `python manage.py ensure_database` (idempotent, safe to run on every
+boot) builds a minimal working database from nothing:
+
+1. Runs `migrate` — creates all tables; `translator.0002` also seeds the
+   French TranslationCache from `translations.json`
+2. Seeds **Riding** rows from `ridings.json` (only if the table is empty)
+3. Seeds **Certification** rows from `certifications.json` (only if empty)
+4. Creates an admin superuser if `DJANGO_SUPERUSER_USERNAME` /
+   `DJANGO_SUPERUSER_PASSWORD` are set in Railway Variables and no
+   superuser exists yet
+
+**Deploy wiring:** `nixpacks.toml` sets the Railway start command to
+`python manage.py ensure_database && gunicorn core.wsgi ...` — so push to
+GitHub and the whole chain (build → ensure_database → serve) is automatic.
+No dashboard configuration needed beyond env vars.
+
+**Refreshing seed data** after content changes locally:
+
+```bash
+python manage.py dumpdata party_pages.Riding --indent 2 > ridings.json
+python manage.py dumpdata party_pages.Certification --indent 2 > certifications.json
+python manage.py dumpdata translator.TranslationCache > translations.json
+```
+
+Commit all three fixtures; the next deploy seeds them into a fresh DB.
+Never put JoinApplication / CertificationApplication (real user
+submissions) into fixtures.
+
+---
+
+## 11. Hub Shared-Services Access Rules (MANDATORY)
 
 The **hub project (`~/projects/hub`)** provides the shared services advance consumes
 (hub payment gateway, cart/checkout, financial reporting, MCP surface). It is a
@@ -291,7 +324,7 @@ see `SOP-HUB-INTEGRATION.md` (first-store integration record).
 
 ---
 
-## 11. Build Order
+## 12. Build Order
 
 1. Create AGENTS.md (this file)
 2. Django skeleton: `manage.py`, `core/`, `requirements.txt`

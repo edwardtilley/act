@@ -1,0 +1,9 @@
+# Railway/Nixpacks deploy configuration.
+# Nixpacks auto-detects Django: pip install + collectstatic run at build.
+# This start command bootstraps the database (idempotent) before gunicorn,
+# so a fresh deploy on an empty filesystem ends up fully working.
+# ensure_database = migrate (incl. translation seed) + riding/cert fixtures
+# + optional DJANGO_SUPERUSER_* account creation. See
+# apps/party_pages/management/commands/ensure_database.py
+[start]
+cmd = "python manage.py ensure_database && gunicorn core.wsgi --bind 0.0.0.0:${PORT:-5205}"

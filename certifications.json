@@ -1,0 +1,35 @@
+[
+{
+  "model": "party_pages.certification",
+  "pk": 1,
+  "fields": {
+    "title": "Cybersecurity Fundamentals",
+    "description": "Learn network security, threat detection, and incident response. Hands-on labs with real-world scenarios.",
+    "duration": "12 Weeks",
+    "level": "Beginner",
+    "active": true
+  }
+},
+{
+  "model": "party_pages.certification",
+  "pk": 2,
+  "fields": {
+    "title": "Data Science & Analytics",
+    "description": "Master Python, SQL, machine learning, and data visualization. Capstone project included.",
+    "duration": "16 Weeks",
+    "level": "Intermediate",
+    "active": true
+  }
+},
+{
+  "model": "party_pages.certification",
+  "pk": 3,
+  "fields": {
+    "title": "Public Policy & Governance",
+    "description": "Understand policy development, stakeholder engagement, and government processes in Canada.",
+    "duration": "8 Weeks",
+    "level": "Intermediate",
+    "active": true
+  }
+}
+]
