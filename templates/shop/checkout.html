@@ -84,7 +84,7 @@
     <div class="col-lg-5">
       <div class="card shop-card p-4">
         <h5 class="fw-bold mb-3"><i class="fas fa-shield-alt me-2 text-advance-green"></i>{% tr "Payment" %}</h5>
-        <p class="text-sm text-muted">{% tr "Paid via the" %}<strong>{% tr "Hub Payment Gateway" %}</strong>{% tr "(shared service)." %}<br>{% tr "Development mode simulates charges — production charges route to the hub." %}</p>
+        <p class="text-sm text-muted">{% tr "Paid via the" %}<strong>{% tr "Hub Payment Gateway" %}</strong> {% tr "(shared service)." %}<br>{% tr "Development mode simulates charges — production charges route to the hub." %}</p>
         <form method="POST" action="/checkout">
           {% csrf_token %}
           <div class="mb-3">
