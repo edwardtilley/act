@@ -256,13 +256,21 @@ Railway's filesystem is ephemeral — the SQLite DB is recreated on every
 deploy. `python manage.py ensure_database` (idempotent, safe to run on every
 boot) builds a minimal working database from nothing:
 
-1. Runs `migrate` — creates all tables; `translator.0002` also seeds the
-   French TranslationCache from `translations.json`
+1. Runs `migrate` — creates all tables and seeds content via data
+   migrations (this is the reliable path: Railway runs `migrate` on every
+   deploy regardless of builder/start-command config):
+   - `translator.0002` seeds TranslationCache from `translations.json`
+   - `party_pages.0006` seeds Riding (`ridings.json`) and Certification
+     (`certifications.json`) — upserts by natural key, so re-runs and
+     existing rows are safe
 2. Seeds **Riding** rows from `ridings.json` (only if the table is empty)
 3. Seeds **Certification** rows from `certifications.json` (only if empty)
 4. Creates an admin superuser if `DJANGO_SUPERUSER_USERNAME` /
    `DJANGO_SUPERUSER_PASSWORD` are set in Railway Variables and no
    superuser exists yet
+
+(`ensure_database` steps 2–4 are belt-and-braces on top of the migration
+seeding; they are also what makes the command useful when run manually.)
 
 **Deploy wiring:** `nixpacks.toml` sets the Railway start command to
 `python manage.py ensure_database && gunicorn core.wsgi ...` — so push to
