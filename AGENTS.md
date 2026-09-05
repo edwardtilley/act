@@ -217,14 +217,18 @@ Uses **LibreTranslate** (self-hosted via Docker) for on-the-fly EN→FR translat
 # 2. Scan templates, translate any missing strings, cache them
 python manage.py check_translations
 
-# 3. Verify 100% coverage (exits non-zero if incomplete)
+# 3. Verify 100% coverage (exits non-zero if incomplete).
+#    The scanner caches untranslatable strings (punctuation, phone numbers)
+#    as identity entries, so a clean run should always reach 100%.
 python manage.py check_translations --check
 
-# 4. Export cache to fixture
+# 4. Export cache to fixture and commit it
 python manage.py dumpdata translator.TranslationCache > translations.json
 
-# 5. Deploy translations.json to production, then:
-python manage.py loaddata translations.json
+# 5. Push — production (Railway) seeds the cache automatically:
+#    migration translator.0002_seed_translation_cache runs with `migrate`
+#    on every deploy and upserts translations.json into TranslationCache.
+#    No manual loaddata step needed.
 ```
 
 ### Troubleshooting

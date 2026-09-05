@@ -113,11 +113,13 @@
     background: linear-gradient(135deg, #0a0000 0%, #1a0000 30%, #2a0000 100%);
   }
   .scene-tilley-img {
-    position: absolute; right: 0; top: 0;
+    position: absolute; right: -6%; top: 0;
     width: 75%; height: 100%;
     object-fit: contain; object-position: right center;
     opacity: 0;
   }
+  /* French hero copy is wider ("AVANCEMENT") — push the portrait further right */
+  html[lang="fr"] .scene-tilley-img { right: -14%; }
   .scene-tilley-content {
     position: relative; z-index: 2;
     padding: 4rem; max-width: 50%;
@@ -250,7 +252,7 @@
 
   @media (max-width: 768px) {
     .scene-tilley-content { max-width: 90%; padding: 2rem; }
-    .scene-tilley-img { width: 100%; top: 0; left: 0; }
+    .scene-tilley-img { width: 100%; top: 0; left: 0; right: 0; }
     .scene-war-grid { grid-template-columns: 1fr; }
     .scene-war-left { padding: 2rem 2rem 0; }
     .scene-war-right { padding: 0 2rem 2rem; }
@@ -283,8 +285,8 @@
     {% else %}
     <li><a href="/auth/login">{% tr "Login" %}</a></li>
     {% endif %}
-    <li><a href="?lang=en" class="lang-toggle" style="color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">{% tr "EN" %}</a></li>
-    <li><a href="?lang=fr" class="lang-toggle" style="color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">{% tr "FR" %}</a></li>
+     <li><a href="?lang=en" class="lang-toggle" style="color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">EN</a></li>
+     <li><a href="?lang=fr" class="lang-toggle" style="color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;">FR</a></li>
   </ul>
 </nav>
 {% endblock navigation %}

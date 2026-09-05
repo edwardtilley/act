@@ -1,7 +1,9 @@
 {% load static %}
 {% load translate_en %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANGUAGE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ CURRENT_LANGUAGE|default:'en' }}">
 <head>
   {% include "includes/head.html" %}
   {% block extrastyle %}{% endblock extrastyle %}
