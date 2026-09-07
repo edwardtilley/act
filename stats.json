@@ -1,0 +1,5553 @@
+[
+{
+  "model": "party_pages.statimage",
+  "pk": 1,
+  "fields": {
+    "title": "Housing Payments",
+    "image_filename": "immigration-1946-2024.jpg",
+    "description": "",
+    "keywords": "housing",
+    "links_json": "",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 2,
+  "fields": {
+    "title": "GDP per Capita Growth",
+    "image_filename": "gdpcapgrowth.jpg",
+    "description": "",
+    "keywords": "GDP, economy, productivity",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 3,
+  "fields": {
+    "title": "Manufacturing Growth",
+    "image_filename": "manufacturing-growth.jpg",
+    "description": "",
+    "keywords": "manufacturing, production, industry",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 4,
+  "fields": {
+    "title": "Construction Permits",
+    "image_filename": "construction-permits.jpg",
+    "description": "",
+    "keywords": "housing, construction, economy",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 5,
+  "fields": {
+    "title": "Provincial GDP",
+    "image_filename": "prov-gdp.jpg",
+    "description": "",
+    "keywords": "GDP, provinces, economy",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 6,
+  "fields": {
+    "title": "Fertility and Immigration",
+    "image_filename": "Immigration-Fertility.jpg",
+    "description": "WAOH Fertility case study: Low fertility (1.33) combined with high immigration creates population replacement and depopulation crisis. Anti-family policies and double-income traps destroy family formation. See csq1.org/waoh#fertility.",
+    "keywords": "fertility, immigration, depopulation",
+    "links_json": "[{\"label\":\"WAOH#fertility\",\"url\":\"https://csq1.org/waoh#fertility\"}]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 7,
+  "fields": {
+    "title": "National Fertility",
+    "image_filename": "National-Fertility-CDN.jpg",
+    "description": "WAOH Fertility case study: Canada loses ~860,000 citizens annually through infertility, abortion, suicide, euthanasia, and drug overdoses. Break-even rate is 2.4; current rate guarantees generational collapse. See csq1.org/waoh#fertility.",
+    "keywords": "fertility, depopulation, family",
+    "links_json": "[{\"label\":\"WAOH#fertility\",\"url\":\"https://csq1.org/waoh#fertility\"}]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 8,
+  "fields": {
+    "title": "Longevity Canada",
+    "image_filename": "Longevity-Canada.jpg",
+    "description": "",
+    "keywords": "longevity, health, collapse",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 9,
+  "fields": {
+    "title": "Housing Payments",
+    "image_filename": "housing-payments.jpg",
+    "description": "WAOH Housing case study: Cost of living mismanagement creates starvation wages, usury lending, and double-income traps that prevent family formation and home ownership as a human right. See csq1.org/waoh#bubbles.",
+    "keywords": "housing, cost of living, bubble",
+    "links_json": "[{\"label\":\"WAOH#bubbles\",\"url\":\"https://csq1.org/waoh#bubbles\"}]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 10,
+  "fields": {
+    "title": "CDN Value",
+    "image_filename": "cdn-value.jpg",
+    "description": "",
+    "keywords": "currency, dollar, economy",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 11,
+  "fields": {
+    "title": "Cdn Dollar",
+    "image_filename": "Cdn-Dollar.jpg",
+    "description": "",
+    "keywords": "currency, dollar, economy",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 12,
+  "fields": {
+    "title": "GDP per Capita",
+    "image_filename": "gdpcap.jpg",
+    "description": "",
+    "keywords": "GDP, per capita, economy",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 13,
+  "fields": {
+    "title": "Business Investment",
+    "image_filename": "bus-investment.jpg",
+    "description": "",
+    "keywords": "investment, business, economy",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 14,
+  "fields": {
+    "title": "Canada Housing Bubble",
+    "image_filename": "canada-housing-bubble.png",
+    "description": "WAOH Housing Bubbles case study: Housing consumes 75% of income vs 30% healthy baseline. Foreign ownership, speculation, and money laundering drive prices to 10x 25-year-ago costs with 9,000 nightly in Toronto shelters. See csq1.org/waoh#bubbles.",
+    "keywords": "housing, bubble, crisis",
+    "links_json": "[{\"label\":\"WAOH#bubbles\",\"url\":\"https://csq1.org/waoh#bubbles\"}]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 15,
+  "fields": {
+    "title": "Small Business Delinquency",
+    "image_filename": "small-business-delinquency.jpg",
+    "description": "",
+    "keywords": "business, delinquency, economy",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 16,
+  "fields": {
+    "title": "National Productivity",
+    "image_filename": "productivity-chinavsg7.jpg",
+    "description": "",
+    "keywords": "productivity, China, G7",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 17,
+  "fields": {
+    "title": "Collapse",
+    "image_filename": "collapse.jpg",
+    "description": "",
+    "keywords": "collapse, wages, economy",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 18,
+  "fields": {
+    "title": "Regulated Capitalism",
+    "image_filename": "regulated-capitalism.jpg",
+    "description": "",
+    "keywords": "capitalism, regulation, economy",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 19,
+  "fields": {
+    "title": "Top Car Exports",
+    "image_filename": "Top-car-exports.jpg",
+    "description": "",
+    "keywords": "exports, cars, trade",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 20,
+  "fields": {
+    "title": "Assisted Suicide",
+    "image_filename": "assistsuicide.jpg",
+    "description": "",
+    "keywords": "euthanasia, suicide, health",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 21,
+  "fields": {
+    "title": "Poverty",
+    "image_filename": "poverty.png",
+    "description": "",
+    "keywords": "poverty, economy, social contract",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 22,
+  "fields": {
+    "title": "CO2 Hoax",
+    "image_filename": "co2-hoax.jpg",
+    "description": "",
+    "keywords": "climate, CO2, hoax",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 23,
+  "fields": {
+    "title": "British Empire",
+    "image_filename": "british-empire.jpg",
+    "description": "",
+    "keywords": "empire, history, nationalism",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 24,
+  "fields": {
+    "title": "Depopulation",
+    "image_filename": "depopulation.jpg",
+    "description": "WAOH Depopulation case study: Wars are measured by depopulation. Canada’s 2% annual depopulation matches WWII Europe levels, constituting High Treason under Criminal Code 46(1). See csq1.org/waoh#fertility.",
+    "keywords": "depopulation, genocide, family",
+    "links_json": "[{\"label\":\"WAOH#fertility\",\"url\":\"https://csq1.org/waoh#fertility\"}]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 25,
+  "fields": {
+    "title": "Indoctrination",
+    "image_filename": "indoctrination.jpg",
+    "description": "WAOH Indoctrination case study: Gender theory, DEI, ESG, and race theory taught to children as young as kindergarten constitute child abuse, creating 8x suicide rates in trans-kids and last 8 major school shootings. See csq1.org/waoh#indoctrination.",
+    "keywords": "indoctrination, education, schools",
+    "links_json": "[{\"label\":\"WAOH#indoctrination\",\"url\":\"https://csq1.org/waoh#indoctrination\"}]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 26,
+  "fields": {
+    "title": "Globalism Recipe",
+    "image_filename": "Globalism-Recipe-11.jpg",
+    "description": "WAOH Globalism case study: Globalist oligarchs sponsor political parties with multi-billion SuperPAC campaigns, control media ($6M/day CBC), and protect election fraud through Hate Laws. See csq1.org/waoh#globalism.",
+    "keywords": "globalism, WEF, control",
+    "links_json": "[{\"label\":\"WAOH#globalism\",\"url\":\"https://csq1.org/waoh#globalism\"}]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 27,
+  "fields": {
+    "title": "Political Campaign Funding",
+    "image_filename": "political-campaign-funding.jpg",
+    "description": "",
+    "keywords": "election fraud, funding, corruption",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 28,
+  "fields": {
+    "title": "FDR Second Bill of Rights",
+    "image_filename": "fdr-billofrights2.jpg",
+    "description": "WAOH Human Rights / FDR case study: FDR’s 1944 Second Bill of Rights (home, job, education, pension security) created the greatest economy in history. Diefenbaker adopted these for Canada in 1960; they have been abandoned. See csq1.org/waoh#human-rights.",
+    "keywords": "human rights, FDR, constitution",
+    "links_json": "[{\"label\":\"WAOH#human-rights\",\"url\":\"https://csq1.org/waoh#human-rights\"}]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 29,
+  "fields": {
+    "title": "Social Contract",
+    "image_filename": "Social-Contract.jpg",
+    "description": "WAOH Social Contract case study: High-SC countries (strong housing, income, pension, education) have advancing economies; low-SC countries collapse. Canada’s SC has collapsed to 1930s levels. See csq1.org/waoh#social-contract.",
+    "keywords": "social contract, productivity, economy",
+    "links_json": "[{\"label\":\"WAOH#social-contract\",\"url\":\"https://csq1.org/waoh#social-contract\"}]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 30,
+  "fields": {
+    "title": "Dark Factories",
+    "image_filename": "dak-factors-bing-1.jpg",
+    "description": "",
+    "keywords": "automation, supply chains, industry",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 31,
+  "fields": {
+    "title": "Worthwhile Supply Chains",
+    "image_filename": "Worthwhile-Supply-Chains.jpg",
+    "description": "",
+    "keywords": "supply chains, nationalism, economy",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 32,
+  "fields": {
+    "title": "Responsible Elections",
+    "image_filename": "Responsible-Elections-2025.jpg",
+    "description": "",
+    "keywords": "elections, fraud, democracy",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 33,
+  "fields": {
+    "title": "InvestCS",
+    "image_filename": "smarter-investment-1-scaled.jpg",
+    "description": "",
+    "keywords": "investment, economy, national fund",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 34,
+  "fields": {
+    "title": "Tytler Cycle",
+    "image_filename": "tytler.jpg",
+    "description": "",
+    "keywords": "democracy, cycle, collapse",
+    "links_json": "[]",
+    "display_order": 0,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 1,
+  "fields": {
+    "name": "Education",
+    "anchor": "education",
+    "url": "https://csq1.org/waoh#education",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.280Z",
+    "updated_at": "2026-08-08T15:54:12.280Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 2,
+  "fields": {
+    "name": "Immigrant Election Fraud",
+    "anchor": "immigrant-election-fraud",
+    "url": "https://csq1.org/waoh#immigrant-election-fraud",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.313Z",
+    "updated_at": "2026-08-08T15:54:12.313Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 3,
+  "fields": {
+    "name": "Income",
+    "anchor": "income",
+    "url": "https://csq1.org/waoh#income",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.332Z",
+    "updated_at": "2026-08-08T15:54:12.332Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 4,
+  "fields": {
+    "name": "War",
+    "anchor": "war",
+    "url": "https://csq1.org/waoh#war",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.345Z",
+    "updated_at": "2026-08-08T15:54:12.345Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 5,
+  "fields": {
+    "name": "Ubi",
+    "anchor": "ubi",
+    "url": "https://csq1.org/waoh#ubi",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.359Z",
+    "updated_at": "2026-08-08T15:54:12.359Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 6,
+  "fields": {
+    "name": "Child Abuse",
+    "anchor": "child-abuse",
+    "url": "https://csq1.org/waoh#child-abuse",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.368Z",
+    "updated_at": "2026-08-08T15:54:12.368Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 7,
+  "fields": {
+    "name": "Human Rights",
+    "anchor": "human-rights",
+    "url": "https://csq1.org/waoh#human-rights",
+    "category": "",
+    "stat_image": 28,
+    "cached_at": "2026-08-08T15:54:12.387Z",
+    "updated_at": "2026-08-08T16:23:06.006Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 8,
+  "fields": {
+    "name": "Infertility",
+    "anchor": "infertility",
+    "url": "https://csq1.org/waoh#infertility",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.397Z",
+    "updated_at": "2026-08-08T15:54:12.397Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 9,
+  "fields": {
+    "name": "Hate",
+    "anchor": "hate",
+    "url": "https://csq1.org/waoh#hate",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.416Z",
+    "updated_at": "2026-08-08T15:54:12.416Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 10,
+  "fields": {
+    "name": "Criminal Legislature",
+    "anchor": "criminal_legislature",
+    "url": "https://csq1.org/waoh#criminal_legislature",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.435Z",
+    "updated_at": "2026-08-08T15:54:12.435Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 11,
+  "fields": {
+    "name": "Macroeconomics",
+    "anchor": "macroeconomics",
+    "url": "https://csq1.org/waoh#macroeconomics",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.444Z",
+    "updated_at": "2026-08-08T15:54:12.444Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 12,
+  "fields": {
+    "name": "Medical",
+    "anchor": "medical",
+    "url": "https://csq1.org/waoh#medical",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.461Z",
+    "updated_at": "2026-08-08T15:54:12.461Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 13,
+  "fields": {
+    "name": "Carbon Tax",
+    "anchor": "carbon-tax",
+    "url": "https://csq1.org/waoh#carbon-tax",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.471Z",
+    "updated_at": "2026-08-08T15:54:12.471Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 14,
+  "fields": {
+    "name": "Reset",
+    "anchor": "reset",
+    "url": "https://csq1.org/waoh#reset",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.482Z",
+    "updated_at": "2026-08-08T15:54:12.482Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 15,
+  "fields": {
+    "name": "Borrowing",
+    "anchor": "borrowing",
+    "url": "https://csq1.org/waoh#borrowing",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.491Z",
+    "updated_at": "2026-08-08T15:54:12.491Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 16,
+  "fields": {
+    "name": "Misleadership",
+    "anchor": "misleadership",
+    "url": "https://csq1.org/waoh#misleadership",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.499Z",
+    "updated_at": "2026-08-08T15:54:12.499Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 17,
+  "fields": {
+    "name": "Platitudes",
+    "anchor": "platitudes",
+    "url": "https://csq1.org/waoh#platitudes",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.508Z",
+    "updated_at": "2026-08-08T15:54:12.508Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 18,
+  "fields": {
+    "name": "Values",
+    "anchor": "values",
+    "url": "https://csq1.org/waoh#values",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.519Z",
+    "updated_at": "2026-08-08T15:54:12.519Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 19,
+  "fields": {
+    "name": "Inflation",
+    "anchor": "inflation",
+    "url": "https://csq1.org/waoh#inflation",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.528Z",
+    "updated_at": "2026-08-08T15:54:12.528Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 20,
+  "fields": {
+    "name": "Education Methods",
+    "anchor": "education-methods",
+    "url": "https://csq1.org/waoh#education-methods",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.536Z",
+    "updated_at": "2026-08-08T15:54:12.537Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 21,
+  "fields": {
+    "name": "Nato",
+    "anchor": "NATO",
+    "url": "https://csq1.org/waoh#NATO",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.547Z",
+    "updated_at": "2026-08-08T15:54:12.547Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 22,
+  "fields": {
+    "name": "Lgbt",
+    "anchor": "lgbt",
+    "url": "https://csq1.org/waoh#lgbt",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.558Z",
+    "updated_at": "2026-08-08T15:54:12.558Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 23,
+  "fields": {
+    "name": "Economy",
+    "anchor": "economy",
+    "url": "https://csq1.org/waoh#economy",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.567Z",
+    "updated_at": "2026-08-08T15:54:12.567Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 24,
+  "fields": {
+    "name": "Study Visa",
+    "anchor": "study-visa",
+    "url": "https://csq1.org/waoh#study-visa",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.576Z",
+    "updated_at": "2026-08-08T15:54:12.576Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 25,
+  "fields": {
+    "name": "Philosophy",
+    "anchor": "philosophy",
+    "url": "https://csq1.org/waoh#philosophy",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.585Z",
+    "updated_at": "2026-08-08T15:54:12.585Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 26,
+  "fields": {
+    "name": "Abortion",
+    "anchor": "abortion",
+    "url": "https://csq1.org/waoh#abortion",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.595Z",
+    "updated_at": "2026-08-08T15:54:12.595Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 27,
+  "fields": {
+    "name": "Treason",
+    "anchor": "treason",
+    "url": "https://csq1.org/waoh#treason",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.604Z",
+    "updated_at": "2026-08-08T15:54:12.605Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 28,
+  "fields": {
+    "name": "Strategic Planning",
+    "anchor": "strategic-planning",
+    "url": "https://csq1.org/waoh#strategic-planning",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.614Z",
+    "updated_at": "2026-08-08T15:54:12.614Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 29,
+  "fields": {
+    "name": "Austarity",
+    "anchor": "austarity",
+    "url": "https://csq1.org/waoh#austarity",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.626Z",
+    "updated_at": "2026-08-08T15:54:12.626Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 30,
+  "fields": {
+    "name": "Politically Correct",
+    "anchor": "politically-correct",
+    "url": "https://csq1.org/waoh#politically-correct",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.644Z",
+    "updated_at": "2026-08-08T15:54:12.644Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 31,
+  "fields": {
+    "name": "Palma",
+    "anchor": "palma",
+    "url": "https://csq1.org/waoh#palma",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.653Z",
+    "updated_at": "2026-08-08T15:54:12.653Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 32,
+  "fields": {
+    "name": "Pensions",
+    "anchor": "pensions",
+    "url": "https://csq1.org/waoh#pensions",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.671Z",
+    "updated_at": "2026-08-08T15:54:12.671Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 33,
+  "fields": {
+    "name": "Unemployment",
+    "anchor": "unemployment",
+    "url": "https://csq1.org/waoh#unemployment",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.688Z",
+    "updated_at": "2026-08-08T15:54:12.688Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 34,
+  "fields": {
+    "name": "Macroeonomics",
+    "anchor": "macroeonomics",
+    "url": "https://csq1.org/waoh#macroeonomics",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.697Z",
+    "updated_at": "2026-08-08T15:54:12.697Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 35,
+  "fields": {
+    "name": "Virtue Signaling",
+    "anchor": "virtue-signaling",
+    "url": "https://csq1.org/waoh#virtue-signaling",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.707Z",
+    "updated_at": "2026-08-08T15:54:12.707Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 36,
+  "fields": {
+    "name": "Ideologies",
+    "anchor": "ideologies",
+    "url": "https://csq1.org/waoh#ideologies",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.717Z",
+    "updated_at": "2026-08-08T15:54:12.717Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 37,
+  "fields": {
+    "name": "Scientists",
+    "anchor": "scientists",
+    "url": "https://csq1.org/waoh#scientists",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.730Z",
+    "updated_at": "2026-08-08T15:54:12.730Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 38,
+  "fields": {
+    "name": "Fdi In",
+    "anchor": "fdi-in",
+    "url": "https://csq1.org/waoh#fdi-in",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.739Z",
+    "updated_at": "2026-08-08T15:54:12.739Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 39,
+  "fields": {
+    "name": "Deregulation",
+    "anchor": "deregulation",
+    "url": "https://csq1.org/waoh#deregulation",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.758Z",
+    "updated_at": "2026-08-08T15:54:12.758Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 40,
+  "fields": {
+    "name": "Decarbonization",
+    "anchor": "decarbonization",
+    "url": "https://csq1.org/waoh#decarbonization",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.766Z",
+    "updated_at": "2026-08-08T15:54:12.766Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 41,
+  "fields": {
+    "name": "Surveillance",
+    "anchor": "surveillance",
+    "url": "https://csq1.org/waoh#surveillance",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.776Z",
+    "updated_at": "2026-08-08T15:54:12.776Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 42,
+  "fields": {
+    "name": "Ta",
+    "anchor": "ta",
+    "url": "https://csq1.org/waoh#ta",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.785Z",
+    "updated_at": "2026-08-08T15:54:12.785Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 43,
+  "fields": {
+    "name": "Savings",
+    "anchor": "savings",
+    "url": "https://csq1.org/waoh#savings",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.798Z",
+    "updated_at": "2026-08-08T15:54:12.798Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 44,
+  "fields": {
+    "name": "Mental Illness",
+    "anchor": "mental-illness",
+    "url": "https://csq1.org/waoh#mental-illness",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.807Z",
+    "updated_at": "2026-08-08T15:54:12.807Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 45,
+  "fields": {
+    "name": "Right Left",
+    "anchor": "right-left",
+    "url": "https://csq1.org/waoh#right-left",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.838Z",
+    "updated_at": "2026-08-08T15:54:12.838Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 46,
+  "fields": {
+    "name": "Bible",
+    "anchor": "bible",
+    "url": "https://csq1.org/waoh#bible",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.847Z",
+    "updated_at": "2026-08-08T15:54:12.847Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 47,
+  "fields": {
+    "name": "Tilley",
+    "anchor": "tilley",
+    "url": "https://csq1.org/waoh#tilley",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.855Z",
+    "updated_at": "2026-08-08T15:54:12.855Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 48,
+  "fields": {
+    "name": "Viewpoints",
+    "anchor": "viewpoints",
+    "url": "https://csq1.org/waoh#viewpoints",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.864Z",
+    "updated_at": "2026-08-08T15:54:12.864Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 49,
+  "fields": {
+    "name": "Export Per Capita",
+    "anchor": "export-per-capita",
+    "url": "https://csq1.org/waoh#export-per-capita",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.874Z",
+    "updated_at": "2026-08-08T15:54:12.874Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 50,
+  "fields": {
+    "name": "Diversity",
+    "anchor": "diversity",
+    "url": "https://csq1.org/waoh#diversity",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.884Z",
+    "updated_at": "2026-08-08T15:54:12.884Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 51,
+  "fields": {
+    "name": "Shunning",
+    "anchor": "shunning",
+    "url": "https://csq1.org/waoh#shunning",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.893Z",
+    "updated_at": "2026-08-08T15:54:12.893Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 52,
+  "fields": {
+    "name": "Manufacturing",
+    "anchor": "manufacturing",
+    "url": "https://csq1.org/waoh#manufacturing",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.901Z",
+    "updated_at": "2026-08-08T15:54:12.901Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 53,
+  "fields": {
+    "name": "Naturalization",
+    "anchor": "naturalization",
+    "url": "https://csq1.org/waoh#naturalization",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.911Z",
+    "updated_at": "2026-08-08T15:54:12.911Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 54,
+  "fields": {
+    "name": "Poverty",
+    "anchor": "poverty",
+    "url": "https://csq1.org/waoh#poverty",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.921Z",
+    "updated_at": "2026-08-08T15:54:12.921Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 55,
+  "fields": {
+    "name": "Sustainability",
+    "anchor": "sustainability",
+    "url": "https://csq1.org/waoh#sustainability",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.939Z",
+    "updated_at": "2026-08-08T15:54:12.939Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 56,
+  "fields": {
+    "name": "Courts",
+    "anchor": "courts",
+    "url": "https://csq1.org/waoh#courts",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.947Z",
+    "updated_at": "2026-08-08T15:54:12.948Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 57,
+  "fields": {
+    "name": "Nationalism",
+    "anchor": "nationalism",
+    "url": "https://csq1.org/waoh#nationalism",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.958Z",
+    "updated_at": "2026-08-08T15:54:12.958Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 58,
+  "fields": {
+    "name": "Capital",
+    "anchor": "capital",
+    "url": "https://csq1.org/waoh#capital",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.976Z",
+    "updated_at": "2026-08-08T15:54:12.976Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 59,
+  "fields": {
+    "name": "Education Reform",
+    "anchor": "education-reform",
+    "url": "https://csq1.org/waoh#education-reform",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.987Z",
+    "updated_at": "2026-08-08T15:54:12.987Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 60,
+  "fields": {
+    "name": "Human Advance",
+    "anchor": "human-advance",
+    "url": "https://csq1.org/waoh#human-advance",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:12.997Z",
+    "updated_at": "2026-08-08T15:54:12.997Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 61,
+  "fields": {
+    "name": "Co2",
+    "anchor": "CO2",
+    "url": "https://csq1.org/waoh/#CO2",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.007Z",
+    "updated_at": "2026-08-08T15:54:13.007Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 62,
+  "fields": {
+    "name": "Leadership",
+    "anchor": "leadership",
+    "url": "https://csq1.org/waoh#leadership",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.026Z",
+    "updated_at": "2026-08-08T15:54:13.026Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 63,
+  "fields": {
+    "name": "Learn Civic Science",
+    "anchor": "learn-civic-science",
+    "url": "https://csq1.org/waoh#learn-civic-science",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.045Z",
+    "updated_at": "2026-08-08T15:54:13.045Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 64,
+  "fields": {
+    "name": "Law",
+    "anchor": "law",
+    "url": "https://csq1.org/waoh#law",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.061Z",
+    "updated_at": "2026-08-08T15:54:13.061Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 65,
+  "fields": {
+    "name": "Morality",
+    "anchor": "morality",
+    "url": "https://csq1.org/waoh#morality",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.079Z",
+    "updated_at": "2026-08-08T15:54:13.079Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 66,
+  "fields": {
+    "name": "Constitution",
+    "anchor": "constitution",
+    "url": "https://csq1.org/waoh#constitution",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.097Z",
+    "updated_at": "2026-08-08T15:54:13.097Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 67,
+  "fields": {
+    "name": "Un",
+    "anchor": "un",
+    "url": "https://csq1.org/waoh#un",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.117Z",
+    "updated_at": "2026-08-08T15:54:13.117Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 68,
+  "fields": {
+    "name": "Good",
+    "anchor": "good",
+    "url": "https://csq1.org/waoh#good",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.136Z",
+    "updated_at": "2026-08-08T15:54:13.136Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 69,
+  "fields": {
+    "name": "Fdr",
+    "anchor": "FDR",
+    "url": "https://csq1.org/waoh#FDR",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.147Z",
+    "updated_at": "2026-08-08T15:54:13.147Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 70,
+  "fields": {
+    "name": "Reserve Currency",
+    "anchor": "reserve-currency",
+    "url": "https://csq1.org/waoh#reserve-currency",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.167Z",
+    "updated_at": "2026-08-08T15:54:13.167Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 71,
+  "fields": {
+    "name": "Finance",
+    "anchor": "finance",
+    "url": "https://csq1.org/waoh#finance",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.185Z",
+    "updated_at": "2026-08-08T15:54:13.185Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 72,
+  "fields": {
+    "name": "Innovation",
+    "anchor": "innovation",
+    "url": "https://csq1.org/waoh#innovation",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.208Z",
+    "updated_at": "2026-08-08T15:54:13.208Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 73,
+  "fields": {
+    "name": "Climate",
+    "anchor": "climate",
+    "url": "https://csq1.org/waoh#climate",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.219Z",
+    "updated_at": "2026-08-08T15:54:13.219Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 74,
+  "fields": {
+    "name": "Population",
+    "anchor": "population",
+    "url": "https://csq1.org/waoh#population",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.232Z",
+    "updated_at": "2026-08-08T15:54:13.232Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 75,
+  "fields": {
+    "name": "Electricity",
+    "anchor": "electricity",
+    "url": "https://csq1.org/waoh#electricity",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.244Z",
+    "updated_at": "2026-08-08T15:54:13.244Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 76,
+  "fields": {
+    "name": "Industry",
+    "anchor": "Industry",
+    "url": "https://csq1.org/waoh#Industry",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.255Z",
+    "updated_at": "2026-08-08T15:54:13.255Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 77,
+  "fields": {
+    "name": "Cpi",
+    "anchor": "cpi",
+    "url": "https://csq1.org/waoh#cpi",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.264Z",
+    "updated_at": "2026-08-08T15:54:13.264Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 78,
+  "fields": {
+    "name": "Election Fraud",
+    "anchor": "election-fraud",
+    "url": "https://csq1.org/waoh#election-fraud",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.276Z",
+    "updated_at": "2026-08-08T15:54:13.276Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 79,
+  "fields": {
+    "name": "Nowhitemales",
+    "anchor": "nowhitemales",
+    "url": "https://csq1.org/waoh#nowhitemales",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.295Z",
+    "updated_at": "2026-08-08T15:54:13.295Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 80,
+  "fields": {
+    "name": "Thinkers",
+    "anchor": "thinkers",
+    "url": "https://csq1.org/waoh#thinkers",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.307Z",
+    "updated_at": "2026-08-08T15:54:13.307Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 81,
+  "fields": {
+    "name": "Time Equity",
+    "anchor": "time-equity",
+    "url": "https://csq1.org/waoh#time-equity",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.317Z",
+    "updated_at": "2026-08-08T15:54:13.317Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 82,
+  "fields": {
+    "name": "Indoctrination",
+    "anchor": "indoctrination",
+    "url": "https://csq1.org/waoh#indoctrination",
+    "category": "",
+    "stat_image": 25,
+    "cached_at": "2026-08-08T15:54:13.329Z",
+    "updated_at": "2026-08-08T16:23:06.041Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 83,
+  "fields": {
+    "name": "Constitutions",
+    "anchor": "constitutions",
+    "url": "https://csq1.org/waoh#constitutions",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.339Z",
+    "updated_at": "2026-08-08T15:54:13.339Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 84,
+  "fields": {
+    "name": "Work Visa",
+    "anchor": "work-visa",
+    "url": "https://csq1.org/waoh#work-visa",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.353Z",
+    "updated_at": "2026-08-08T15:54:13.353Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 85,
+  "fields": {
+    "name": "Harmful Finance",
+    "anchor": "harmful-finance",
+    "url": "https://csq1.org/waoh#harmful-finance",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.362Z",
+    "updated_at": "2026-08-08T15:54:13.362Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 86,
+  "fields": {
+    "name": "Laissez Faire",
+    "anchor": "laissez-faire",
+    "url": "https://csq1.org/waoh#laissez-faire",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.378Z",
+    "updated_at": "2026-08-08T15:54:13.378Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 87,
+  "fields": {
+    "name": "Trade",
+    "anchor": "trade",
+    "url": "https://csq1.org/waoh#trade",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.387Z",
+    "updated_at": "2026-08-08T15:54:13.387Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 88,
+  "fields": {
+    "name": "Financial Inclusion",
+    "anchor": "financial-inclusion",
+    "url": "https://csq1.org/waoh#financial-inclusion",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.397Z",
+    "updated_at": "2026-08-08T15:54:13.397Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 89,
+  "fields": {
+    "name": "Criminal Legistature",
+    "anchor": "criminal-legistature",
+    "url": "https://csq1.org/waoh#criminal-legistature",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.406Z",
+    "updated_at": "2026-08-08T15:54:13.406Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 90,
+  "fields": {
+    "name": "Bubbles",
+    "anchor": "bubbles",
+    "url": "https://csq1.org/waoh#bubbles",
+    "category": "",
+    "stat_image": 9,
+    "cached_at": "2026-08-08T15:54:13.426Z",
+    "updated_at": "2026-08-08T16:23:05.978Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 91,
+  "fields": {
+    "name": "Cancel",
+    "anchor": "cancel",
+    "url": "https://csq1.org/waoh#cancel",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.448Z",
+    "updated_at": "2026-08-08T15:54:13.448Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 92,
+  "fields": {
+    "name": "Resignation",
+    "anchor": "resignation",
+    "url": "https://csq1.org/waoh#resignation",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.458Z",
+    "updated_at": "2026-08-08T15:54:13.458Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 93,
+  "fields": {
+    "name": "False Idols",
+    "anchor": "false-idols",
+    "url": "https://csq1.org/waoh#false-idols",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.468Z",
+    "updated_at": "2026-08-08T15:54:13.468Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 94,
+  "fields": {
+    "name": "Fact Tanks",
+    "anchor": "fact-tanks",
+    "url": "https://csq1.org/waoh#fact-tanks",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.477Z",
+    "updated_at": "2026-08-08T15:54:13.477Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 95,
+  "fields": {
+    "name": "Superpacs",
+    "anchor": "superpacs",
+    "url": "https://csq1.org/waoh#superpacs",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.496Z",
+    "updated_at": "2026-08-08T15:54:13.496Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 96,
+  "fields": {
+    "name": "Te",
+    "anchor": "te",
+    "url": "https://csq1.org/waoh#te",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.529Z",
+    "updated_at": "2026-08-08T15:54:13.529Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 97,
+  "fields": {
+    "name": "Scientific Societies",
+    "anchor": "scientific-societies",
+    "url": "https://csq1.org/waoh#scientific-societies",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.551Z",
+    "updated_at": "2026-08-08T15:54:13.551Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 98,
+  "fields": {
+    "name": "Freedom",
+    "anchor": "freedom",
+    "url": "https://csq1.org/waoh#freedom",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.561Z",
+    "updated_at": "2026-08-08T15:54:13.561Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 99,
+  "fields": {
+    "name": "Govt Spending",
+    "anchor": "govt-spending",
+    "url": "https://csq1.org/waoh#govt-spending",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.571Z",
+    "updated_at": "2026-08-08T15:54:13.571Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 100,
+  "fields": {
+    "name": "Gdp",
+    "anchor": "gdp",
+    "url": "https://csq1.org/waoh#gdp",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.590Z",
+    "updated_at": "2026-08-08T15:54:13.590Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 101,
+  "fields": {
+    "name": "Small Government",
+    "anchor": "small-government",
+    "url": "https://csq1.org/waoh#small-government",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.599Z",
+    "updated_at": "2026-08-08T15:54:13.599Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 102,
+  "fields": {
+    "name": "Spending",
+    "anchor": "spending",
+    "url": "https://csq1.org/waoh#spending",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.608Z",
+    "updated_at": "2026-08-08T15:54:13.608Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 103,
+  "fields": {
+    "name": "Miseducation",
+    "anchor": "miseducation",
+    "url": "https://csq1.org/waoh#miseducation",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.617Z",
+    "updated_at": "2026-08-08T15:54:13.617Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 104,
+  "fields": {
+    "name": "Fdrs",
+    "anchor": "FDRs",
+    "url": "https://csq1.org/waoh#FDRs",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.627Z",
+    "updated_at": "2026-08-08T15:54:13.627Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 105,
+  "fields": {
+    "name": "Energy",
+    "anchor": "energy",
+    "url": "https://csq1.org/waoh#energy",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.637Z",
+    "updated_at": "2026-08-08T15:54:13.637Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 106,
+  "fields": {
+    "name": "Democracies",
+    "anchor": "democracies",
+    "url": "https://csq1.org/waoh#democracies",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.647Z",
+    "updated_at": "2026-08-08T15:54:13.647Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 107,
+  "fields": {
+    "name": "Collapse",
+    "anchor": "collapse",
+    "url": "https://csq1.org/waoh#collapse",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.659Z",
+    "updated_at": "2026-08-08T15:54:13.659Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 108,
+  "fields": {
+    "name": "Industry",
+    "anchor": "industry",
+    "url": "https://csq1.org/waoh#industry",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.668Z",
+    "updated_at": "2026-08-08T15:54:13.668Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 109,
+  "fields": {
+    "name": "God",
+    "anchor": "god",
+    "url": "https://csq1.org/waoh#god",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.678Z",
+    "updated_at": "2026-08-08T15:54:13.678Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 110,
+  "fields": {
+    "name": "Teen Pregrancy",
+    "anchor": "teen-pregrancy",
+    "url": "https://csq1.org/waoh#teen-pregrancy",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.694Z",
+    "updated_at": "2026-08-08T15:54:13.694Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 111,
+  "fields": {
+    "name": "Impact",
+    "anchor": "impact",
+    "url": "https://csq1.org/waoh#impact",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.703Z",
+    "updated_at": "2026-08-08T15:54:13.703Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 112,
+  "fields": {
+    "name": "Certifications",
+    "anchor": "certifications",
+    "url": "https://csq1.org/waoh/#certifications",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.712Z",
+    "updated_at": "2026-08-08T15:54:13.712Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 113,
+  "fields": {
+    "name": "Te Trials",
+    "anchor": "te-trials",
+    "url": "https://csq1.org/waoh#te-trials",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.722Z",
+    "updated_at": "2026-08-08T15:54:13.722Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 114,
+  "fields": {
+    "name": "Ai",
+    "anchor": "ai",
+    "url": "https://csq1.org/waoh#ai",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.731Z",
+    "updated_at": "2026-08-08T15:54:13.731Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 115,
+  "fields": {
+    "name": "Human Capital",
+    "anchor": "human-capital",
+    "url": "https://csq1.org/waoh#human-capital",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.747Z",
+    "updated_at": "2026-08-08T15:54:13.747Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 116,
+  "fields": {
+    "name": "Authoritarian",
+    "anchor": "authoritarian",
+    "url": "https://csq1.org/waoh#authoritarian",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.759Z",
+    "updated_at": "2026-08-08T15:54:13.759Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 117,
+  "fields": {
+    "name": "Civic Science",
+    "anchor": "civic-science",
+    "url": "https://csq1.org/waoh#civic-science",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.776Z",
+    "updated_at": "2026-08-08T15:54:13.776Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 118,
+  "fields": {
+    "name": "Affidavit",
+    "anchor": "affidavit",
+    "url": "https://csq1.org/waoh#affidavit",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.786Z",
+    "updated_at": "2026-08-08T15:54:13.786Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 119,
+  "fields": {
+    "name": "Investment",
+    "anchor": "investment",
+    "url": "https://csq1.org/waoh#investment",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.797Z",
+    "updated_at": "2026-08-08T15:54:13.797Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 120,
+  "fields": {
+    "name": "Peer Review",
+    "anchor": "peer-review",
+    "url": "https://csq1.org/waoh#peer-review",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.806Z",
+    "updated_at": "2026-08-08T15:54:13.806Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 121,
+  "fields": {
+    "name": "Mortgagerates",
+    "anchor": "mortgagerates",
+    "url": "https://csq1.org/waoh#mortgagerates",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.817Z",
+    "updated_at": "2026-08-08T15:54:13.817Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 122,
+  "fields": {
+    "name": "Healthcare",
+    "anchor": "healthcare",
+    "url": "https://csq1.org/waoh#healthcare",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.828Z",
+    "updated_at": "2026-08-08T15:54:13.828Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 123,
+  "fields": {
+    "name": "Right Of Contract",
+    "anchor": "right-of-contract",
+    "url": "https://csq1.org/waoh#right-of-contract",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.847Z",
+    "updated_at": "2026-08-08T15:54:13.847Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 124,
+  "fields": {
+    "name": "Surveillance State",
+    "anchor": "surveillance-state",
+    "url": "https://csq1.org/waoh#surveillance-state",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.859Z",
+    "updated_at": "2026-08-08T15:54:13.859Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 125,
+  "fields": {
+    "name": "Respect",
+    "anchor": "respect",
+    "url": "https://csq1.org/waoh#respect",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.869Z",
+    "updated_at": "2026-08-08T15:54:13.869Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 126,
+  "fields": {
+    "name": "Inequality",
+    "anchor": "inequality",
+    "url": "https://csq1.org/waoh#inequality",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.889Z",
+    "updated_at": "2026-08-08T15:54:13.889Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 127,
+  "fields": {
+    "name": "Science 70",
+    "anchor": "science-70",
+    "url": "https://csq1.org/waoh#science-70",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.910Z",
+    "updated_at": "2026-08-08T15:54:13.910Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 128,
+  "fields": {
+    "name": "Fdi",
+    "anchor": "FDI",
+    "url": "https://csq1.org/waoh#FDI",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.920Z",
+    "updated_at": "2026-08-08T15:54:13.920Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 129,
+  "fields": {
+    "name": "Tytler Cycle",
+    "anchor": "tytler-cycle",
+    "url": "https://csq1.org/waoh#tytler-cycle",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.931Z",
+    "updated_at": "2026-08-08T15:54:13.931Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 130,
+  "fields": {
+    "name": "Automation",
+    "anchor": "automation",
+    "url": "https://csq1.org/waoh#automation",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.940Z",
+    "updated_at": "2026-08-08T15:54:13.940Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 131,
+  "fields": {
+    "name": "Crime",
+    "anchor": "crime",
+    "url": "https://csq1.org/waoh#crime",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.950Z",
+    "updated_at": "2026-08-08T15:54:13.950Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 132,
+  "fields": {
+    "name": "Brics",
+    "anchor": "brics",
+    "url": "https://csq1.org/waoh#brics",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.960Z",
+    "updated_at": "2026-08-08T15:54:13.960Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 133,
+  "fields": {
+    "name": "Environment",
+    "anchor": "environment",
+    "url": "https://csq1.org/waoh#environment",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:13.984Z",
+    "updated_at": "2026-08-08T15:54:13.984Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 134,
+  "fields": {
+    "name": "Incarceration Thought",
+    "anchor": "incarceration-thought",
+    "url": "https://csq1.org/waoh#incarceration-thought",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.006Z",
+    "updated_at": "2026-08-08T15:54:14.006Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 135,
+  "fields": {
+    "name": "Dumbdown",
+    "anchor": "dumbdown",
+    "url": "https://csq1.org/waoh#dumbdown",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.023Z",
+    "updated_at": "2026-08-08T15:54:14.023Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 136,
+  "fields": {
+    "name": "Banks",
+    "anchor": "banks",
+    "url": "https://csq1.org/waoh#banks",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.033Z",
+    "updated_at": "2026-08-08T15:54:14.033Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 137,
+  "fields": {
+    "name": "Hybrids",
+    "anchor": "hybrids",
+    "url": "https://csq1.org/waoh#hybrids",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.050Z",
+    "updated_at": "2026-08-08T15:54:14.050Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 138,
+  "fields": {
+    "name": "Fertility",
+    "anchor": "fertility",
+    "url": "https://csq1.org/waoh#fertility",
+    "category": "",
+    "stat_image": 7,
+    "cached_at": "2026-08-08T15:54:14.060Z",
+    "updated_at": "2026-08-08T16:23:05.988Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 139,
+  "fields": {
+    "name": "Totolitarian",
+    "anchor": "totolitarian",
+    "url": "https://csq1.org/waoh#totolitarian",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.071Z",
+    "updated_at": "2026-08-08T15:54:14.071Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 140,
+  "fields": {
+    "name": "Collapse Motivators",
+    "anchor": "collapse-motivators",
+    "url": "https://csq1.org/waoh#collapse-motivators",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.082Z",
+    "updated_at": "2026-08-08T15:54:14.082Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 141,
+  "fields": {
+    "name": "Corruption",
+    "anchor": "corruption",
+    "url": "https://csq1.org/waoh#corruption",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.102Z",
+    "updated_at": "2026-08-08T15:54:14.102Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 142,
+  "fields": {
+    "name": "Profit",
+    "anchor": "profit",
+    "url": "https://csq1.org/waoh#profit",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.121Z",
+    "updated_at": "2026-08-08T15:54:14.121Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 143,
+  "fields": {
+    "name": "Thinktanks",
+    "anchor": "thinktanks",
+    "url": "https://csq1.org/waoh#thinktanks",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.131Z",
+    "updated_at": "2026-08-08T15:54:14.131Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 144,
+  "fields": {
+    "name": "Criminal Legislature",
+    "anchor": "criminal-legislature",
+    "url": "https://csq1.org/waoh#criminal-legislature",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.141Z",
+    "updated_at": "2026-08-08T15:54:14.141Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 145,
+  "fields": {
+    "name": "Economic Treason",
+    "anchor": "economic-treason",
+    "url": "https://csq1.org/waoh#economic-treason",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.151Z",
+    "updated_at": "2026-08-08T15:54:14.151Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 146,
+  "fields": {
+    "name": "Internet",
+    "anchor": "internet",
+    "url": "https://csq1.org/waoh#internet",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.161Z",
+    "updated_at": "2026-08-08T15:54:14.161Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 147,
+  "fields": {
+    "name": "Family Values",
+    "anchor": "family-values",
+    "url": "https://csq1.org/waoh#family-values",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.171Z",
+    "updated_at": "2026-08-08T15:54:14.171Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 148,
+  "fields": {
+    "name": "Nonpermanent",
+    "anchor": "nonpermanent",
+    "url": "https://csq1.org/waoh#nonpermanent",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.200Z",
+    "updated_at": "2026-08-08T15:54:14.200Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 149,
+  "fields": {
+    "name": "Turnaround",
+    "anchor": "turnaround",
+    "url": "https://csq1.org/waoh#turnaround",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.221Z",
+    "updated_at": "2026-08-08T15:54:14.221Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 150,
+  "fields": {
+    "name": "Big Mac",
+    "anchor": "big-mac",
+    "url": "https://csq1.org/waoh#big-mac",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.230Z",
+    "updated_at": "2026-08-08T15:54:14.230Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 151,
+  "fields": {
+    "name": "Ideology War",
+    "anchor": "ideology-war",
+    "url": "https://csq1.org/waoh#ideology-war",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.247Z",
+    "updated_at": "2026-08-08T15:54:14.247Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 152,
+  "fields": {
+    "name": "Scl",
+    "anchor": "SCL",
+    "url": "https://csq1.org/waoh#SCL",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.256Z",
+    "updated_at": "2026-08-08T15:54:14.256Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 153,
+  "fields": {
+    "name": "Privacy",
+    "anchor": "privacy",
+    "url": "https://csq1.org/waoh#privacy",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.265Z",
+    "updated_at": "2026-08-08T15:54:14.265Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 154,
+  "fields": {
+    "name": "Esg",
+    "anchor": "esg",
+    "url": "https://csq1.org/waoh#esg",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.275Z",
+    "updated_at": "2026-08-08T15:54:14.275Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 155,
+  "fields": {
+    "name": "Consumption",
+    "anchor": "consumption",
+    "url": "https://csq1.org/waoh#consumption",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.283Z",
+    "updated_at": "2026-08-08T15:54:14.284Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 156,
+  "fields": {
+    "name": "Competent Government",
+    "anchor": "competent-government",
+    "url": "https://csq1.org/waoh#competent-government",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.293Z",
+    "updated_at": "2026-08-08T15:54:14.293Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 157,
+  "fields": {
+    "name": "Stock Markets",
+    "anchor": "stock-markets",
+    "url": "https://csq1.org/waoh#stock-markets",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.301Z",
+    "updated_at": "2026-08-08T15:54:14.301Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 158,
+  "fields": {
+    "name": "Bibles",
+    "anchor": "Bibles",
+    "url": "https://csq1.org/waoh#Bibles",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.320Z",
+    "updated_at": "2026-08-08T15:54:14.320Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 159,
+  "fields": {
+    "name": "Scp",
+    "anchor": "SCP",
+    "url": "https://csq1.org/waoh#SCP",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.340Z",
+    "updated_at": "2026-08-08T15:54:14.340Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 160,
+  "fields": {
+    "name": "Debt",
+    "anchor": "debt",
+    "url": "https://csq1.org/waoh#debt",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.350Z",
+    "updated_at": "2026-08-08T15:54:14.350Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 161,
+  "fields": {
+    "name": "Microeconomics",
+    "anchor": "microeconomics",
+    "url": "https://csq1.org/waoh#microeconomics",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.360Z",
+    "updated_at": "2026-08-08T15:54:14.360Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 162,
+  "fields": {
+    "name": "Credible Measures",
+    "anchor": "credible-measures",
+    "url": "https://csq1.org/waoh#credible-measures",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.369Z",
+    "updated_at": "2026-08-08T15:54:14.369Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 163,
+  "fields": {
+    "name": "Pollution",
+    "anchor": "pollution",
+    "url": "https://csq1.org/waoh#pollution",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.378Z",
+    "updated_at": "2026-08-08T15:54:14.378Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 164,
+  "fields": {
+    "name": "Money Laundering",
+    "anchor": "money-laundering",
+    "url": "https://csq1.org/waoh#money-laundering",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.388Z",
+    "updated_at": "2026-08-08T15:54:14.388Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 165,
+  "fields": {
+    "name": "Abundance",
+    "anchor": "abundance",
+    "url": "https://csq1.org/waoh#abundance",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.398Z",
+    "updated_at": "2026-08-08T15:54:14.398Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 166,
+  "fields": {
+    "name": "Production",
+    "anchor": "production",
+    "url": "https://csq1.org/waoh#production",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.407Z",
+    "updated_at": "2026-08-08T15:54:14.407Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 167,
+  "fields": {
+    "name": "Productivity",
+    "anchor": "productivity",
+    "url": "https://csq1.org/waoh#productivity",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.417Z",
+    "updated_at": "2026-08-08T15:54:14.417Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 168,
+  "fields": {
+    "name": "Absolutes",
+    "anchor": "absolutes",
+    "url": "https://csq1.org/waoh#absolutes",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.445Z",
+    "updated_at": "2026-08-08T15:54:14.445Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 169,
+  "fields": {
+    "name": "Consultancy",
+    "anchor": "consultancy",
+    "url": "https://csq1.org/waoh#consultancy",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.465Z",
+    "updated_at": "2026-08-08T15:54:14.465Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 170,
+  "fields": {
+    "name": "Gender Role",
+    "anchor": "gender-role",
+    "url": "https://csq1.org/waoh#gender-role",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.475Z",
+    "updated_at": "2026-08-08T15:54:14.475Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 171,
+  "fields": {
+    "name": "Family",
+    "anchor": "family",
+    "url": "https://csq1.org/waoh/#family",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.492Z",
+    "updated_at": "2026-08-08T15:54:14.492Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 172,
+  "fields": {
+    "name": "Autism",
+    "anchor": "autism",
+    "url": "https://csq1.org/waoh#autism",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.503Z",
+    "updated_at": "2026-08-08T15:54:14.503Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 173,
+  "fields": {
+    "name": "Temperatures",
+    "anchor": "temperatures",
+    "url": "https://csq1.org/waoh#temperatures",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.514Z",
+    "updated_at": "2026-08-08T15:54:14.514Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 174,
+  "fields": {
+    "name": "Nuclear Waste",
+    "anchor": "nuclear-waste",
+    "url": "https://csq1.org/waoh#nuclear-waste",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.523Z",
+    "updated_at": "2026-08-08T15:54:14.523Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 175,
+  "fields": {
+    "name": "Longevity",
+    "anchor": "longevity",
+    "url": "https://csq1.org/waoh#longevity",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.534Z",
+    "updated_at": "2026-08-08T15:54:14.534Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 176,
+  "fields": {
+    "name": "Net Zero",
+    "anchor": "net-zero",
+    "url": "https://csq1.org/waoh#net-zero",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.544Z",
+    "updated_at": "2026-08-08T15:54:14.544Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 177,
+  "fields": {
+    "name": "Tourism",
+    "anchor": "tourism",
+    "url": "https://csq1.org/waoh#tourism",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.552Z",
+    "updated_at": "2026-08-08T15:54:14.552Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 178,
+  "fields": {
+    "name": "Hidden Reports",
+    "anchor": "hidden-reports",
+    "url": "https://csq1.org/waoh#hidden-reports",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.569Z",
+    "updated_at": "2026-08-08T15:54:14.569Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 179,
+  "fields": {
+    "name": "Homeownership",
+    "anchor": "homeownership",
+    "url": "https://csq1.org/waoh#homeownership",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.586Z",
+    "updated_at": "2026-08-08T15:54:14.586Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 180,
+  "fields": {
+    "name": "Billionaires",
+    "anchor": "billionaires",
+    "url": "https://csq1.org/waoh#billionaires",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.596Z",
+    "updated_at": "2026-08-08T15:54:14.596Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 181,
+  "fields": {
+    "name": "Swing Riding",
+    "anchor": "swing-riding",
+    "url": "https://csq1.org/waoh#swing-riding",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.614Z",
+    "updated_at": "2026-08-08T15:54:14.614Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 182,
+  "fields": {
+    "name": "Church And State",
+    "anchor": "church-and-state",
+    "url": "https://csq1.org/waoh#church-and-state",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.624Z",
+    "updated_at": "2026-08-08T15:54:14.624Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 183,
+  "fields": {
+    "name": "Incarceration",
+    "anchor": "incarceration",
+    "url": "https://csq1.org/waoh#incarceration",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.644Z",
+    "updated_at": "2026-08-08T15:54:14.644Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 184,
+  "fields": {
+    "name": "Indoctination",
+    "anchor": "indoctination",
+    "url": "https://csq1.org/waoh#indoctination",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.663Z",
+    "updated_at": "2026-08-08T15:54:14.663Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 185,
+  "fields": {
+    "name": "Usury",
+    "anchor": "usury",
+    "url": "https://csq1.org/waoh#usury",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.672Z",
+    "updated_at": "2026-08-08T15:54:14.672Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 186,
+  "fields": {
+    "name": "Deficit Imports",
+    "anchor": "deficit-imports",
+    "url": "https://csq1.org/waoh#deficit-imports",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.689Z",
+    "updated_at": "2026-08-08T15:54:14.689Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 187,
+  "fields": {
+    "name": "Imports",
+    "anchor": "imports",
+    "url": "https://csq1.org/waoh#imports",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.709Z",
+    "updated_at": "2026-08-08T15:54:14.709Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 188,
+  "fields": {
+    "name": "Certification",
+    "anchor": "certification",
+    "url": "https://csq1.org/waoh#certification",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.728Z",
+    "updated_at": "2026-08-08T15:54:14.729Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 189,
+  "fields": {
+    "name": "Budgets",
+    "anchor": "budgets",
+    "url": "https://csq1.org/waoh#budgets",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.749Z",
+    "updated_at": "2026-08-08T15:54:14.749Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 190,
+  "fields": {
+    "name": "Lies",
+    "anchor": "lies",
+    "url": "https://csq1.org/waoh#lies",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.759Z",
+    "updated_at": "2026-08-08T15:54:14.759Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 191,
+  "fields": {
+    "name": "Culture",
+    "anchor": "culture",
+    "url": "https://csq1.org/waoh#culture",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.769Z",
+    "updated_at": "2026-08-08T15:54:14.769Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 192,
+  "fields": {
+    "name": "Welfare",
+    "anchor": "welfare",
+    "url": "https://csq1.org/waoh#welfare",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.789Z",
+    "updated_at": "2026-08-08T15:54:14.789Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 193,
+  "fields": {
+    "name": "Free Peech",
+    "anchor": "free-peech",
+    "url": "https://csq1.org/waoh#free-peech",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.808Z",
+    "updated_at": "2026-08-08T15:54:14.808Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 194,
+  "fields": {
+    "name": "Replication",
+    "anchor": "replication",
+    "url": "https://csq1.org/waoh#replication",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.816Z",
+    "updated_at": "2026-08-08T15:54:14.816Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 195,
+  "fields": {
+    "name": "Female Vote",
+    "anchor": "female-vote",
+    "url": "https://csq1.org/waoh#female-vote",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.825Z",
+    "updated_at": "2026-08-08T15:54:14.825Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 196,
+  "fields": {
+    "name": "Criminal Legislatures",
+    "anchor": "criminal-legislatures",
+    "url": "https://csq1.org/waoh#criminal-legislatures",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.834Z",
+    "updated_at": "2026-08-08T15:54:14.834Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 197,
+  "fields": {
+    "name": "Task",
+    "anchor": "task",
+    "url": "https://csq1.org/waoh#task",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.843Z",
+    "updated_at": "2026-08-08T15:54:14.843Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 198,
+  "fields": {
+    "name": "Starvation Wages",
+    "anchor": "starvation-wages",
+    "url": "https://csq1.org/waoh#starvation-wages",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.852Z",
+    "updated_at": "2026-08-08T15:54:14.852Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 199,
+  "fields": {
+    "name": "Dei",
+    "anchor": "DEI",
+    "url": "https://csq1.org/waoh#DEI",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.861Z",
+    "updated_at": "2026-08-08T15:54:14.861Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 200,
+  "fields": {
+    "name": "Gdpcap",
+    "anchor": "gdpcap",
+    "url": "https://csq1.org/waoh#gdpcap",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.871Z",
+    "updated_at": "2026-08-08T15:54:14.871Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 201,
+  "fields": {
+    "name": "Supply And Demand",
+    "anchor": "supply-and-demand",
+    "url": "https://csq1.org/waoh#supply-and-demand",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.880Z",
+    "updated_at": "2026-08-08T15:54:14.880Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 202,
+  "fields": {
+    "name": "Marriage",
+    "anchor": "marriage",
+    "url": "https://csq1.org/waoh#marriage",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.889Z",
+    "updated_at": "2026-08-08T15:54:14.889Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 203,
+  "fields": {
+    "name": "Testosterone",
+    "anchor": "testosterone",
+    "url": "https://csq1.org/waoh#testosterone",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.898Z",
+    "updated_at": "2026-08-08T15:54:14.898Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 204,
+  "fields": {
+    "name": "Wealth Theory",
+    "anchor": "wealth-theory",
+    "url": "https://csq1.org/waoh#wealth-theory",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.908Z",
+    "updated_at": "2026-08-08T15:54:14.908Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 205,
+  "fields": {
+    "name": "Divorce",
+    "anchor": "divorce",
+    "url": "https://csq1.org/waoh#divorce",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.917Z",
+    "updated_at": "2026-08-08T15:54:14.917Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 206,
+  "fields": {
+    "name": "Currency",
+    "anchor": "currency",
+    "url": "https://csq1.org/waoh#currency",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.927Z",
+    "updated_at": "2026-08-08T15:54:14.927Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 207,
+  "fields": {
+    "name": "Monarchy",
+    "anchor": "monarchy",
+    "url": "https://csq1.org/waoh#monarchy",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.937Z",
+    "updated_at": "2026-08-08T15:54:14.937Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 208,
+  "fields": {
+    "name": "Sex Education",
+    "anchor": "sex-education",
+    "url": "https://csq1.org/waoh#sex-education",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.956Z",
+    "updated_at": "2026-08-08T15:54:14.956Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 209,
+  "fields": {
+    "name": "Lending",
+    "anchor": "lending",
+    "url": "https://csq1.org/waoh#lending",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.968Z",
+    "updated_at": "2026-08-08T15:54:14.968Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 210,
+  "fields": {
+    "name": "Sc",
+    "anchor": "SC",
+    "url": "https://csq1.org/waoh#SC",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.978Z",
+    "updated_at": "2026-08-08T15:54:14.978Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 211,
+  "fields": {
+    "name": "Lethality",
+    "anchor": "lethality",
+    "url": "https://csq1.org/waoh#lethality",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.987Z",
+    "updated_at": "2026-08-08T15:54:14.988Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 212,
+  "fields": {
+    "name": "Gender",
+    "anchor": "gender",
+    "url": "https://csq1.org/waoh#gender",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:14.998Z",
+    "updated_at": "2026-08-08T15:54:14.998Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 213,
+  "fields": {
+    "name": "Smart Cities",
+    "anchor": "smart-cities",
+    "url": "https://csq1.org/waoh#smart-cities",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.008Z",
+    "updated_at": "2026-08-08T15:54:15.008Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 214,
+  "fields": {
+    "name": "Pride Flags",
+    "anchor": "pride-flags",
+    "url": "https://csq1.org/waoh#pride-flags",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.017Z",
+    "updated_at": "2026-08-08T15:54:15.017Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 215,
+  "fields": {
+    "name": "Home Ownership",
+    "anchor": "home-ownership",
+    "url": "https://csq1.org/waoh#home-ownership",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.026Z",
+    "updated_at": "2026-08-08T15:54:15.026Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 216,
+  "fields": {
+    "name": "Safetynets",
+    "anchor": "safetynets",
+    "url": "https://csq1.org/waoh#safetynets",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.041Z",
+    "updated_at": "2026-08-08T15:54:15.041Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 217,
+  "fields": {
+    "name": "Cultural Replacement",
+    "anchor": "cultural-replacement",
+    "url": "https://csq1.org/waoh#cultural-replacement",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.049Z",
+    "updated_at": "2026-08-08T15:54:15.049Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 218,
+  "fields": {
+    "name": "Military",
+    "anchor": "military",
+    "url": "https://csq1.org/waoh#military",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.059Z",
+    "updated_at": "2026-08-08T15:54:15.059Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 219,
+  "fields": {
+    "name": "Wealth Distribution",
+    "anchor": "wealth-distribution",
+    "url": "https://csq1.org/waoh#wealth-distribution",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.089Z",
+    "updated_at": "2026-08-08T15:54:15.089Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 220,
+  "fields": {
+    "name": "Right Plans",
+    "anchor": "right-plans",
+    "url": "https://csq1.org/waoh#right-plans",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.106Z",
+    "updated_at": "2026-08-08T15:54:15.106Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 221,
+  "fields": {
+    "name": "No Tax",
+    "anchor": "no-tax",
+    "url": "https://csq1.org/waoh#no-tax",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.125Z",
+    "updated_at": "2026-08-08T15:54:15.125Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 222,
+  "fields": {
+    "name": "Replacement",
+    "anchor": "replacement",
+    "url": "https://csq1.org/waoh#replacement",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.143Z",
+    "updated_at": "2026-08-08T15:54:15.143Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 223,
+  "fields": {
+    "name": "Open Borders",
+    "anchor": "open-borders",
+    "url": "https://csq1.org/waoh#open-borders",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.152Z",
+    "updated_at": "2026-08-08T15:54:15.152Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 224,
+  "fields": {
+    "name": "Eu",
+    "anchor": "EU",
+    "url": "https://csq1.org/waoh#EU",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.163Z",
+    "updated_at": "2026-08-08T15:54:15.163Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 225,
+  "fields": {
+    "name": "Math",
+    "anchor": "math",
+    "url": "https://csq1.org/waoh#math",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.174Z",
+    "updated_at": "2026-08-08T15:54:15.174Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 226,
+  "fields": {
+    "name": "Greenwashing",
+    "anchor": "greenwashing",
+    "url": "https://csq1.org/waoh#greenwashing",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.184Z",
+    "updated_at": "2026-08-08T15:54:15.184Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 227,
+  "fields": {
+    "name": "External Governance",
+    "anchor": "external-governance",
+    "url": "https://csq1.org/waoh#external-governance",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.201Z",
+    "updated_at": "2026-08-08T15:54:15.201Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 228,
+  "fields": {
+    "name": "Govt Systems",
+    "anchor": "govt-systems",
+    "url": "https://csq1.org/waoh#govt-systems",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.211Z",
+    "updated_at": "2026-08-08T15:54:15.211Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 229,
+  "fields": {
+    "name": "Capitalism",
+    "anchor": "capitalism",
+    "url": "https://csq1.org/waoh#capitalism",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.220Z",
+    "updated_at": "2026-08-08T15:54:15.220Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 230,
+  "fields": {
+    "name": "Right Plans",
+    "anchor": "Right_Plans",
+    "url": "https://csq1.org/waoh#Right_Plans",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.239Z",
+    "updated_at": "2026-08-08T15:54:15.239Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 231,
+  "fields": {
+    "name": "Credentialing",
+    "anchor": "credentialing",
+    "url": "https://csq1.org/waoh#credentialing",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.257Z",
+    "updated_at": "2026-08-08T15:54:15.257Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 232,
+  "fields": {
+    "name": "Agriculture",
+    "anchor": "agriculture",
+    "url": "https://csq1.org/waoh#agriculture",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.267Z",
+    "updated_at": "2026-08-08T15:54:15.267Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 233,
+  "fields": {
+    "name": "Cost Of Living",
+    "anchor": "cost-of-living",
+    "url": "https://csq1.org/waoh#cost-of-living",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.276Z",
+    "updated_at": "2026-08-08T15:54:15.276Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 234,
+  "fields": {
+    "name": "Wealth Per Adult",
+    "anchor": "wealth-per-adult",
+    "url": "https://csq1.org/waoh#wealth-per-adult",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.285Z",
+    "updated_at": "2026-08-08T15:54:15.285Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 235,
+  "fields": {
+    "name": "Nobel",
+    "anchor": "nobel",
+    "url": "https://csq1.org/waoh#nobel",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.294Z",
+    "updated_at": "2026-08-08T15:54:15.294Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 236,
+  "fields": {
+    "name": "Sdgs",
+    "anchor": "SDGs",
+    "url": "https://csq1.org/waoh#SDGs",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.305Z",
+    "updated_at": "2026-08-08T15:54:15.305Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 237,
+  "fields": {
+    "name": "Guns",
+    "anchor": "guns",
+    "url": "https://csq1.org/waoh#guns",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.316Z",
+    "updated_at": "2026-08-08T15:54:15.316Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 238,
+  "fields": {
+    "name": "Gdp",
+    "anchor": "GDP",
+    "url": "https://csq1.org/waoh#GDP",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.335Z",
+    "updated_at": "2026-08-08T15:54:15.335Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 239,
+  "fields": {
+    "name": "Act",
+    "anchor": "ACT",
+    "url": "https://csq1.org/waoh#ACT",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.345Z",
+    "updated_at": "2026-08-08T15:54:15.345Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 240,
+  "fields": {
+    "name": "Graven Images",
+    "anchor": "graven-images",
+    "url": "https://csq1.org/waoh#graven-images",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.353Z",
+    "updated_at": "2026-08-08T15:54:15.353Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 241,
+  "fields": {
+    "name": "Safetynet",
+    "anchor": "safetynet",
+    "url": "https://csq1.org/waoh#safetynet",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.373Z",
+    "updated_at": "2026-08-08T15:54:15.373Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 242,
+  "fields": {
+    "name": "Digital",
+    "anchor": "digital",
+    "url": "https://csq1.org/waoh#digital",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.393Z",
+    "updated_at": "2026-08-08T15:54:15.393Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 243,
+  "fields": {
+    "name": "Violence",
+    "anchor": "violence",
+    "url": "https://csq1.org/waoh#violence",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.403Z",
+    "updated_at": "2026-08-08T15:54:15.403Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 244,
+  "fields": {
+    "name": "Alcohol",
+    "anchor": "alcohol",
+    "url": "https://csq1.org/waoh#alcohol",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.426Z",
+    "updated_at": "2026-08-08T15:54:15.426Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 245,
+  "fields": {
+    "name": "Gfanz",
+    "anchor": "GFANZ",
+    "url": "https://csq1.org/waoh#GFANZ",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.449Z",
+    "updated_at": "2026-08-08T15:54:15.449Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 246,
+  "fields": {
+    "name": "Labor",
+    "anchor": "labor",
+    "url": "https://csq1.org/waoh#labor",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.459Z",
+    "updated_at": "2026-08-08T15:54:15.459Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 247,
+  "fields": {
+    "name": "Open Markets",
+    "anchor": "open-markets",
+    "url": "https://csq1.org/waoh#open-markets",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.469Z",
+    "updated_at": "2026-08-08T15:54:15.469Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 248,
+  "fields": {
+    "name": "Advance",
+    "anchor": "advance",
+    "url": "https://csq1.org/waoh#advance",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.488Z",
+    "updated_at": "2026-08-08T15:54:15.488Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 249,
+  "fields": {
+    "name": "Business Cycle",
+    "anchor": "business-cycle",
+    "url": "https://csq1.org/waoh#business-cycle",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.515Z",
+    "updated_at": "2026-08-08T15:54:15.515Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 250,
+  "fields": {
+    "name": "Wealth",
+    "anchor": "wealth",
+    "url": "https://csq1.org/waoh#wealth",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.523Z",
+    "updated_at": "2026-08-08T15:54:15.523Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 251,
+  "fields": {
+    "name": "Homicide",
+    "anchor": "homicide",
+    "url": "https://csq1.org/waoh#homicide",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.533Z",
+    "updated_at": "2026-08-08T15:54:15.533Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 252,
+  "fields": {
+    "name": "Marxism",
+    "anchor": "marxism",
+    "url": "https://csq1.org/waoh#marxism",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.542Z",
+    "updated_at": "2026-08-08T15:54:15.542Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 253,
+  "fields": {
+    "name": "Sustainable",
+    "anchor": "sustainable",
+    "url": "https://csq1.org/waoh#sustainable",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.552Z",
+    "updated_at": "2026-08-08T15:54:15.552Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 254,
+  "fields": {
+    "name": "Immigration",
+    "anchor": "immigration",
+    "url": "https://csq1.org/waoh#immigration",
+    "category": "",
+    "stat_image": 1,
+    "cached_at": "2026-08-08T15:54:15.563Z",
+    "updated_at": "2026-08-08T16:23:06.024Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 255,
+  "fields": {
+    "name": "Propoganda",
+    "anchor": "propoganda",
+    "url": "https://csq1.org/waoh#propoganda",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.574Z",
+    "updated_at": "2026-08-08T15:54:15.574Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 256,
+  "fields": {
+    "name": "Ideology",
+    "anchor": "ideology",
+    "url": "https://csq1.org/waoh#ideology",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.585Z",
+    "updated_at": "2026-08-08T15:54:15.585Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 257,
+  "fields": {
+    "name": "Monarchies",
+    "anchor": "monarchies",
+    "url": "https://csq1.org/waoh#monarchies",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.594Z",
+    "updated_at": "2026-08-08T15:54:15.594Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 258,
+  "fields": {
+    "name": "Homelessness",
+    "anchor": "homelessness",
+    "url": "https://csq1.org/waoh#homelessness",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.602Z",
+    "updated_at": "2026-08-08T15:54:15.602Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 259,
+  "fields": {
+    "name": "Deep Fakes",
+    "anchor": "deep-fakes",
+    "url": "https://csq1.org/waoh#deep-fakes",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.619Z",
+    "updated_at": "2026-08-08T15:54:15.619Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 260,
+  "fields": {
+    "name": "Actofwar",
+    "anchor": "actofwar",
+    "url": "https://csq1.org/waoh#actofwar",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.629Z",
+    "updated_at": "2026-08-08T15:54:15.629Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 261,
+  "fields": {
+    "name": "Democracy",
+    "anchor": "democracy",
+    "url": "https://csq1.org/waoh#democracy",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.638Z",
+    "updated_at": "2026-08-08T15:54:15.638Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 262,
+  "fields": {
+    "name": "Republic",
+    "anchor": "republic",
+    "url": "https://csq1.org/waoh#republic",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.649Z",
+    "updated_at": "2026-08-08T15:54:15.649Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 263,
+  "fields": {
+    "name": "Economist",
+    "anchor": "economist",
+    "url": "https://csq1.org/waoh#economist",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.666Z",
+    "updated_at": "2026-08-08T15:54:15.666Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 264,
+  "fields": {
+    "name": "Tax Type",
+    "anchor": "tax-type",
+    "url": "https://csq1.org/waoh#tax-type",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.675Z",
+    "updated_at": "2026-08-08T15:54:15.675Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 265,
+  "fields": {
+    "name": "Agism",
+    "anchor": "agism",
+    "url": "https://csq1.org/waoh#agism",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.686Z",
+    "updated_at": "2026-08-08T15:54:15.686Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 266,
+  "fields": {
+    "name": "Movitators",
+    "anchor": "movitators",
+    "url": "https://csq1.org/waoh#movitators",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.696Z",
+    "updated_at": "2026-08-08T15:54:15.696Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 267,
+  "fields": {
+    "name": "Experts",
+    "anchor": "experts",
+    "url": "https://csq1.org/waoh#experts",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.715Z",
+    "updated_at": "2026-08-08T15:54:15.715Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 268,
+  "fields": {
+    "name": "Reporting",
+    "anchor": "Reporting",
+    "url": "https://csq1.org/waoh#Reporting",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.725Z",
+    "updated_at": "2026-08-08T15:54:15.725Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 269,
+  "fields": {
+    "name": "7030",
+    "anchor": "7030",
+    "url": "https://csq1.org/waoh#7030",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.743Z",
+    "updated_at": "2026-08-08T15:54:15.743Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 270,
+  "fields": {
+    "name": "Data Science",
+    "anchor": "Data_Science",
+    "url": "https://csq1.org/waoh#Data_Science",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.753Z",
+    "updated_at": "2026-08-08T15:54:15.753Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 271,
+  "fields": {
+    "name": "Addiction",
+    "anchor": "addiction",
+    "url": "https://csq1.org/waoh#addiction",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.763Z",
+    "updated_at": "2026-08-08T15:54:15.763Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 272,
+  "fields": {
+    "name": "Immigation",
+    "anchor": "immigation",
+    "url": "https://csq1.org/waoh#immigation",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.793Z",
+    "updated_at": "2026-08-08T15:54:15.793Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 273,
+  "fields": {
+    "name": "Siege",
+    "anchor": "siege",
+    "url": "https://csq1.org/waoh#siege",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.803Z",
+    "updated_at": "2026-08-08T15:54:15.803Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 274,
+  "fields": {
+    "name": "Happiness",
+    "anchor": "happiness",
+    "url": "https://csq1.org/waoh#happiness",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.813Z",
+    "updated_at": "2026-08-08T15:54:15.813Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 275,
+  "fields": {
+    "name": "Caregivers",
+    "anchor": "caregivers",
+    "url": "https://csq1.org/waoh#caregivers",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.822Z",
+    "updated_at": "2026-08-08T15:54:15.822Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 276,
+  "fields": {
+    "name": "Social Contract",
+    "anchor": "social-contract",
+    "url": "https://csq1.org/waoh#social-contract",
+    "category": "",
+    "stat_image": 29,
+    "cached_at": "2026-08-08T15:54:15.839Z",
+    "updated_at": "2026-08-08T16:23:06.075Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 277,
+  "fields": {
+    "name": "Globalism",
+    "anchor": "globalism",
+    "url": "https://csq1.org/waoh#globalism",
+    "category": "",
+    "stat_image": 26,
+    "cached_at": "2026-08-08T15:54:15.854Z",
+    "updated_at": "2026-08-08T16:23:05.997Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 278,
+  "fields": {
+    "name": "Prosperity",
+    "anchor": "prosperity",
+    "url": "https://csq1.org/waoh#prosperity",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.863Z",
+    "updated_at": "2026-08-08T15:54:15.863Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 279,
+  "fields": {
+    "name": "Kondratieff",
+    "anchor": "kondratieff",
+    "url": "https://csq1.org/waoh#kondratieff",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.872Z",
+    "updated_at": "2026-08-08T15:54:15.872Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 280,
+  "fields": {
+    "name": "Motivators",
+    "anchor": "motivators",
+    "url": "https://csq1.org/waoh#motivators",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.898Z",
+    "updated_at": "2026-08-08T15:54:15.898Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 281,
+  "fields": {
+    "name": "Happy Planet",
+    "anchor": "happy-planet",
+    "url": "https://csq1.org/waoh#happy-planet",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.921Z",
+    "updated_at": "2026-08-08T15:54:15.922Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 282,
+  "fields": {
+    "name": "Business Curricula",
+    "anchor": "business-curricula",
+    "url": "https://csq1.org/waoh#business-curricula",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.941Z",
+    "updated_at": "2026-08-08T15:54:15.941Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 283,
+  "fields": {
+    "name": "Labour",
+    "anchor": "labour",
+    "url": "https://csq1.org/waoh#labour",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.951Z",
+    "updated_at": "2026-08-08T15:54:15.951Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 284,
+  "fields": {
+    "name": "Depopulation",
+    "anchor": "depopulation",
+    "url": "https://csq1.org/waoh#depopulation",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.968Z",
+    "updated_at": "2026-08-08T15:54:15.968Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 285,
+  "fields": {
+    "name": "Credit",
+    "anchor": "credit",
+    "url": "https://csq1.org/waoh#credit",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:15.987Z",
+    "updated_at": "2026-08-08T15:54:15.987Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 286,
+  "fields": {
+    "name": "Austerity",
+    "anchor": "austerity",
+    "url": "https://csq1.org/waoh#austerity",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.000Z",
+    "updated_at": "2026-08-08T15:54:16.000Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 287,
+  "fields": {
+    "name": "Oath",
+    "anchor": "oath",
+    "url": "https://csq1.org/waoh#oath",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.012Z",
+    "updated_at": "2026-08-08T15:54:16.012Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 288,
+  "fields": {
+    "name": "Mature Capitalism",
+    "anchor": "mature-capitalism",
+    "url": "https://csq1.org/waoh#mature-capitalism",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.022Z",
+    "updated_at": "2026-08-08T15:54:16.022Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 289,
+  "fields": {
+    "name": "Money",
+    "anchor": "money",
+    "url": "https://csq1.org/waoh#money",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.033Z",
+    "updated_at": "2026-08-08T15:54:16.033Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 290,
+  "fields": {
+    "name": "Fuel",
+    "anchor": "fuel",
+    "url": "https://csq1.org/waoh#fuel",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.043Z",
+    "updated_at": "2026-08-08T15:54:16.043Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 291,
+  "fields": {
+    "name": "Middle Class",
+    "anchor": "middle-class",
+    "url": "https://csq1.org/waoh#middle-class",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.053Z",
+    "updated_at": "2026-08-08T15:54:16.053Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 292,
+  "fields": {
+    "name": "Dei",
+    "anchor": "dei",
+    "url": "https://csq1.org/waoh#dei",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.063Z",
+    "updated_at": "2026-08-08T15:54:16.063Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 293,
+  "fields": {
+    "name": "About",
+    "anchor": "About",
+    "url": "https://csq1.org/waoh#About",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.083Z",
+    "updated_at": "2026-08-08T15:54:16.083Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 294,
+  "fields": {
+    "name": "Scarcity",
+    "anchor": "scarcity",
+    "url": "https://csq1.org/waoh#scarcity",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.094Z",
+    "updated_at": "2026-08-08T15:54:16.094Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 295,
+  "fields": {
+    "name": "Church Burning",
+    "anchor": "church-burning",
+    "url": "https://csq1.org/waoh#church-burning",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.113Z",
+    "updated_at": "2026-08-08T15:54:16.113Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 296,
+  "fields": {
+    "name": "Debt Forgiveness",
+    "anchor": "debt-forgiveness",
+    "url": "https://csq1.org/waoh#debt-forgiveness",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.123Z",
+    "updated_at": "2026-08-08T15:54:16.123Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 297,
+  "fields": {
+    "name": "Esg",
+    "anchor": "ESG",
+    "url": "https://csq1.org/waoh#ESG",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.132Z",
+    "updated_at": "2026-08-08T15:54:16.132Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 298,
+  "fields": {
+    "name": "Racism",
+    "anchor": "racism",
+    "url": "https://csq1.org/waoh#racism",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.141Z",
+    "updated_at": "2026-08-08T15:54:16.141Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 299,
+  "fields": {
+    "name": "Indexes",
+    "anchor": "Indexes",
+    "url": "https://csq1.org/waoh#Indexes",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.150Z",
+    "updated_at": "2026-08-08T15:54:16.150Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 300,
+  "fields": {
+    "name": "Te",
+    "anchor": "TE",
+    "url": "https://csq1.org/waoh#TE",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.160Z",
+    "updated_at": "2026-08-08T15:54:16.160Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 301,
+  "fields": {
+    "name": "Depopulation Theory",
+    "anchor": "depopulation-theory",
+    "url": "https://csq1.org/waoh#depopulation-theory",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.170Z",
+    "updated_at": "2026-08-08T15:54:16.170Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 302,
+  "fields": {
+    "name": "Desertification",
+    "anchor": "desertification",
+    "url": "https://csq1.org/waoh#desertification",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.182Z",
+    "updated_at": "2026-08-08T15:54:16.182Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 303,
+  "fields": {
+    "name": "Patents",
+    "anchor": "patents",
+    "url": "https://csq1.org/waoh#patents",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.193Z",
+    "updated_at": "2026-08-08T15:54:16.194Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 304,
+  "fields": {
+    "name": "Inheritance",
+    "anchor": "inheritance",
+    "url": "https://csq1.org/waoh#inheritance",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.214Z",
+    "updated_at": "2026-08-08T15:54:16.214Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 305,
+  "fields": {
+    "name": "Temperature",
+    "anchor": "temperature",
+    "url": "https://csq1.org/waoh#temperature",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.232Z",
+    "updated_at": "2026-08-08T15:54:16.232Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 306,
+  "fields": {
+    "name": "Expert",
+    "anchor": "expert",
+    "url": "https://csq1.org/waoh#expert",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.241Z",
+    "updated_at": "2026-08-08T15:54:16.241Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 307,
+  "fields": {
+    "name": "Economics",
+    "anchor": "economics",
+    "url": "https://csq1.org/waoh#economics",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.251Z",
+    "updated_at": "2026-08-08T15:54:16.251Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 308,
+  "fields": {
+    "name": "Overreaching",
+    "anchor": "overreaching",
+    "url": "https://csq1.org/waoh#overreaching",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.262Z",
+    "updated_at": "2026-08-08T15:54:16.262Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 309,
+  "fields": {
+    "name": "Tax",
+    "anchor": "tax",
+    "url": "https://csq1.org/waoh#tax",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.274Z",
+    "updated_at": "2026-08-08T15:54:16.274Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 310,
+  "fields": {
+    "name": "Motivators",
+    "anchor": "Motivators",
+    "url": "https://csq1.org/waoh#Motivators",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.283Z",
+    "updated_at": "2026-08-08T15:54:16.283Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 311,
+  "fields": {
+    "name": "Tp Tools Js",
+    "anchor": "tp-tools-js",
+    "url": "https://csq1.org/waoh#tp-tools-js",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.294Z",
+    "updated_at": "2026-08-08T15:54:16.294Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 312,
+  "fields": {
+    "name": "Rules",
+    "anchor": "rules",
+    "url": "https://csq1.org/waoh#rules",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.304Z",
+    "updated_at": "2026-08-08T15:54:16.304Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 313,
+  "fields": {
+    "name": "Google Recaptcha Js",
+    "anchor": "google-recaptcha-js",
+    "url": "https://csq1.org/waoh#google-recaptcha-js",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.314Z",
+    "updated_at": "2026-08-08T15:54:16.314Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 314,
+  "fields": {
+    "name": "Wpcf7 Recaptcha Js Before",
+    "anchor": "wpcf7-recaptcha-js-before",
+    "url": "https://csq1.org/waoh#wpcf7-recaptcha-js-before",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.326Z",
+    "updated_at": "2026-08-08T15:54:16.326Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 315,
+  "fields": {
+    "name": "Tmpl Variation Template",
+    "anchor": "tmpl-variation-template",
+    "url": "https://csq1.org/waoh#tmpl-variation-template",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.338Z",
+    "updated_at": "2026-08-08T15:54:16.338Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 316,
+  "fields": {
+    "name": "Tab Data Science",
+    "anchor": "tab-Data_Science",
+    "url": "https://csq1.org/waoh#tab-Data_Science",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.347Z",
+    "updated_at": "2026-08-08T15:54:16.347Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 317,
+  "fields": {
+    "name": "Fdr",
+    "anchor": "fdr",
+    "url": "https://csq1.org/waoh#fdr",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.356Z",
+    "updated_at": "2026-08-08T15:54:16.356Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 318,
+  "fields": {
+    "name": "Bbp Swap No Js Body Class",
+    "anchor": "bbp-swap-no-js-body-class",
+    "url": "https://csq1.org/waoh#bbp-swap-no-js-body-class",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.365Z",
+    "updated_at": "2026-08-08T15:54:16.365Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 319,
+  "fields": {
+    "name": "Categories 4",
+    "anchor": "categories-4",
+    "url": "https://csq1.org/waoh#categories-4",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.410Z",
+    "updated_at": "2026-08-08T15:54:16.410Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 320,
+  "fields": {
+    "name": "Dutch",
+    "anchor": "Dutch",
+    "url": "https://csq1.org/waoh#Dutch",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.419Z",
+    "updated_at": "2026-08-08T15:54:16.419Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 321,
+  "fields": {
+    "name": "Tab About",
+    "anchor": "tab-About",
+    "url": "https://csq1.org/waoh#tab-About",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.431Z",
+    "updated_at": "2026-08-08T15:54:16.431Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 322,
+  "fields": {
+    "name": "Woocommerce Js Extra",
+    "anchor": "woocommerce-js-extra",
+    "url": "https://csq1.org/waoh#woocommerce-js-extra",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.440Z",
+    "updated_at": "2026-08-08T15:54:16.440Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 323,
+  "fields": {
+    "name": "French",
+    "anchor": "French",
+    "url": "https://csq1.org/waoh#French",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.449Z",
+    "updated_at": "2026-08-08T15:54:16.449Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 324,
+  "fields": {
+    "name": "Footer Sidebar 1",
+    "anchor": "footer-sidebar-1",
+    "url": "https://csq1.org/waoh#footer-sidebar-1",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.458Z",
+    "updated_at": "2026-08-08T15:54:16.458Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 325,
+  "fields": {
+    "name": "Caqqaa",
+    "anchor": "CAQQAA",
+    "url": "https://csq1.org/waoh#CAQQAA",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.474Z",
+    "updated_at": "2026-08-08T15:54:16.474Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 326,
+  "fields": {
+    "name": "Ageism",
+    "anchor": "ageism",
+    "url": "https://csq1.org/waoh#ageism",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.491Z",
+    "updated_at": "2026-08-08T15:54:16.491Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 327,
+  "fields": {
+    "name": "Arabic",
+    "anchor": "Arabic",
+    "url": "https://csq1.org/waoh#Arabic",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.500Z",
+    "updated_at": "2026-08-08T15:54:16.500Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 328,
+  "fields": {
+    "name": "Js Composer Front Css",
+    "anchor": "js_composer_front-css",
+    "url": "https://csq1.org/waoh#js_composer_front-css",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.523Z",
+    "updated_at": "2026-08-08T15:54:16.523Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 329,
+  "fields": {
+    "name": "Socket",
+    "anchor": "socket",
+    "url": "https://csq1.org/waoh#socket",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.541Z",
+    "updated_at": "2026-08-08T15:54:16.542Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 330,
+  "fields": {
+    "name": "English",
+    "anchor": "English",
+    "url": "https://csq1.org/waoh#English",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.553Z",
+    "updated_at": "2026-08-08T15:54:16.553Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 331,
+  "fields": {
+    "name": "Flags",
+    "anchor": "flags",
+    "url": "https://csq1.org/waoh#flags",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.562Z",
+    "updated_at": "2026-08-08T15:54:16.562Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 332,
+  "fields": {
+    "name": "Cauqaq",
+    "anchor": "CAUQAQ",
+    "url": "https://csq1.org/waoh#CAUQAQ",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.572Z",
+    "updated_at": "2026-08-08T15:54:16.572Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 333,
+  "fields": {
+    "name": "Sq Login Security",
+    "anchor": "sq-login-security",
+    "url": "https://csq1.org/waoh#sq-login-security",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.580Z",
+    "updated_at": "2026-08-08T15:54:16.580Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 334,
+  "fields": {
+    "name": "Cancel",
+    "anchor": "Cancel",
+    "url": "https://csq1.org/waoh#Cancel",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.590Z",
+    "updated_at": "2026-08-08T15:54:16.590Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 335,
+  "fields": {
+    "name": "Role",
+    "anchor": "role",
+    "url": "https://csq1.org/waoh#role",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.599Z",
+    "updated_at": "2026-08-08T15:54:16.599Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 336,
+  "fields": {
+    "name": "Swedish",
+    "anchor": "Swedish",
+    "url": "https://csq1.org/waoh#Swedish",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.608Z",
+    "updated_at": "2026-08-08T15:54:16.608Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 337,
+  "fields": {
+    "name": "Tab Fdrs",
+    "anchor": "tab-FDRs",
+    "url": "https://csq1.org/waoh#tab-FDRs",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.637Z",
+    "updated_at": "2026-08-08T15:54:16.638Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 338,
+  "fields": {
+    "name": "Wpcf7 Recaptcha Js",
+    "anchor": "wpcf7-recaptcha-js",
+    "url": "https://csq1.org/waoh#wpcf7-recaptcha-js",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.646Z",
+    "updated_at": "2026-08-08T15:54:16.646Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 339,
+  "fields": {
+    "name": "Index",
+    "anchor": "index",
+    "url": "https://csq1.org/waoh#index",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.656Z",
+    "updated_at": "2026-08-08T15:54:16.656Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 340,
+  "fields": {
+    "name": "Footer Sidebar 2",
+    "anchor": "footer-sidebar-2",
+    "url": "https://csq1.org/waoh#footer-sidebar-2",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.666Z",
+    "updated_at": "2026-08-08T15:54:16.666Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 341,
+  "fields": {
+    "name": "Woocommerce Inline Inline Css",
+    "anchor": "woocommerce-inline-inline-css",
+    "url": "https://csq1.org/waoh#woocommerce-inline-inline-css",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.676Z",
+    "updated_at": "2026-08-08T15:54:16.676Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 342,
+  "fields": {
+    "name": "Tp Tools Js Before",
+    "anchor": "tp-tools-js-before",
+    "url": "https://csq1.org/waoh#tp-tools-js-before",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.704Z",
+    "updated_at": "2026-08-08T15:54:16.704Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 343,
+  "fields": {
+    "name": "Camqag",
+    "anchor": "CAMQAg",
+    "url": "https://csq1.org/waoh#CAMQAg",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.726Z",
+    "updated_at": "2026-08-08T15:54:16.726Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 344,
+  "fields": {
+    "name": "Russian",
+    "anchor": "Russian",
+    "url": "https://csq1.org/waoh#Russian",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.737Z",
+    "updated_at": "2026-08-08T15:54:16.737Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 345,
+  "fields": {
+    "name": "Tab Reporting",
+    "anchor": "tab-Reporting",
+    "url": "https://csq1.org/waoh#tab-Reporting",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.748Z",
+    "updated_at": "2026-08-08T15:54:16.748Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 346,
+  "fields": {
+    "name": "Esg Plugin Settings Css",
+    "anchor": "esg-plugin-settings-css",
+    "url": "https://csq1.org/waoh#esg-plugin-settings-css",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.758Z",
+    "updated_at": "2026-08-08T15:54:16.758Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 347,
+  "fields": {
+    "name": "Menu Kleonavmenu",
+    "anchor": "menu-kleonavmenu",
+    "url": "https://csq1.org/waoh#menu-kleonavmenu",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.768Z",
+    "updated_at": "2026-08-08T15:54:16.768Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 348,
+  "fields": {
+    "name": "Immmigrant Election Fraud",
+    "anchor": "immmigrant-election-fraud",
+    "url": "https://csq1.org/waoh#immmigrant-election-fraud",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.779Z",
+    "updated_at": "2026-08-08T15:54:16.779Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 349,
+  "fields": {
+    "name": "Italian",
+    "anchor": "Italian",
+    "url": "https://csq1.org/waoh#Italian",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.790Z",
+    "updated_at": "2026-08-08T15:54:16.790Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 350,
+  "fields": {
+    "name": "Cauqaa",
+    "anchor": "CAUQAA",
+    "url": "https://csq1.org/waoh#CAUQAA",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.811Z",
+    "updated_at": "2026-08-08T15:54:16.811Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 351,
+  "fields": {
+    "name": "Tmpl Unavailable Variation Template",
+    "anchor": "tmpl-unavailable-variation-template",
+    "url": "https://csq1.org/waoh#tmpl-unavailable-variation-template",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.831Z",
+    "updated_at": "2026-08-08T15:54:16.831Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 352,
+  "fields": {
+    "name": "Mixed",
+    "anchor": "mixed",
+    "url": "https://csq1.org/waoh#mixed",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.848Z",
+    "updated_at": "2026-08-08T15:54:16.848Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 353,
+  "fields": {
+    "name": "German",
+    "anchor": "German",
+    "url": "https://csq1.org/waoh#German",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.866Z",
+    "updated_at": "2026-08-08T15:54:16.866Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 354,
+  "fields": {
+    "name": "Swv Js",
+    "anchor": "swv-js",
+    "url": "https://csq1.org/waoh#swv-js",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.877Z",
+    "updated_at": "2026-08-08T15:54:16.877Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 355,
+  "fields": {
+    "name": "Spanish",
+    "anchor": "Spanish",
+    "url": "https://csq1.org/waoh#Spanish",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.888Z",
+    "updated_at": "2026-08-08T15:54:16.889Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 356,
+  "fields": {
+    "name": "Footer Sidebar 4",
+    "anchor": "footer-sidebar-4",
+    "url": "https://csq1.org/waoh#footer-sidebar-4",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.898Z",
+    "updated_at": "2026-08-08T15:54:16.898Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 357,
+  "fields": {
+    "name": "Camqaq",
+    "anchor": "CAMQAQ",
+    "url": "https://csq1.org/waoh#CAMQAQ",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.907Z",
+    "updated_at": "2026-08-08T15:54:16.907Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 358,
+  "fields": {
+    "name": "Portuguese",
+    "anchor": "Portuguese",
+    "url": "https://csq1.org/waoh#Portuguese",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.923Z",
+    "updated_at": "2026-08-08T15:54:16.923Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 359,
+  "fields": {
+    "name": "Google Language Translator Css",
+    "anchor": "google-language-translator-css",
+    "url": "https://csq1.org/waoh#google-language-translator-css",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.933Z",
+    "updated_at": "2026-08-08T15:54:16.933Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 360,
+  "fields": {
+    "name": "Bibles",
+    "anchor": "bibles",
+    "url": "https://csq1.org/waoh#bibles",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.941Z",
+    "updated_at": "2026-08-08T15:54:16.941Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 361,
+  "fields": {
+    "name": "Camqaa",
+    "anchor": "CAMQAA",
+    "url": "https://csq1.org/waoh#CAMQAA",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.949Z",
+    "updated_at": "2026-08-08T15:54:16.949Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 362,
+  "fields": {
+    "name": "Tab Bibles",
+    "anchor": "tab-Bibles",
+    "url": "https://csq1.org/waoh#tab-Bibles",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:16.977Z",
+    "updated_at": "2026-08-08T15:54:16.977Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 363,
+  "fields": {
+    "name": "Woocommerce Js",
+    "anchor": "woocommerce-js",
+    "url": "https://csq1.org/waoh#woocommerce-js",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.003Z",
+    "updated_at": "2026-08-08T15:54:17.003Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 364,
+  "fields": {
+    "name": "Caiqaa",
+    "anchor": "CAIQAA",
+    "url": "https://csq1.org/waoh#CAIQAA",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.012Z",
+    "updated_at": "2026-08-08T15:54:17.012Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 365,
+  "fields": {
+    "name": "Cauqaw",
+    "anchor": "CAUQAw",
+    "url": "https://csq1.org/waoh#CAUQAw",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.027Z",
+    "updated_at": "2026-08-08T15:54:17.027Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 366,
+  "fields": {
+    "name": "Newsletter Css",
+    "anchor": "newsletter-css",
+    "url": "https://csq1.org/waoh#newsletter-css",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.036Z",
+    "updated_at": "2026-08-08T15:54:17.036Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 367,
+  "fields": {
+    "name": "Teachers",
+    "anchor": "teachers",
+    "url": "https://csq1.org/waoh#teachers",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.045Z",
+    "updated_at": "2026-08-08T15:54:17.045Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 368,
+  "fields": {
+    "name": "Tab Right Plans",
+    "anchor": "tab-Right_Plans",
+    "url": "https://csq1.org/waoh#tab-Right_Plans",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.054Z",
+    "updated_at": "2026-08-08T15:54:17.054Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 369,
+  "fields": {
+    "name": "Ppcp Pwc Payment Method Css",
+    "anchor": "ppcp-pwc-payment-method-css",
+    "url": "https://csq1.org/waoh#ppcp-pwc-payment-method-css",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.071Z",
+    "updated_at": "2026-08-08T15:54:17.071Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 370,
+  "fields": {
+    "name": "Old Fashioned",
+    "anchor": "old-fashioned",
+    "url": "https://csq1.org/waoh#old-fashioned",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.080Z",
+    "updated_at": "2026-08-08T15:54:17.080Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 371,
+  "fields": {
+    "name": "Tab Indexes",
+    "anchor": "tab-Indexes",
+    "url": "https://csq1.org/waoh#tab-Indexes",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.090Z",
+    "updated_at": "2026-08-08T15:54:17.090Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 372,
+  "fields": {
+    "name": "Caeqaa",
+    "anchor": "CAEQAA",
+    "url": "https://csq1.org/waoh#CAEQAA",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.100Z",
+    "updated_at": "2026-08-08T15:54:17.100Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 373,
+  "fields": {
+    "name": "Footer Sidebar 3",
+    "anchor": "footer-sidebar-3",
+    "url": "https://csq1.org/waoh#footer-sidebar-3",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.110Z",
+    "updated_at": "2026-08-08T15:54:17.110Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 374,
+  "fields": {
+    "name": "Methods",
+    "anchor": "Methods",
+    "url": "https://csq1.org/waoh#Methods",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.120Z",
+    "updated_at": "2026-08-08T15:54:17.120Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 375,
+  "fields": {
+    "name": "Cauqag",
+    "anchor": "CAUQAg",
+    "url": "https://csq1.org/waoh#CAUQAg",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.130Z",
+    "updated_at": "2026-08-08T15:54:17.130Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 376,
+  "fields": {
+    "name": "Post 8123",
+    "anchor": "post-8123",
+    "url": "https://csq1.org/waoh#post-8123",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.154Z",
+    "updated_at": "2026-08-08T15:54:17.154Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 377,
+  "fields": {
+    "name": "Tab Sdgs",
+    "anchor": "tab-SDGs",
+    "url": "https://csq1.org/waoh#tab-SDGs",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.181Z",
+    "updated_at": "2026-08-08T15:54:17.181Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 378,
+  "fields": {
+    "name": "Teen Pregnancy",
+    "anchor": "teen-pregnancy",
+    "url": "https://csq1.org/waoh#teen-pregnancy",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.197Z",
+    "updated_at": "2026-08-08T15:54:17.197Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 379,
+  "fields": {
+    "name": "Sortable",
+    "anchor": "sortable",
+    "url": "https://csq1.org/waoh#sortable",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.207Z",
+    "updated_at": "2026-08-08T15:54:17.207Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 380,
+  "fields": {
+    "name": "Webpage Citation Pill",
+    "anchor": "webpage-citation-pill",
+    "url": "https://csq1.org/waoh#webpage-citation-pill",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.217Z",
+    "updated_at": "2026-08-08T15:54:17.217Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 381,
+  "fields": {
+    "name": "Newsletter Js",
+    "anchor": "newsletter-js",
+    "url": "https://csq1.org/waoh#newsletter-js",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.227Z",
+    "updated_at": "2026-08-08T15:54:17.227Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 382,
+  "fields": {
+    "name": "Waypoints Js",
+    "anchor": "waypoints-js",
+    "url": "https://csq1.org/waoh#waypoints-js",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.238Z",
+    "updated_at": "2026-08-08T15:54:17.238Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 383,
+  "fields": {
+    "name": "Newsletter Js Extra",
+    "anchor": "newsletter-js-extra",
+    "url": "https://csq1.org/waoh#newsletter-js-extra",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.248Z",
+    "updated_at": "2026-08-08T15:54:17.248Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 384,
+  "fields": {
+    "name": "Opportunism",
+    "anchor": "opportunism",
+    "url": "https://csq1.org/waoh#opportunism",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.257Z",
+    "updated_at": "2026-08-08T15:54:17.257Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 385,
+  "fields": {
+    "name": "Tab Industry",
+    "anchor": "tab-Industry",
+    "url": "https://csq1.org/waoh#tab-Industry",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.267Z",
+    "updated_at": "2026-08-08T15:54:17.267Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 386,
+  "fields": {
+    "name": "Tp Fontello Css",
+    "anchor": "tp-fontello-css",
+    "url": "https://csq1.org/waoh#tp-fontello-css",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.276Z",
+    "updated_at": "2026-08-08T15:54:17.276Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 387,
+  "fields": {
+    "name": "Camqaw",
+    "anchor": "CAMQAw",
+    "url": "https://csq1.org/waoh#CAMQAw",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.287Z",
+    "updated_at": "2026-08-08T15:54:17.287Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 388,
+  "fields": {
+    "name": "Glbok",
+    "anchor": "glbok",
+    "url": "https://csq1.org/waoh#glbok",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.308Z",
+    "updated_at": "2026-08-08T15:54:17.308Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 389,
+  "fields": {
+    "name": "Cayqaa",
+    "anchor": "CAYQAA",
+    "url": "https://csq1.org/waoh#CAYQAA",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.325Z",
+    "updated_at": "2026-08-08T15:54:17.325Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 390,
+  "fields": {
+    "name": "Security Pass",
+    "anchor": "security-pass",
+    "url": "https://csq1.org/waoh#security-pass",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.334Z",
+    "updated_at": "2026-08-08T15:54:17.334Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 391,
+  "fields": {
+    "name": "Wpb Composer Front Js Js",
+    "anchor": "wpb_composer_front_js-js",
+    "url": "https://csq1.org/waoh#wpb_composer_front_js-js",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.344Z",
+    "updated_at": "2026-08-08T15:54:17.344Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 392,
+  "fields": {
+    "name": "Propaganda",
+    "anchor": "propaganda",
+    "url": "https://csq1.org/waoh#propaganda",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.354Z",
+    "updated_at": "2026-08-08T15:54:17.354Z"
+  }
+},
+{
+  "model": "party_pages.waohanchor",
+  "pk": 393,
+  "fields": {
+    "name": "Tab Motivators",
+    "anchor": "tab-Motivators",
+    "url": "https://csq1.org/waoh#tab-Motivators",
+    "category": "",
+    "stat_image": null,
+    "cached_at": "2026-08-08T15:54:17.372Z",
+    "updated_at": "2026-08-08T15:54:17.372Z"
+  }
+}
+]

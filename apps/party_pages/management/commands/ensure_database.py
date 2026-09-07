@@ -9,6 +9,8 @@ On a fresh/empty database it:
      French TranslationCache from translations.json)
   2. Seeds Riding rows from ridings.json (only if the table is empty)
   3. Seeds Certification rows from certifications.json (only if empty)
+     (StatImage/WAOHAnchor for /stats are seeded by migration
+     party_pages.0007 — they ship as one fixture because of FK links)
   4. Creates an admin superuser if DJANGO_SUPERUSER_USERNAME/PASSWORD
      are set in the environment and no superuser exists yet
 

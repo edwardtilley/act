@@ -12,6 +12,11 @@ DEBUG = os.getenv('DEBUG', 'True').lower() in ('true', '1', 'yes')
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,testserver,ubuntu,192.168.2.26,100.85.0.8,actcanadian.com,www.actcanadian.com,.up.railway.app').split(',')
 
+# Railway (and Cloudflare in front of it) terminate TLS and proxy plain HTTP
+# to gunicorn — trust their X-Forwarded-Proto header so Django knows requests
+# are really HTTPS (fixes http:// URLs in sitemap.xml, redirects, CSRF, etc.)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -19,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'django.contrib.sitemaps',
     'apps.api',
     'apps.authentication',
