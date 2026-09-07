@@ -15,12 +15,16 @@ def _seed(apps, model_name, fixture, key_field):
     if not os.path.exists(path):
         return
     Model = apps.get_model('party_pages', model_name)
+    # Fixtures are exported from the LATEST model; on a fresh DB this migration
+    # runs before later schema migrations, so drop any fields that don't exist
+    # yet at this point in history (e.g. candidate_status, added in 0008).
+    valid_fields = {f.name for f in Model._meta.get_fields()}
     with open(path) as fh:
         entries = json.load(fh)
     for entry in entries:
         if entry.get('model') != f'party_pages.{model_name.lower()}':
             continue
-        fields = entry['fields']
+        fields = {k: v for k, v in entry['fields'].items() if k in valid_fields}
         if not fields.get(key_field):
             continue
         Model.objects.update_or_create(**{key_field: fields[key_field]}, defaults=fields)
