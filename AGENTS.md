@@ -281,6 +281,12 @@ boot) builds a minimal working database from nothing:
 (`ensure_database` steps 2–4 are belt-and-braces on top of the migration
 seeding; they are also what makes the command useful when run manually.)
 
+**Gotcha:** fixtures are exported from the *latest* model, but the seed
+migrations run against *historical* models. The seeders therefore drop any
+fixture fields that don't exist yet in their migration's schema — always keep
+that field-filtering in place, or a fresh-DB deploy crashes with
+`FieldError` when a remodelled fixture meets an older migration.
+
 **Deploy wiring:** `nixpacks.toml` sets the Railway start command to
 `python manage.py ensure_database && gunicorn core.wsgi ...` — so push to
 GitHub and the whole chain (build → ensure_database → serve) is automatic.
