@@ -1,0 +1,261 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% load humanize %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block content %}
+<main class="main-content position-relative">
+<div class="container-fluid py-4">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+    <div>
+      <h4 class="fw-bold mb-1"><i class="fas fa-user-tie text-advance-red me-2"></i>{% tr "Candidates" %}</h4>
+      <p class="text-muted text-sm mb-0">{% tr "Manage Advance Party candidates — assignment to ridings, acceptance dates, and status." %}</p>
+    </div>
+    <button class="btn btn-advance-red btn-sm" data-bs-toggle="modal" data-bs-target="#createCandidateModal" {% if not open_ridings %}disabled title="{% tr 'No open ridings without a candidate' %}"{% endif %}>
+      <i class="fas fa-plus me-1"></i>{% tr "Add Candidate" %}</button>
+  </div>
+
+  {% if saved %}
+  <div class="alert alert-success py-2"><i class="fas fa-check-circle me-2"></i>{% tr "Candidate saved successfully." %}</div>
+  {% endif %}
+
+  <div class="card shadow-sm rounded-4 border-0">
+    <div class="card-body px-0 pt-0 pb-2">
+      <div class="table-responsive p-0">
+        <table id="adminCandidatesTable" class="table align-items-center mb-0 display" style="width:100%;">
+          <thead>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Candidate" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Riding" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Accepted" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Accepted By" %}</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Status" %}</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Elected" %}</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Actions" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in ridings %}
+            <tr id="candidate-row-{{ r.id }}">
+              <td>
+                <div class="d-flex align-items-center">
+                  {% if r.candidate_photo %}
+                  <img src="{{ r.candidate_photo.url }}" alt="{{ r.candidate_name }}" class="avatar avatar-sm rounded-circle me-2" style="object-fit:cover;">
+                  {% else %}
+                  <div class="avatar avatar-sm rounded-circle me-2 bg-gradient-secondary d-flex align-items-center justify-content-center text-white text-xs">
+                    {{ r.candidate_name|slice:":2"|upper }}
+                  </div>
+                  {% endif %}
+                  <div>
+                    {% if r.candidate_url %}
+                    <a href="/candidates/{{ r.candidate_url }}" class="text-xs font-weight-bold mb-0 d-block">{{ r.candidate_name }}</a>
+                    {% else %}
+                    <p class="text-xs font-weight-bold mb-0">{{ r.candidate_name }}</p>
+                    {% endif %}
+                    {% if r.candidate_certification %}
+                    <span class="badge badge-sm bg-gradient-info">{{ r.get_candidate_certification_display }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </td>
+              <td>
+                <p class="text-xs font-weight-bold mb-0">{{ r.riding_name }}</p>
+                <p class="text-xs text-muted mb-0">{{ r.province }}</p>
+              </td>
+              <td>
+                {% if r.candidate_accepted_at %}
+                <p class="text-xs mb-0" title="{{ r.candidate_accepted_at|date:'F j, Y' }}">{{ r.candidate_accepted_at|naturalday }}</p>
+                {% else %}
+                <p class="text-xs text-muted mb-0">{% tr "—" %}</p>
+                {% endif %}
+              </td>
+              <td><p class="text-xs mb-0">{{ r.candidate_accepted_by|default:"—" }}</p></td>
+              <td class="text-center">
+                <form method="post" action="/admin-candidates/status/{{ r.id }}/" class="d-inline">
+                  {% csrf_token %}
+                  <select name="candidate_status" class="form-select form-select-sm d-inline-block" style="width:auto;font-size:0.75rem;padding:0.25rem 1.5rem 0.25rem 0.5rem;" onchange="this.form.submit()">
+                    {% for value, label in status_choices %}
+                    <option value="{{ value }}" {% if r.candidate_status == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                  </select>
+                </form>
+              </td>
+              <td class="text-center">
+                <span class="badge badge-sm {% if r.candidate_elected %}bg-gradient-success{% else %}bg-gradient-secondary{% endif %}">{{ r.candidate_elected|yesno:"Yes,No" }}</span>
+              </td>
+              <td class="text-center">
+                <button class="btn btn-sm btn-outline-dark mb-0 py-1 px-2" data-bs-toggle="modal" data-bs-target="#detailCandidateModal{{ r.id }}" title="Details">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-primary mb-0 py-1 px-2" data-bs-toggle="modal" data-bs-target="#editCandidateModal{{ r.id }}" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger mb-0 py-1 px-2" data-bs-toggle="modal" data-bs-target="#deleteCandidateModal{{ r.id }}" title="Remove candidate">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="7" class="text-center text-sm py-4">
+                <i class="fas fa-user-tie text-muted" style="font-size:32px;"></i>
+                <p class="mt-2">{% tr "No candidates yet. Use Add Candidate to assign one to an open riding." %}</p>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+</div>
+
+<!-- Create modal -->
+<div class="modal fade" id="createCandidateModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="post" action="/admin-candidates/create/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h6><i class="fas fa-plus-circle text-advance-red me-2"></i>{% tr "Add Candidate" %}</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">{% tr "Riding" %} <span class="text-danger">*</span></label>
+            <select class="form-select" name="riding_id" required>
+              {% for r in open_ridings %}
+              <option value="{{ r.id }}">{{ r.riding_name }} ({{ r.province }})</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% include "pages/_candidate_form_fields.html" %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">{% tr "Cancel" %}</button>
+          <button type="submit" class="btn btn-advance-red btn-sm"><i class="fas fa-save me-1"></i>{% tr "Save" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% for r in ridings %}
+<!-- Edit modal -->
+<div class="modal fade" id="editCandidateModal{{ r.id }}" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="post" action="/admin-candidates/update/{{ r.id }}/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h6><i class="fas fa-edit text-advance-red me-2"></i>{% tr "Edit" %}: {{ r.candidate_name }} — {{ r.riding_name }}</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          {% include "pages/_candidate_form_fields.html" %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">{% tr "Cancel" %}</button>
+          <button type="submit" class="btn btn-advance-red btn-sm"><i class="fas fa-save me-1"></i>{% tr "Save Changes" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Detail modal -->
+<div class="modal fade" id="detailCandidateModal{{ r.id }}" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6><i class="fas fa-id-card text-advance-red me-2"></i>{{ r.candidate_name }}</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          {% if r.candidate_photo %}
+          <img src="{{ r.candidate_photo.url }}" alt="{{ r.candidate_name }}" class="rounded-circle shadow" style="width:96px;height:96px;object-fit:cover;">
+          {% else %}
+          <div class="avatar avatar-xl rounded-circle bg-gradient-secondary d-inline-flex align-items-center justify-content-center text-white" style="width:96px;height:96px;font-size:2rem;">
+            {{ r.candidate_name|slice:":2"|upper }}
+          </div>
+          {% endif %}
+          <h6 class="mt-2 mb-0">{{ r.candidate_name }}</h6>
+          <p class="text-xs text-muted mb-0">{{ r.riding_name }} — {{ r.province }}</p>
+        </div>
+        <ul class="list-group list-group-flush text-sm">
+          <li class="list-group-item d-flex justify-content-between px-0">
+            <span class="text-muted">{% tr "Status" %}</span>
+            <span class="badge badge-sm {% if r.candidate_status == 'current' %}bg-gradient-success{% elif r.candidate_status == 'applied' %}bg-gradient-info{% elif r.candidate_status == 'prior' %}bg-gradient-secondary{% else %}bg-gradient-secondary{% endif %}">{{ r.get_candidate_status_display }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between px-0">
+            <span class="text-muted">{% tr "Elected" %}</span>
+            <span>{{ r.candidate_elected|yesno:"Yes,No" }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between px-0">
+            <span class="text-muted">{% tr "Accepted" %}</span>
+            <span>{% if r.candidate_accepted_at %}{{ r.candidate_accepted_at|naturalday }} ({{ r.candidate_accepted_at|date:"Y-m-d" }}){% else %}—{% endif %}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between px-0">
+            <span class="text-muted">{% tr "Accepted By" %}</span>
+            <span>{{ r.candidate_accepted_by|default:"—" }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between px-0">
+            <span class="text-muted">{% tr "Certification" %}</span>
+            <span>{{ r.get_candidate_certification_display|default:"—" }}</span>
+          </li>
+        </ul>
+        {% if r.candidate_bio %}
+        <p class="text-sm text-muted mt-3 mb-0">{{ r.candidate_bio }}</p>
+        {% endif %}
+      </div>
+      <div class="modal-footer">
+        {% if r.candidate_url %}
+        <a href="/candidates/{{ r.candidate_url }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-external-link-alt me-1"></i>{% tr "Public Profile" %}</a>
+        {% endif %}
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">{% tr "Close" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete modal -->
+<div class="modal fade" id="deleteCandidateModal{{ r.id }}" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <form method="post" action="/admin-candidates/delete/{{ r.id }}/">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h6 class="text-danger"><i class="fas fa-exclamation-triangle me-2"></i>{% tr "Remove Candidate" %}</h6>
+        </div>
+        <div class="modal-body">
+          <p class="text-sm">{% tr "Remove" %} <strong>{{ r.candidate_name }}</strong> {% tr "as candidate for" %} <strong>{{ r.riding_name }}</strong>{% tr "?" %}</p>
+          <p class="text-xs text-muted">{% tr "The riding stays in the directory and becomes Open again." %}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">{% tr "Cancel" %}</button>
+          <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt me-1"></i>{% tr "Remove" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</main>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+  $('#adminCandidatesTable').DataTable({
+    responsive: true,
+    order: [[0, 'asc']],
+    pageLength: 25,
+    language: { search: 'Filter:', lengthMenu: 'Show _MENU_ per page', zeroRecords: 'No candidates found.' },
+    columnDefs: [{ targets: [4, 6], orderable: false, searchable: false }]
+  });
+});
+</script>
+{% endblock extra_js %}

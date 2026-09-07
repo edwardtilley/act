@@ -110,6 +110,7 @@ Google Maps / Leaflet.js, Font Awesome 6.
 | `/candidate-join`             | `pages/candidate_join.html`| Candidate sign-up form                           |
 | `/member-join`                | `pages/member_join.html`   | Party member sign-up form                        |
 | `/certifications`             | `pages/certifications.html`| CS Certifications info + application             |
+| `/admin-candidates`           | `pages/admin_candidates.html`| Candidate CRUD (DataTables, status pull-down, detail/edit/delete modals) |
 | `/api/health`                 | JSON response              | Health check endpoint                            |
 | `/auth/login`                 | auth template              | Login page                                       |
 | `/auth/register`              | auth template              | Registration page                                |
@@ -131,10 +132,15 @@ Google Maps / Leaflet.js, Font Awesome 6.
 - `mpp_party` (CharField — nullable)
 - `latitude` (FloatField, nullable)
 - `longitude` (FloatField, nullable)
-- `candidate_name` (CharField — Advance Party candidate, nullable)
+- `candidate_name` (CharField — Advance Party candidate, nullable; **blank when no candidate is running** — never seed placeholder names)
 - `candidate_photo` (ImageField, nullable)
 - `candidate_bio` (TextField, nullable)
-- `candidate_url` (SlugField, unique)
+- `candidate_url` (SlugField, unique — natural key for fixture seeding; kept even without a candidate)
+- `candidate_status` (current | prior | applied, blank default)
+- `candidate_accepted_at` (DateField, nullable — shown humanized via django.contrib.humanize)
+- `candidate_accepted_by` (CharField — accepting official)
+- `candidate_elected` (BooleanField)
+- Managed via the `/admin-candidates` CRUD page (Admin sidebar); migration 0008 purged the fabricated seed candidates
 
 ### JoinApplication (party_pages/models.py)
 - `id`, `application_type` (candidate|member)
@@ -263,6 +269,9 @@ boot) builds a minimal working database from nothing:
    - `party_pages.0006` seeds Riding (`ridings.json`) and Certification
      (`certifications.json`) — upserts by natural key, so re-runs and
      existing rows are safe
+   - `party_pages.0007` seeds StatImage + WAOHAnchor (`stats.json`) for
+     the /stats page — single fixture, StatImages re-linked first because
+     anchors hold FKs to them
 2. Seeds **Riding** rows from `ridings.json` (only if the table is empty)
 3. Seeds **Certification** rows from `certifications.json` (only if empty)
 4. Creates an admin superuser if `DJANGO_SUPERUSER_USERNAME` /
@@ -282,6 +291,7 @@ No dashboard configuration needed beyond env vars.
 ```bash
 python manage.py dumpdata party_pages.Riding --indent 2 > ridings.json
 python manage.py dumpdata party_pages.Certification --indent 2 > certifications.json
+python manage.py dumpdata party_pages.StatImage party_pages.WAOHAnchor --indent 2 > stats.json
 python manage.py dumpdata translator.TranslationCache > translations.json
 ```
 

@@ -79,6 +79,95 @@ def policies(request):
     return render(request, 'pages/policies.html')
 
 
+def _parse_date(value):
+    if not value:
+        return None
+    from datetime import datetime
+    try:
+        return datetime.strptime(value.strip(), '%Y-%m-%d').date()
+    except ValueError:
+        return None
+
+
+def _apply_candidate_form(riding, request):
+    from django.utils.text import slugify
+    riding.candidate_name = request.POST.get('candidate_name', '').strip() or None
+    riding.candidate_bio = request.POST.get('candidate_bio', '')
+    riding.candidate_certification = request.POST.get('candidate_certification', '')
+    riding.candidate_status = request.POST.get('candidate_status', '')
+    riding.candidate_accepted_at = _parse_date(request.POST.get('candidate_accepted_at'))
+    riding.candidate_accepted_by = request.POST.get('candidate_accepted_by', '').strip()
+    riding.candidate_elected = 'candidate_elected' in request.POST
+    if request.FILES.get('candidate_photo'):
+        riding.candidate_photo = request.FILES['candidate_photo']
+    if riding.candidate_name and not riding.candidate_url:
+        riding.candidate_url = slugify(f"{riding.candidate_name}-{riding.riding_name}")
+    riding.save()
+
+
+@login_required
+def admin_candidates(request):
+    ridings = (Riding.objects
+               .exclude(candidate_name__isnull=True)
+               .exclude(candidate_name='')
+               .order_by('province', 'riding_name'))
+    open_ridings = (Riding.objects
+                    .filter(candidate_name__isnull=True) | Riding.objects.filter(candidate_name=''))
+    context = {
+        'segment': 'admin_candidates',
+        'ridings': ridings,
+        'open_ridings': open_ridings.order_by('province', 'riding_name'),
+        'status_choices': Riding.CANDIDATE_STATUS_CHOICES,
+        'saved': request.GET.get('saved'),
+    }
+    return render(request, 'pages/admin_candidates.html', context)
+
+
+@login_required
+def admin_candidate_create(request):
+    if request.method == 'POST':
+        riding = get_object_or_404(Riding, pk=request.POST.get('riding_id'))
+        _apply_candidate_form(riding, request)
+        return redirect('/admin-candidates?saved=new')
+    return redirect('/admin-candidates')
+
+
+@login_required
+def admin_candidate_update(request, riding_id):
+    riding = get_object_or_404(Riding, pk=riding_id)
+    if request.method == 'POST':
+        _apply_candidate_form(riding, request)
+        return redirect('/admin-candidates?saved=%s' % riding_id)
+    return redirect('/admin-candidates')
+
+
+@login_required
+def admin_candidate_status(request, riding_id):
+    riding = get_object_or_404(Riding, pk=riding_id)
+    if request.method == 'POST':
+        status = request.POST.get('candidate_status', '')
+        if status in dict(Riding.CANDIDATE_STATUS_CHOICES):
+            riding.candidate_status = status
+            riding.save(update_fields=['candidate_status'])
+    return redirect('/admin-candidates')
+
+
+@login_required
+def admin_candidate_delete(request, riding_id):
+    riding = get_object_or_404(Riding, pk=riding_id)
+    if request.method == 'POST':
+        riding.candidate_name = None
+        riding.candidate_photo = None
+        riding.candidate_bio = ''
+        riding.candidate_certification = ''
+        riding.candidate_status = ''
+        riding.candidate_accepted_at = None
+        riding.candidate_accepted_by = ''
+        riding.candidate_elected = False
+        riding.save()
+    return redirect('/admin-candidates')
+
+
 def candidate_join(request):
     if request.method == 'POST':
         JoinApplication.objects.create(

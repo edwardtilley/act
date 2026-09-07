@@ -22,6 +22,27 @@ class Riding(models.Model):
         blank=True, default='',
         help_text="Certification level from the official's dashboard profile"
     )
+    CANDIDATE_STATUS_CHOICES = [
+        ('', '—'),
+        ('current', 'Current'),
+        ('prior', 'Prior'),
+        ('applied', 'Applied'),
+    ]
+    candidate_status = models.CharField(
+        max_length=20, choices=CANDIDATE_STATUS_CHOICES, blank=True, default='',
+        help_text="Standing of the candidate named on this riding"
+    )
+    candidate_accepted_at = models.DateField(
+        blank=True, null=True,
+        help_text="Date the candidate was accepted/confirmed"
+    )
+    candidate_accepted_by = models.CharField(
+        max_length=255, blank=True, default='',
+        help_text="Name of the official who accepted the candidate"
+    )
+    candidate_elected = models.BooleanField(
+        default=False, help_text="Candidate was elected in this riding"
+    )
     director_name = models.CharField(max_length=255, blank=True)
     director_photo = models.ImageField(upload_to='candidates/', blank=True, null=True)
     director_role = models.CharField(max_length=120, blank=True, default='Riding Director')

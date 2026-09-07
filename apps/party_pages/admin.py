@@ -13,7 +13,8 @@ class RidingAdmin(admin.ModelAdmin):
         ('Elected Officials', {'fields': ('mp_name', 'mp_party', 'mpp_name', 'mpp_party')}),
         ('Advance Candidate', {'fields': (
             'candidate_name', 'candidate_photo', 'candidate_certification',
-            'candidate_bio', 'candidate_url')}),
+            'candidate_status', 'candidate_accepted_at', 'candidate_accepted_by',
+            'candidate_elected', 'candidate_bio', 'candidate_url')}),
         ('Riding Office', {'fields': (
             'director_name', 'director_photo', 'director_role',
             'treasurer_name', 'treasurer_photo', 'treasurer_role')}),
