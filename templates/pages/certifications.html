@@ -7,6 +7,8 @@
   .cert-card { border: none; border-radius: 16px; overflow: hidden; transition: all 0.3s ease; }
   .cert-card:hover { transform: translateY(-5px); box-shadow: 0 15px 50px rgba(0,85,204,0.12); }
   .cert-badge-lg { width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, #CC0000, #0055CC); display: flex; align-items: center; justify-content: center; color: white; font-size: 2.2rem; margin: 0 auto; }
+  .pcs-section { background: linear-gradient(135deg, #CC0000 0%, #990000 100%); padding: 60px 0; }
+  .pcs-section, .pcs-section h2, .pcs-section h5, .pcs-section p, .pcs-section li { color: #fff; }
 </style>
 {% endblock extrastyle %}
 {% block body_class %}{% tr "bg-gray-100" %}{% endblock body_class %}
@@ -16,11 +18,11 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-8">
-        <h1 class="display-4 fw-bold"><i class="fas fa-certificate me-2"></i>{% tr "CS Certifications" %}</h1>
-        <p class="lead fs-5 opacity-90">{% tr "Advance your career with our professional certification programs in cybersecurity, data science, and public policy." %}</p>
+        <h1 class="display-4 fw-bold"><i class="fas fa-certificate me-2"></i>{% tr "CSQ Certifications and Training" %}</h1>
+        <p class="lead fs-5 opacity-90">{% tr "Evidence-based Civic Science and Sustainability certifications for Government, Business, and Political Organizations." %}</p>
       </div>
       <div class="col-lg-4 text-lg-end">
-        <a href="https://csq1.org/certifications" target="_blank" class="btn btn-light btn-lg rounded-pill px-4 shadow">
+        <a href="https://csq1.org/certification" target="_blank" class="btn btn-light btn-lg rounded-pill px-4 shadow">
           <i class="fas fa-external-link-alt me-2"></i>{% tr "Visit CSQ1.org" %}</a>
       </div>
     </div>
@@ -28,18 +30,22 @@
 </section>
 
 <div class="container py-5">
-  
+
+  <!-- Training Courses -->
+  <h3 class="fw-bold mb-1"><i class="fas fa-graduation-cap text-advance-blue me-2"></i>{% tr "Training & Certification" %}</h3>
+  <p class="text-muted mb-4">{% tr "CSQ's evidence-based Civic Science and Civic Leadership certification enters you into the" %}<a href="https://csq1.org/introduction-to-the-mems-double-your-economy-challenge-for-governments/" target="_blank">{% tr "MEMS Double Your Economy Challenge" %}</a>.</p>
+
   {% if certifications %}
   <div class="row g-4 mb-5">
     {% for cert in certifications %}
     <div class="col-md-4">
       <div class="card cert-card h-100 shadow-sm">
         <div class="card-body text-center p-4">
-          <div class="cert-badge-lg mb-3"><i class="fas fa-shield-alt"></i></div>
+          <div class="cert-badge-lg mb-3"><i class="fas fa-university"></i></div>
           <h3 class="fw-bold mb-2">{{ cert.title }}</h3>
           {% if cert.duration %}<span class="badge bg-advance-blue mb-2">{{ cert.duration }}</span>{% endif %}
           {% if cert.level %}<span class="badge bg-advance-red mb-2">{{ cert.level }}</span>{% endif %}
-          <p class="text-muted small mt-2">{{ cert.description|truncatewords:30 }}</p>
+          <p class="text-muted small mt-2">{{ cert.description }}</p>
           <button class="btn btn-outline-advance-blue rounded-pill px-4 mt-2" onclick="document.getElementById('applyModal').classList.add('show');document.getElementById('applyModal').style.display='block';document.getElementById('cert_id').value='{{ cert.id }}';document.getElementById('modalCertTitle').textContent='{{ cert.title }}';">
             <i class="fas fa-graduation-cap me-2"></i>{% tr "Apply Now" %}</button>
         </div>
@@ -47,75 +53,107 @@
     </div>
     {% endfor %}
   </div>
-  {% else %}
-  <!-- Demo certifications when database is empty -->
+  {% endif %}
+
+  <!-- Certification Paths -->
   <div class="row g-4 mb-5">
     <div class="col-md-4">
-      <div class="card cert-card h-100 shadow-sm">
-        <div class="card-body text-center p-4">
-          <div class="cert-badge-lg mb-3"><i class="fas fa-shield-alt"></i></div>
-          <h3 class="fw-bold mb-2">{% tr "Cybersecurity Fundamentals" %}</h3>
-          <span class="badge bg-advance-blue mb-2">{% tr "12 Weeks" %}</span>
-          <span class="badge bg-advance-red mb-2">{% tr "Beginner" %}</span>
-          <p class="text-muted small mt-2">{% tr "Learn network security, threat detection, and incident response. Hands-on labs with real-world scenarios." %}</p>
-          <button class="btn btn-outline-primary rounded-pill px-4 mt-2" onclick="document.getElementById('applyModal').classList.add('show');document.getElementById('applyModal').style.display='block';document.getElementById('cert_id').value='1';document.getElementById('modalCertTitle').textContent='Cybersecurity Fundamentals';">
-            <i class="fas fa-graduation-cap me-2"></i>{% tr "Apply Now" %}</button>
-        </div>
+      <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+        <h5 class="fw-bold mb-2"><i class="fas fa-leaf text-advance-green me-2"></i>{% tr "Sustainability" %}</h5>
+        <p class="text-sm text-muted mb-2">{% tr "Sustainability certification in evidence-based Civic Science and National Leadership is granted upon completion of:" %}</p>
+        <ul class="text-sm mb-0">
+          <li>{% tr "Introduction to Civic Science and Leadership" %}</li>
+          <li>{% tr "MEMS 101" %} — {% tr "Optional and Recommended" %}</li>
+        </ul>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card cert-card h-100 shadow-sm">
-        <div class="card-body text-center p-4">
-          <div class="cert-badge-lg mb-3"><i class="fas fa-database"></i></div>
-          <h3 class="fw-bold mb-2">{% tr "Data Science & Analytics" %}</h3>
-          <span class="badge bg-advance-blue mb-2">{% tr "16 Weeks" %}</span>
-          <span class="badge bg-advance-green mb-2">{% tr "Intermediate" %}</span>
-          <p class="text-muted small mt-2">{% tr "Master Python, SQL, machine learning, and data visualization. Capstone project included." %}</p>
-          <button class="btn btn-outline-primary rounded-pill px-4 mt-2" onclick="document.getElementById('applyModal').classList.add('show');document.getElementById('applyModal').style.display='block';document.getElementById('cert_id').value='2';document.getElementById('modalCertTitle').textContent='Data Science & Analytics';">
-            <i class="fas fa-graduation-cap me-2"></i>{% tr "Apply Now" %}</button>
-        </div>
+      <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+        <h5 class="fw-bold mb-2"><i class="fas fa-flask text-advance-blue me-2"></i>{% tr "Civic Scientist & Financial Civic Scientist" %}</h5>
+        <p class="text-sm text-muted mb-2">{% tr "Civic Leadership faculty certification requires satisfactory completion of:" %}</p>
+        <ul class="text-sm mb-0">
+          <li>{% tr "Introduction to Civic Science and Leadership" %}</li>
+          <li>{% tr "MEMS 101" %}</li>
+          <li>{% tr "MEMS 102" %}</li>
+        </ul>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card cert-card h-100 shadow-sm">
-        <div class="card-body text-center p-4">
-          <div class="cert-badge-lg mb-3"><i class="fas fa-landmark"></i></div>
-          <h3 class="fw-bold mb-2">{% tr "Public Policy & Governance" %}</h3>
-          <span class="badge bg-advance-blue mb-2">{% tr "8 Weeks" %}</span>
-          <span class="badge bg-advance-green mb-2">{% tr "Intermediate" %}</span>
-          <p class="text-muted small mt-2">{% tr "Understand policy development, stakeholder engagement, and government processes in Canada." %}</p>
-          <button class="btn btn-outline-primary rounded-pill px-4 mt-2" onclick="document.getElementById('applyModal').classList.add('show');document.getElementById('applyModal').style.display='block';document.getElementById('cert_id').value='3';document.getElementById('modalCertTitle').textContent='Public Policy & Governance';">
-            <i class="fas fa-graduation-cap me-2"></i>{% tr "Apply Now" %}</button>
-        </div>
+      <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+        <h5 class="fw-bold mb-2"><i class="fas fa-rocket text-advance-red me-2"></i>{% tr "Advanced Civic Scientist" %}</h5>
+        <p class="text-sm text-muted mb-2">{% tr "Civic Leadership EXPERT, INSTRUCTOR, and DEVELOPER certification courses are coming soon." %}</p>
+        <ul class="text-sm mb-0">
+          <li>{% tr "MEMS 201 – Expert" %}</li>
+          <li>{% tr "MEMS 202 – Instructor" %}</li>
+          <li>{% tr "MEMS 301 – Developer" %}</li>
+        </ul>
       </div>
     </div>
   </div>
-  {% endif %}
 
-  <!-- Info Section -->
-  <div class="row g-4 mt-2">
+  <!-- Course Rules / Cost / Duration -->
+  <div class="row g-4 mb-5">
     <div class="col-md-6">
       <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-        <h4 class="fw-bold mb-3"><i class="fas fa-info-circle text-advance-blue me-2"></i>{% tr "About CS Certifications" %}</h4>
-        <p>{% tr "The Advance Party's CS Certification program, in partnership with" %}<a href="https://csq1.org/certifications" target="_blank">{% tr "CSQ1.org" %}</a>{% tr ", provides professional training in high-demand fields. Our programs are designed to prepare Canadians for the jobs of tomorrow." %}</p>
-        <ul class="list-unstyled">
-          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Industry-recognized certifications" %}</li>
-          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Self-paced online learning" %}</li>
-          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Expert instructors with real-world experience" %}</li>
-          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Job placement assistance for graduates" %}</li>
+        <h4 class="fw-bold mb-3"><i class="fas fa-info-circle text-advance-blue me-2"></i>{% tr "Course Duration & Cost" %}</h4>
+        <ul class="list-unstyled text-sm mb-0">
+          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Certification is split into 6 to 10 weekly classes with a 60-70 minute duration, plus homework assignments." %}</li>
+          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Certification lasts for two years, at which time graduates attend another accreditation session to stay current with the rapid advancements in evidence-based Civics and National Leadership." %}</li>
+          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "A 20% per-person discount applies to offices with five or more persons attending one class." %}</li>
+          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Re-testing after a failing grade is available at a 50% cost reduction." %}</li>
         </ul>
       </div>
     </div>
     <div class="col-md-6">
       <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-        <h4 class="fw-bold mb-3"><i class="fas fa-star text-advance-red me-2"></i>{% tr "Success Stories" %}</h4>
-        <div class="d-flex mb-3">
-          <div class="me-3"><img src="https://ui-avatars.com/api/?name=John+D&background=CC0000&color=fff&size=50" class="rounded-circle"></div>
-          <div><h6 class="fw-bold mb-0">{% tr "John D." %}</h6><small class="text-muted">{% tr "Cybersecurity Graduate" %}</small><p class="small mt-1">"The CS certification landed me a role at a top cybersecurity firm. Highly recommended!"</p></div>
+        <h4 class="fw-bold mb-3"><i class="fas fa-tasks text-advance-red me-2"></i>{% tr "Course Rules & Approach" %}</h4>
+        <ul class="list-unstyled text-sm mb-0">
+          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Acceptance is granted on a first-come, first-served basis; maximum class size is 20." %}</li>
+          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "A final exam score of 75% is required to pass and move on with certification." %}</li>
+          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Weekly homework assignments must be completed satisfactorily before certification is awarded." %}</li>
+          <li class="mb-2"><i class="fas fa-check-circle text-advance-green me-2"></i>{% tr "Courses are delivered in person or in Google Meet sessions; tests are time-limited to 70 minutes." %}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Professional Civic Scientist -->
+<section class="pcs-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h2 class="display-5 fw-bold mb-3">{% tr "Professional Civic Scientist (PCS)" %}</h2>
+        <p class="lead mb-3" style="font-size:1.1rem;line-height:1.7;">{% tr "Similar to a Professional Engineer, a PCS — Professional Civic Scientist — takes a vow never to harm society. Civic Scientists also risk losing their certifications due to significant evidence of misconduct and impropriety." %}</p>
+        <p class="mb-3" style="font-size:1.05rem;line-height:1.7;">{% tr "A Professional Civic Scientist designation is awarded to candidates who complete the prerequisite courses, who prove their advanced skills in data science and context resolution, who take their oath, and who sustain the highest standard of professionalism and credibility in their work and consulting duties." %}</p>
+        <p class="mb-0" style="font-size:1.05rem;line-height:1.7;">{% tr "Graduates who complete their training can transform investment and double economies; they can guarantee education and guard against harmful indoctrination. Civic Scientists turn around collapse, and build human advance in strong nations reliably." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Endorsements -->
+<div class="container py-5">
+  <div class="card border-0 shadow-sm rounded-4 p-4">
+    <h4 class="fw-bold mb-3"><i class="fas fa-award text-advance-red me-2"></i>{% tr "Sustainability & Civic Scientist Endorsements" %}</h4>
+    <p class="text-sm text-muted mb-3">{% tr "Corporate, Government, and Political Party certifications and endorsements (not personal certifications) are available at three levels:" %}</p>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="p-3 rounded-3 h-100" style="background:#f8f0e8;border:1px solid #d9b38c;">
+          <h6 class="fw-bold mb-1"><i class="fas fa-medal me-1" style="color:#b08050;"></i>{% tr "Bronze" %}</h6>
+          <p class="text-sm text-muted mb-0">{% tr "Certification or endorsement awarded as a snapshot in time; expires after two years." %}</p>
         </div>
-        <div class="d-flex">
-          <div class="me-3"><img src="https://ui-avatars.com/api/?name=Sarah+K&background=0055CC&color=fff&size=50" class="rounded-circle"></div>
-          <div><h6 class="fw-bold mb-0">{% tr "Sarah K." %}</h6><small class="text-muted">{% tr "Data Science Graduate" %}</small><p class="small mt-1">"Transformed my career. The hands-on projects were invaluable."</p></div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-3 rounded-3 h-100" style="background:#f0f2f5;border:1px solid #c0c4cc;">
+          <h6 class="fw-bold mb-1"><i class="fas fa-medal me-1" style="color:#8a9099;"></i>{% tr "Silver" %}</h6>
+          <p class="text-sm text-muted mb-0">{% tr "Monitored — looks for policy mistakes being corrected on an ongoing basis." %}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-3 rounded-3 h-100" style="background:#fdf7e0;border:1px solid #e3cf7a;">
+          <h6 class="fw-bold mb-1"><i class="fas fa-medal me-1" style="color:#b89b22;"></i>{% tr "Gold" %}</h6>
+          <p class="text-sm text-muted mb-0">{% tr "Monitors and ensures renewing certification yearly, so that sustainability isn't simply promised and then abandoned." %}</p>
         </div>
       </div>
     </div>

@@ -3,10 +3,10 @@
   "model": "party_pages.certification",
   "pk": 1,
   "fields": {
-    "title": "Cybersecurity Fundamentals",
-    "description": "Learn network security, threat detection, and incident response. Hands-on labs with real-world scenarios.",
-    "duration": "12 Weeks",
-    "level": "Beginner",
+    "title": "Introduction to Civic Science and Leadership",
+    "description": "CSQ Training & Certification. The foundation course in evidence-based Civic Science: Transition Economics, constitutions, Bills of Rights, sustainable policy, and national leadership. Certification is split into 6 to 10 weekly classes with a 60-70 minute duration, plus homework assignments.",
+    "duration": "6-10 Weekly Classes",
+    "level": "Foundation",
     "active": true
   }
 },
@@ -14,9 +14,9 @@
   "model": "party_pages.certification",
   "pk": 2,
   "fields": {
-    "title": "Data Science & Analytics",
-    "description": "Master Python, SQL, machine learning, and data visualization. Capstone project included.",
-    "duration": "16 Weeks",
+    "title": "MEMS 101",
+    "description": "CSQ Training & Certification. Model Economy * Model Society — the data-science core of the MEMS Double Your Economy Challenge. Learn to build and prove economic and social policy with evidence, not ideology.",
+    "duration": "6-10 Weekly Classes",
     "level": "Intermediate",
     "active": true
   }
@@ -25,10 +25,10 @@
   "model": "party_pages.certification",
   "pk": 3,
   "fields": {
-    "title": "Public Policy & Governance",
-    "description": "Understand policy development, stakeholder engagement, and government processes in Canada.",
-    "duration": "8 Weeks",
-    "level": "Intermediate",
+    "title": "MEMS 102",
+    "description": "CSQ Training & Certification. Advanced MEMS modelling for government and finance. Completes the Civic Scientist certification track and enters you into the MEMS Double Your Economy Challenge.",
+    "duration": "6-10 Weekly Classes",
+    "level": "Advanced",
     "active": true
   }
 }
