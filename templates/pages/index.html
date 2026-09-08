@@ -42,7 +42,30 @@
   .problem-item .icon { font-size: 2rem; margin-bottom: 1rem; color: rgba(255,255,255,0.9); }
   .problem-item h4 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
   .problem-item p { font-size: 0.95rem; opacity: 0.75; margin: 0; }
-  @media (max-width: 640px) { .problem-grid { grid-template-columns: 1fr; } }
+  .problem-thumb { width: 90px; height: 90px; border-radius: 12px; object-fit: cover; cursor: pointer; float: right; margin: 0 0 0.75rem 1rem; border: 2px solid rgba(204,0,0,0.35); box-shadow: 0 6px 18px rgba(0,0,0,0.2); transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; position: relative; z-index: 2; }
+  .problem-thumb:hover { transform: scale(1.06); border-color: #CC0000; box-shadow: 0 10px 26px rgba(204,0,0,0.3); }
+  .problem-item .icon { margin-bottom: 0.75rem; }
+  /* Card deck — top image on top, more cards fanned beneath */
+  .thumb-deck { float: right; position: relative; width: 90px; height: 96px; margin: 0 0 0.75rem 1rem; cursor: pointer; }
+  .thumb-deck .deck-card { position: absolute; top: 0; left: 0; width: 90px; height: 90px; border-radius: 12px; object-fit: cover; border: 2px solid rgba(204,0,0,0.35); box-shadow: 0 6px 16px rgba(0,0,0,0.22); transition: transform 0.2s ease, border-color 0.2s ease; }
+  .thumb-deck .deck-card.c1 { z-index: 3; }
+  .thumb-deck .deck-card.c2 { top: 3px; left: 4px; z-index: 2; transform: rotate(-4deg); }
+  .thumb-deck .deck-card.c3 { top: 6px; left: 8px; z-index: 1; transform: rotate(-8deg); }
+  .thumb-deck:hover .deck-card.c1 { transform: scale(1.04); border-color: #CC0000; }
+  .thumb-deck:hover .deck-card.c2 { transform: rotate(-4deg) translate(-3px, -3px); }
+  .thumb-deck:hover .deck-card.c3 { transform: rotate(-8deg) translate(-3px, -3px); }
+  .thumb-deck .deck-count { position: absolute; bottom: -2px; right: -2px; z-index: 4; background: #CC0000; color: #fff; font-size: 0.62rem; font-weight: 700; border-radius: 20px; padding: 1px 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+  /* Accordion thumbnail selector */
+  .thumb-accordion { float: right; clear: both; width: 100%; max-width: 90px; margin: 0 0 0.75rem; position: relative; z-index: 3; }
+  .thumb-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; background: transparent; border: 1px dashed rgba(204,0,0,0.4); color: #1A1A1A; font-size: 0.7rem; font-weight: 600; border-radius: 8px; padding: 4px 8px; cursor: pointer; }
+  .thumb-toggle:hover { background: rgba(204,0,0,0.08); border-color: #CC0000; }
+  .thumb-toggle .chev { transition: transform 0.25s ease; }
+  .thumb-accordion.open .thumb-toggle .chev { transform: rotate(180deg); }
+  .thumb-thumbs { display: none; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 6px; }
+  .thumb-accordion.open .thumb-thumbs { display: grid; }
+  .thumb-thumbs img { width: 30px; height: 30px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 1px solid rgba(204,0,0,0.35); transition: transform 0.15s ease; position: relative; z-index: 4; }
+  .thumb-thumbs img:hover { transform: scale(1.12); border-color: #CC0000; }
+  @media (max-width: 640px) { .problem-grid { grid-template-columns: 1fr; } .problem-thumb { float: none; margin: 0 0 0.75rem; } .thumb-deck { float: none; margin: 0 0 0.75rem; } .thumb-accordion { float: none; max-width: none; } }
 
   .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
   .pillar-card { background: #fff; border-radius: 24px; padding: 3rem 2rem; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04); transition: transform 0.3s ease; will-change: transform; }
@@ -410,16 +433,49 @@
       <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
         <div class="icon" style="color:#CC0000;"><i class="fas fa-users"></i></div>
         <h4 style="color:#1A1A1A;">{% tr "Election Fraud" %}</h4>
+        <div class="thumb-deck" title="{% tr 'Click Here' %}" data-gallery-index="0">
+          <img src="{% static 'assets/img/political-campaign-funding.jpg' %}" alt="{% tr 'Election Fraud' %}" class="deck-card c1" data-gallery-index="0" data-gallery-title="{% tr 'Election Fraud' %}">
+          <img src="{% static 'assets/img/immigration-1946-2024.jpg' %}" alt="{% tr 'Election Fraud — Immigration' %}" class="deck-card c2" data-gallery-index="1" data-gallery-title="{% tr 'Election Fraud — Immigration' %}">
+          <img src="{% static 'assets/img/Advance-10yrs.jpg' %}" alt="{% tr 'Election Fraud — Advance' %}" class="deck-card c3" data-gallery-index="2" data-gallery-title="{% tr 'Election Fraud — Advance' %}">
+          <span class="deck-count">3</span>
+        </div>
+        <div class="thumb-accordion">
+          <button type="button" class="thumb-toggle" onclick="this.parentNode.classList.toggle('open')">
+            <span>{% tr "View 3 images" %}</span><i class="fas fa-chevron-down chev"></i>
+          </button>
+          <div class="thumb-thumbs">
+            <img src="{% static 'assets/img/political-campaign-funding.jpg' %}" alt="{% tr 'Election Fraud' %}" data-gallery-index="0" data-gallery-title="{% tr 'Election Fraud' %}">
+            <img src="{% static 'assets/img/immigration-1946-2024.jpg' %}" alt="{% tr 'Election Fraud — Immigration' %}" data-gallery-index="1" data-gallery-title="{% tr 'Election Fraud — Immigration' %}">
+            <img src="{% static 'assets/img/Advance-10yrs.jpg' %}" alt="{% tr 'Election Fraud — Advance' %}" data-gallery-index="2" data-gallery-title="{% tr 'Election Fraud — Advance' %}">
+          </div>
+        </div>
         <p style="color:#1A1A1A;">{% tr "An army of 6.6 million low-compatibility election fraud immigrants, with laws changed to the shortest naturalization in any high-income nation, supported in our highest electoral seat swing ridings of ON, QC, and BC spells high treason by CC 46.1. 22,000 immigration consultancies ensure our criminal legislature are guaranteed to never lose an election while protecting treason with hate laws." %}</p>
       </div>
       <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
         <div class="icon" style="color:#CC0000;"><i class="fas fa-skull"></i></div>
         <h4 style="color:#1A1A1A;">{% tr "Depopulation & Genocide" %}</h4>
+        <div class="thumb-deck" title="{% tr 'Click Here' %}" data-gallery-index="3">
+          <img src="{% static 'assets/img/Immigration-Fertility.jpg' %}" alt="{% tr 'Depopulation & Genocide' %}" class="deck-card c1" data-gallery-index="3" data-gallery-title="{% tr 'Depopulation & Genocide' %}">
+          <img src="{% static 'assets/img/depopulation.jpg' %}" alt="{% tr 'Depopulation — Population Loss' %}" class="deck-card c2" data-gallery-index="4" data-gallery-title="{% tr 'Depopulation — Population Loss' %}">
+          <img src="{% static 'assets/img/National-Fertility-CDN.jpg' %}" alt="{% tr 'Depopulation — National Fertility' %}" class="deck-card c3" data-gallery-index="5" data-gallery-title="{% tr 'Depopulation — National Fertility' %}">
+          <span class="deck-count">3</span>
+        </div>
+        <div class="thumb-accordion">
+          <button type="button" class="thumb-toggle" onclick="this.parentNode.classList.toggle('open')">
+            <span>{% tr "View 3 images" %}</span><i class="fas fa-chevron-down chev"></i>
+          </button>
+          <div class="thumb-thumbs">
+            <img src="{% static 'assets/img/Immigration-Fertility.jpg' %}" alt="{% tr 'Depopulation & Genocide' %}" data-gallery-index="3" data-gallery-title="{% tr 'Depopulation & Genocide' %}">
+            <img src="{% static 'assets/img/depopulation.jpg' %}" alt="{% tr 'Depopulation — Population Loss' %}" data-gallery-index="4" data-gallery-title="{% tr 'Depopulation — Population Loss' %}">
+            <img src="{% static 'assets/img/National-Fertility-CDN.jpg' %}" alt="{% tr 'Depopulation — National Fertility' %}" data-gallery-index="5" data-gallery-title="{% tr 'Depopulation — National Fertility' %}">
+          </div>
+        </div>
         <p style="color:#1A1A1A;">{% tr "980,000 Canadians lost annually — an entire generation. 2% depopulation per year (WWII-Europe levels). We've lost 20% of our 2015 population, with 300 abortions per day and the highest suicide rate in the world. Wars are measured by depopulation; and depopulation is guaranteed by equality laws - in 131 nations. Canada's Business Corporation Act is an Act of War and High Treason by CC 46(1), that Western media never explains." %}</p>
       </div>
       <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
         <div class="icon" style="color:#CC0000;"><i class="fas fa-chart-line"></i></div>
         <h4 style="color:#1A1A1A;">{% tr "Economic Collapse" %}</h4>
+        <img src="{% static 'assets/img/collapse.jpg' %}" alt="Economic Collapse" class="problem-thumb" title="{% tr 'Click Here' %}" data-gallery-index="6" data-gallery-title="{% tr 'Economic Collapse' %}">
         <p style="color:#1A1A1A;">{% tr "$4 Billion lost daily unreported. 1930s production growth levels. 1990s salaries. Lowest GDP per Capita in G20. World's largest housing bubble. 138th in suicide. Double income traps destroy families, our population, and Canada's future. Doubled Welfare roles, Doubled Homelessness, Food Banks run off their feet, with substandard food quality and housing." %}</p>
       </div>
       <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
@@ -765,6 +821,28 @@
   </div>
 </section>
 
+<!-- ════════ IMAGE GALLERY SLIDESHOW MODAL (arrow-key nav) ════════ -->
+<div class="modal fade" id="indexGalleryModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content bg-dark text-white border-0">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold" id="galleryModalTitle"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <img id="galleryModalImage" src="" alt="" class="img-fluid w-100" style="max-height:80vh;object-fit:contain;background:#000;">
+      </div>
+      <div class="modal-footer border-0 d-flex justify-content-between align-items-center">
+        <span class="text-xs text-white-50" id="galleryModalCounter"></span>
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3" onclick="galleryPrev()"><i class="fas fa-chevron-left me-1"></i>{% tr "Previous" %}</button>
+          <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3" onclick="galleryNext()"><i class="fas fa-chevron-right me-1"></i>{% tr "Next" %}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}
 
 {% block extra_js %}
@@ -984,6 +1062,72 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     el.addEventListener('mouseleave', function() { el.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)'; });
   });
+});
+
+/* ─── IMAGE GALLERY SLIDESHOW (arrow-key nav) ─── */
+// One gallery entry per unique image, in the order the thumbnails appear.
+// Every clickable gallery element exposes a data-gallery-title; we build the
+// set from those and open by src (robust against any index reordering).
+var indexGallery = [];
+var gallerySeen = {};
+document.querySelectorAll('[data-gallery-title]').forEach(function(img) {
+  var src = img.getAttribute('src');
+  if (!src || gallerySeen[src]) return;
+  gallerySeen[src] = true;
+  indexGallery.push({
+    src: src,
+    title: (img.getAttribute('data-gallery-title') || img.getAttribute('alt') || '')
+  });
+});
+
+var galleryIndex = 0;
+var galleryModalEl = document.getElementById('indexGalleryModal');
+
+function galleryShow(pos) {
+  if (!indexGallery.length) return;
+  galleryIndex = ((pos || 0) + indexGallery.length) % indexGallery.length;
+  var item = indexGallery[galleryIndex];
+  var img = document.getElementById('galleryModalImage');
+  var title = document.getElementById('galleryModalTitle');
+  var counter = document.getElementById('galleryModalCounter');
+  if (img) img.src = item.src;
+  if (title) title.textContent = item.title;
+  if (counter) counter.textContent = (galleryIndex + 1) + ' / ' + indexGallery.length;
+}
+function galleryNext() { galleryShow(galleryIndex + 1); }
+function galleryPrev() { galleryShow(galleryIndex - 1); }
+
+function openGalleryItem(el) {
+  var target = el.getAttribute('src') ? el : (el.querySelector('[data-gallery-title]') || el);
+  var src = target.getAttribute('src');
+  var pos = 0;
+  for (var i = 0; i < indexGallery.length; i++) {
+    if (indexGallery[i].src === src) { pos = i; break; }
+  }
+  galleryShow(pos);
+  new bootstrap.Modal(galleryModalEl).show();
+}
+
+// Wire top-level thumbnails (single image items + the deck container).
+document.querySelectorAll('.problem-thumb, .thumb-deck').forEach(function(el) {
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    openGalleryItem(this);
+  });
+});
+// Wire deck cards and accordion thumbnails (each opens at its own image).
+document.querySelectorAll('.deck-card, .thumb-thumbs img').forEach(function(img) {
+  img.addEventListener('click', function(e) {
+    e.stopPropagation();
+    openGalleryItem(this);
+  });
+});
+
+document.addEventListener('keydown', function(e) {
+  if (!galleryModalEl || !galleryModalEl.classList.contains('show')) return;
+  if (e.key === 'ArrowLeft') { e.preventDefault(); galleryPrev(); }
+  else if (e.key === 'ArrowRight') { e.preventDefault(); galleryNext(); }
+  else if (e.key === 'Escape') { new bootstrap.Modal(galleryModalEl).hide(); }
 });
 </script>
 {% endblock extra_js %}
