@@ -43,13 +43,22 @@ Google Maps / Leaflet.js, Font Awesome 6.
 │   │   ├── views.py
 │   │   ├── urls.py
 │   │   └── admin.py
-│   └── party_pages/              # All political-party page views
+│   ├── party_pages/              # All political-party page views
+│   │   ├── __init__.py
+│   │   ├── apps.py
+│   │   ├── models.py
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   └── admin.py
+│   └── ledger/                    # Double-entry GL + financial reports (own books)
 │       ├── __init__.py
 │       ├── apps.py
-│       ├── models.py
-│       ├── views.py
-│       ├── urls.py
-│       └── admin.py
+│       ├── models.py             # Account, JournalEntry, JournalLine
+│       ├── accounting.py         # trial balance / balance sheet / P&L / cash flow math
+│       ├── default_coa.py        # DEFAULT_CHART_OF_ACCOUNTS seed
+│       ├── views.py              # staff-only journal CRUD + report pages
+│       ├── urls.py               # /admin-financial/... (NOT /admin/ — Django's)
+│       └── migrations/
 ├── templates/
 │   ├── layouts/
 │   │   └── base.html             # Soft UI Dashboard shell
@@ -111,6 +120,11 @@ Google Maps / Leaflet.js, Font Awesome 6.
 | `/member-join`                | `pages/member_join.html`   | Party member sign-up form                        |
 | `/certifications`             | `pages/certifications.html`| CS Certifications info + application             |
 | `/admin-candidates`           | `pages/admin_candidates.html`| Candidate CRUD (DataTables, status pull-down, detail/edit/delete modals) |
+| `/admin-financial/journal-entries` | `ledger/journal_entries.html`| Double-entry journal CRUD (staff; debits=credits enforced) |
+| `/admin-financial/reports/trial-balance` | `ledger/trial_balance.html` | Trial balance as-of a date |
+| `/admin-financial/reports/balance-sheet` | `ledger/balance_sheet.html` | Assets = Liabilities + Equity as-of |
+| `/admin-financial/reports/p-and-l` | `ledger/p_and_l.html`       | Profit & Loss for a date window |
+| `/admin-financial/reports/cash-flow` | `ledger/cash_flow.html`  | Simplified indirect cash flow (Cash account 1000) |
 | `/api/health`                 | JSON response              | Health check endpoint                            |
 | `/auth/login`                 | auth template              | Login page                                       |
 | `/auth/register`              | auth template              | Registration page                                |
@@ -158,6 +172,26 @@ Google Maps / Leaflet.js, Font Awesome 6.
 - `first_name`, `last_name`, `email`, `phone`
 - `experience`, `motivation` (TextField)
 - `submitted_at` (DateTimeField)
+
+### Account / JournalEntry / JournalLine (apps/ledger/models.py)
+The store's own double-entry books (advance is one store — no per-store scoping
+field). Seeded with the default chart of accounts in `default_coa.py` (19
+accounts, codes 1000–5900) via `ledger.0001` data migration on every deploy.
+
+- **Account**: `code` (unique), `name`, `account_type` (asset|liability|equity|revenue|expense), `normal_balance` (debit|credit), `is_active`.
+- **JournalEntry**: `entry_date`, `description`, `reference`, `posted`, `posted_at`, `created_by`, `hub_committed`, `hub_pushed_at` (for hub roll-up), timestamps.
+- **JournalLine**: `journal_entry` (FK), `account` (FK), `debit`, `credit`, `memo`. Exactly one side is nonzero.
+
+Reports: `apps/ledger/accounting.py` models trial balance (net follows
+`normal_balance`), balance sheet (assets = liabilities + equity, where equity
+includes current-period net income), P&L (revenue credit−debit / expense
+debit−credit over a window), and a simplified indirect cash flow that tracks
+the Cash account `1000`. All report math excludes unposted drafts.
+
+**Hub roll-up:** posted journal entries carry `hub_committed`/`hub_pushed_at`
+so the shared hub can aggregate this store's transactions — the actual push is
+a hub-side concern (see §11; request via a hub change request, never edit the
+hub). Only staff/superusers may view or edit.
 
 ---
 

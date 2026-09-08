@@ -1,0 +1,65 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block extrastyle %}
+<style>
+  .stat-tile { border: none; border-radius: 16px; }
+</style>
+{% endblock extrastyle %}
+{% block content %}
+<main class="main-content position-relative">
+<div class="container-fluid py-4">
+  <div class="card">
+    <div class="card-header pb-0 d-flex justify-content-between align-items-center flex-wrap">
+      <div>
+        <h6 class="mb-0"><i class="fas fa-money-bill-wave text-advance-red me-2"></i>{% tr "Cash Flow" %}</h6>
+        <p class="text-sm text-muted mb-0">{% tr "Simplified indirect method — net income and cash movement on the Cash account." %}</p>
+      </div>
+      <form method="GET" class="d-flex align-items-center gap-2 flex-wrap">
+        <label class="text-xs mb-0">{% tr "From:" %}</label>
+        <input type="date" class="form-control form-control-sm" name="start_date" value="{{ start }}" style="width:140px;">
+        <label class="text-xs mb-0">{% tr "To:" %}</label>
+        <input type="date" class="form-control form-control-sm" name="end_date" value="{{ end }}" style="width:140px;">
+        <button type="submit" class="btn btn-sm btn-advance-red">{% tr "Apply" %}</button>
+        {% if start or end %}<a href="/admin-financial/reports/cash-flow" class="btn btn-sm btn-outline-secondary">{% tr "Clear" %}</a>{% endif %}
+      </form>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info text-xs mb-4">
+        <i class="fas fa-info-circle me-1"></i>
+        {% tr "This is a simplified indirect-method statement tracking the Cash account (code 1000) plus net income. It is intended for a quick operational view." %}
+      </div>
+      <div class="row g-4">
+        <div class="col-md-3">
+          <div class="card stat-tile bg-gradient-dark text-white p-4">
+            <h6 class="opacity-8 text-xxs text-uppercase mb-1">{% tr "Net Income" %}</h6>
+            <h3 class="fw-bold mb-0 {% if net_income >= 0 %}text-success{% else %}text-danger{% endif %}">${{ net_income|floatformat:2 }}</h3>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card stat-tile bg-gradient-info text-white p-4">
+            <h6 class="opacity-8 text-xxs text-uppercase mb-1">{% tr "Cash at Start" %}</h6>
+            <h3 class="fw-bold mb-0">${{ cash_start|floatformat:2 }}</h3>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card stat-tile bg-gradient-primary text-white p-4">
+            <h6 class="opacity-8 text-xxs text-uppercase mb-1">{% tr "Cash at End" %}</h6>
+            <h3 class="fw-bold mb-0">${{ cash_end|floatformat:2 }}</h3>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card stat-tile {% if net_change >= 0 %}bg-gradient-success{% else %}bg-gradient-danger{% endif %} text-white p-4">
+            <h6 class="opacity-8 text-xxs text-uppercase mb-1">{% tr "Net Change in Cash" %}</h6>
+            <h3 class="fw-bold mb-0">${{ net_change|floatformat:2 }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+</div>
+</main>
+{% endblock content %}

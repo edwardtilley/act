@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'apps.authentication',
     'apps.party_pages',
     'apps.shop',
+    'apps.ledger',
     'apps.translator',
 ]
 

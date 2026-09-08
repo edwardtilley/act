@@ -21,5 +21,6 @@ urlpatterns = [
     path('mcp/', include((mcp_patterns, 'shop_mcp'), namespace='shop_mcp')),
     path('auth/', include('apps.authentication.urls')),
     path('', include((page_patterns, 'shop_pages'), namespace='shop_pages')),
+    path('', include('apps.ledger.urls')),
     path('', include('apps.party_pages.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

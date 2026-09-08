@@ -1,0 +1,70 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block content %}
+<main class="main-content position-relative">
+<div class="container-fluid py-4">
+  <div class="card">
+    <div class="card-header pb-0 d-flex justify-content-between align-items-center flex-wrap">
+      <div>
+        <h6 class="mb-0"><i class="fas fa-scale-balanced text-advance-red me-2"></i>{% tr "Trial Balance" %}</h6>
+        <p class="text-sm text-muted mb-0">{% tr "All posted debit and credit totals per account, as of the date you select." %}</p>
+      </div>
+      <form method="GET" class="d-flex align-items-center gap-2 flex-wrap">
+        <label class="text-xs mb-0">{% tr "As of:" %}</label>
+        <input type="date" class="form-control form-control-sm" name="as_of" value="{{ as_of }}" style="width:160px;">
+        <button type="submit" class="btn btn-sm btn-advance-red">{% tr "Apply" %}</button>
+        {% if as_of %}<a href="/admin-financial/reports/trial-balance" class="btn btn-sm btn-outline-secondary">{% tr "Clear" %}</a>{% endif %}
+      </form>
+    </div>
+    <div class="card-body px-0 pt-0 pb-2">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Code" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Account" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">{% tr "Type" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end">{% tr "Debit" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end">{% tr "Credit" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end">{% tr "Net" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in rows %}
+            <tr>
+              <td><p class="text-xs font-weight-bold mb-0">{{ r.account.code }}</p></td>
+              <td><p class="text-xs mb-0">{{ r.account.name }}</p></td>
+              <td class="text-center"><span class="badge badge-sm bg-gradient-secondary">{{ r.account.get_account_type_display }}</span></td>
+              <td class="text-end"><p class="text-xs mb-0">{{ r.debit_total|floatformat:2 }}</p></td>
+              <td class="text-end"><p class="text-xs mb-0">{{ r.credit_total|floatformat:2 }}</p></td>
+              <td class="text-end"><p class="text-xs mb-0 {% if r.net >= 0 %}text-success{% else %}text-danger{% endif %}">{{ r.net|floatformat:2 }}</p></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="text-center text-sm py-4 text-muted">{% tr "No account activity." %}</td></tr>
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr class="border-top">
+              <td colspan="3" class="text-end"><strong>{% tr "Totals" %}</strong></td>
+              <td class="text-end"><strong>${{ total_debit|floatformat:2 }}</strong></td>
+              <td class="text-end"><strong>${{ total_credit|floatformat:2 }}</strong></td>
+              <td class="text-end">
+                {% if total_debit == total_credit %}
+                <span class="badge badge-sm bg-gradient-success">{% tr "Balanced" %}</span>
+                {% else %}
+                <span class="badge badge-sm bg-gradient-danger">{% tr "Out of balance" %}</span>
+                {% endif %}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+</div>
+</main>
+{% endblock content %}

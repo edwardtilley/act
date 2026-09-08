@@ -126,14 +126,14 @@
         </a>
       </li>
 <li class="nav-item">
-        <a class="nav-link {% if segment == 'financial' or segment == 'health' %}active{% endif %}" data-bs-toggle="collapse" href="#finReportsSubmenu" role="button" aria-expanded="{% if segment == 'financial' or segment == 'health' %}true{% else %}false{% endif %}" aria-controls="finReportsSubmenu">
+        <a class="nav-link {% if segment == 'financial' or segment == 'health' or segment == 'admin-financial' %}active{% endif %}" data-bs-toggle="collapse" href="#finReportsSubmenu" role="button" aria-expanded="{% if segment == 'financial' or segment == 'health' or segment == 'admin-financial' %}true{% else %}false{% endif %}" aria-controls="finReportsSubmenu">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fas fa-chart-bar text-dark"></i>
           </div>
           <span class="nav-link-text ms-1">{% tr "Financial Reports" %}</span>
           <i class="fas fa-chevron-down ms-auto text-xs opacity-7"></i>
         </a>
-        <div class="collapse {% if segment == 'financial' or segment == 'health' %}show{% endif %}" id="finReportsSubmenu">
+        <div class="collapse {% if segment == 'financial' or segment == 'health' or segment == 'admin-financial' %}show{% endif %}" id="finReportsSubmenu">
           <ul class="navbar-nav ps-3">
             <li class="nav-item">
               <a class="nav-link {% if segment == 'financial' %}active{% endif %}" href="/financial">
@@ -145,6 +145,33 @@
                 <span class="nav-link-text ms-2 text-xs"><i class="fas fa-heartbeat me-1"></i>{% tr "Service Health" %}</span>
               </a>
             </li>
+            {% if user.is_staff or user.is_superuser %}
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'admin-financial' and request.path == '/admin-financial/journal-entries' %}active{% endif %}" href="/admin-financial/journal-entries">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-book me-1"></i>{% tr "Journal Entries" %}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'admin-financial' and request.path == '/admin-financial/reports/trial-balance' %}active{% endif %}" href="/admin-financial/reports/trial-balance">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-scale-balanced me-1"></i>{% tr "Trial Balance" %}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'admin-financial' and request.path == '/admin-financial/reports/balance-sheet' %}active{% endif %}" href="/admin-financial/reports/balance-sheet">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-landmark me-1"></i>{% tr "Balance Sheet" %}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'admin-financial' and request.path == '/admin-financial/reports/p-and-l' %}active{% endif %}" href="/admin-financial/reports/p-and-l">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-chart-line me-1"></i>{% tr "Profit & Loss" %}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if segment == 'admin-financial' and request.path == '/admin-financial/reports/cash-flow' %}active{% endif %}" href="/admin-financial/reports/cash-flow">
+                <span class="nav-link-text ms-2 text-xs"><i class="fas fa-money-bill-wave me-1"></i>{% tr "Cash Flow" %}</span>
+              </a>
+            </li>
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="/mcp/financial_check" target="_blank">
                 <span class="nav-link-text ms-2 text-xs"><i class="fas fa-terminal me-1"></i>{% tr "MCP financial_check" %}</span>

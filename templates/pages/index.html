@@ -82,6 +82,8 @@
   .tilley-quote .highlight { color: #FFD700; }
   .tilley-img { border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 100%; height: auto; }
   .tilley-name { font-weight: 300; font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.7; }
+  .president-quote { border-left: 4px solid #FFC800; padding-left: 1.25rem; font-style: italic; }
+  .president-name { font-weight: 700; font-size: 1.05rem; letter-spacing: 0.05em; color: #FFC800; }
 
   .contact-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 3rem; }
   .contact-card .form-control { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; color: #fff; padding: 1rem 1.25rem; font-size: 1rem; }
@@ -89,6 +91,15 @@
   .contact-card .form-control::placeholder { color: rgba(255,255,255,0.4); }
   .contact-card label { font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; color: rgba(255,255,255,0.7); }
   .contact-card textarea.form-control { min-height: 120px; resize: vertical; }
+  .donate-box { background: linear-gradient(160deg, #1f1f1f 0%, #2b2b2b 100%); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 1.75rem 1.25rem; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .donate-box:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(204,0,0,0.25); border-color: rgba(204,0,0,0.5); }
+  .donate-icon { font-size: 3rem; line-height: 1; color: #FFC800; margin-bottom: 0.75rem; }
+  .donate-hero { display: flex; align-items: center; justify-content: center; width: 150px; height: 150px; margin-bottom: 0.75rem; }
+  .donate-amt { font-size: 1.35rem; font-weight: 800; color: #fff; line-height: 1.15; }
+  .donate-amt-gold { font-weight: 800; color: #FFC800; }
+  .donate-label { color: rgba(255,255,255,0.75); font-size: 0.9rem; margin-bottom: 0.25rem; }
+  .donate-freq { color: #FFC800; font-weight: 700; }
+  .donate-btn { margin-top: 0.75rem; }
 
   @media (max-width: 768px) { .story-section { padding: 5rem 0; } .story-nav .nav-links { display: none; } }
 
@@ -445,7 +456,7 @@
           <strong>{% tr "Advance says" %} <span style="color:#FFC800; font-size:2em; display:inline-block;">{% tr "NO" %}</span> {% tr "to" %}</strong> {% tr "INCOME TAX, the ECONOMIC TREASON of DOUBLED DEBT, DOUBLED HOMELESSNESS, DOUBLED WELFARE, HISTORIC LOW CURRENCY EXCHANGE, CLIMATE AND TRUMP DYSPHORIA, CHILD ABUSING HARMFUL INDOCTRINATIONS IN OUR SCHOOLS, AN ARMY of 6.6 MILLION LOW-COMPATIBILITY, LIBERAL-VOTING-ONLY, ELECTION FRAUD IMMIGRANTS, ACT OF WAR DEPOPULATION LAWS, THE WORLD'S LARGEST HOUSING BUBBLE, 1930s PRODUCTION GROWTH LEVELS, 1990s SALARIES, GREAT REPLACEMENT Opening Borders FOR 70 MILLION NEW IMMIGRANTS. DOUBLE INCOME TRAPS, COST OF LIVING MISMANAGEMENT, FAILING FOOD QUALITY and SHRINK-FLATION, CBC LIES & PROPAGANDA, CENSORSHIP, CHURCH BURNING, a WEF SENATE, NO WHITE MALES DIVERSITY PROGRAMS, RUNAWAY STUDENT LOADS, and SPENDING WITHOUT INVESTMENT" %}
         </p>
         <p class="tilley-quote text-white mb-0" style="font-size:clamp(0.95rem, 1.6vw, 1.3rem);">
-          {% tr "... and" %} <strong style="color:#FFC800; font-size:2em; display:inline-block;">{% tr "YES" %}</strong> {% tr "to GOOD LIVES, 100% EMPLOYMENT, FAMILY VALUES, QUALIFIED LEADERSHIP, RESPECT of HUMAN RIGHTS like Home Ownership, CIVIC SCIENCE, NATIONAL ADVANCE, and ACCOUNTABILITY for crimes against our once Great Nation!" %}
+          {% tr "... and" %} <strong style="color:#FFC800; font-size:2em; display:inline-block;">{% tr "YES" %}</strong> {% tr "to GOOD LIVES, 100% EMPLOYMENT, SINGLE INCOME FAMILIES and STRONG FAMILY VALUES, QUALIFIED LEADERSHIP, RESPECT of HUMAN RIGHTS like Home Ownership, CIVIC SCIENCE, NATIONAL ADVANCE, and ACCOUNTABILITY for crimes against our once Great Nation!" %}
         </p>
         <p class="mt-4 mb-0"><a href="/policies" class="btn btn-light btn-lg rounded-pill px-5 fw-bold shadow-sm">{% tr "Find out how. Click here" %} <i class="fas fa-arrow-right ms-2"></i></a></p>
       </div>
@@ -464,7 +475,7 @@
         <p class="story-subhead" data-animate="fade-up">{% tr "Chapter Two" %}</p>
         <h2 class="story-heading mb-4" data-animate="fade-up">{% tr "Civic Data Science — in 250 countries" %}</h2>
         <p class="story-body text-muted mb-4" data-animate="fade-up">
-          {% tr "Forget Right vs Left, Civic Science explains 100% evidence-based, context-validated realities in Country Building. Our Civic Scientist MP/MPP Candidates swear a certification oath to not harm the public, and Civic Science builds measurable good, respect, and human advance reliably." %}
+          {% tr "Left versus Right is irrelevant. " %}<a href="https://csq1.org/waoh" title="Civic Science at WAOH Public Library" target="_blank" rel="noopener" class="text-advance-red text-decoration-underline">{% tr "Civic Science" %}</a>{% tr " explains 100% evidence-based, context-validated realities in Country Building. Our Civic Scientist MP/MPP Candidates swear a certification oath to not harm the public, and Civic Science builds measurable good, respect, and human advance reliably." %}
         </p>
       </div>
     </div>
@@ -560,6 +571,66 @@
         <p class="story-body text-muted">{% tr "We have all seen what a FREE politicians system buys you —  dangerous social misleadership and national economic collapse. Canadians need to change the way they build their governments, we must insist on Civic Science Certifications, and pay $5 per week or per month, to give you a Political Party that works for you only, and does not work for corruption or a Swiss banking lobby." %}</p>
       </div>
     </div>
+
+    <div class="row g-4 justify-content-center mb-4" data-animate="fade-up">
+      <!-- Box 1 — Coffee -->
+      <div class="col-md-6 col-lg-3">
+        <div class="donate-box">
+          <div class="donate-hero">
+            <i class="fas fa-mug-hot" style="font-size:5rem;color:#FFC800;"></i>
+          </div>
+          <div>
+            <div class="donate-amt">{% tr "Buy your future for a coffee" %}</div>
+            <div class="mt-1"><span class="donate-amt-gold">{% tr "$5 / $10 one-time" %}</span></div>
+          </div>
+          <a href="https://www.paypal.com/ncp/payment/GGEPRCLJTKM3Y" target="_blank" class="btn btn-advance-red donate-btn rounded-pill px-4">
+            <i class="fas fa-mug-saucer me-1"></i>{% tr "Donate $5" %}</a>
+        </div>
+      </div>
+      <!-- Box 2 — $5 weekly/monthly -->
+      <div class="col-md-6 col-lg-3">
+        <div class="donate-box">
+          <div class="donate-hero">
+            <div class="donate-amt" style="font-size:4.5rem;color:#FFC800;">$5</div>
+          </div>
+          <div>
+            <div class="donate-amt">{% tr "Per Week / Month" %}</div>
+            <div class="donate-freq">{% tr "Weekly or Monthly" %}</div>
+          </div>
+          <a href="https://www.paypal.com/ncp/payment/GGEPRCLJTKM3Y" target="_blank" class="btn btn-advance-red donate-btn rounded-pill px-4">
+            <i class="fas fa-coffee me-1"></i>{% tr "Give $5" %}</a>
+        </div>
+      </div>
+      <!-- Box 3 — $10 weekly/monthly -->
+      <div class="col-md-6 col-lg-3">
+        <div class="donate-box">
+          <div class="donate-hero">
+            <div class="donate-amt" style="font-size:4.5rem;color:#FFC800;">$10</div>
+          </div>
+          <div>
+            <div class="donate-amt">{% tr "Per Week / Month" %}</div>
+            <div class="donate-freq">{% tr "Weekly or Monthly" %}</div>
+          </div>
+          <a href="https://www.paypal.com/ncp/payment/GGEPRCLJTKM3Y" target="_blank" class="btn btn-advance-red donate-btn rounded-pill px-4">
+            <i class="fas fa-coffee me-1"></i>{% tr "Give $10" %}</a>
+        </div>
+      </div>
+      <!-- Box 4 — Founder -->
+      <div class="col-md-6 col-lg-3">
+        <div class="donate-box">
+          <div class="donate-hero">
+            <i class="fas fa-utensils" style="font-size:5rem;color:#FFC800;"></i>
+          </div>
+          <div>
+            <div class="donate-amt">{% tr "Founder" %}</div>
+            <div class="mt-1"><span class="donate-amt-gold">{% tr "$2,500+ per plate" %}</span></div>
+          </div>
+          <a href="https://www.paypal.com/ncp/payment/GGEPRCLJTKM3Y" target="_blank" class="btn btn-advance-red donate-btn rounded-pill px-4">
+            <i class="fas fa-award me-1"></i>{% tr "Become a Founder" %}</a>
+        </div>
+      </div>
+    </div>
+
     <div class="row justify-content-center" data-animate="fade-up">
       <div class="col-lg-6">
         <div class="contact-card text-center" style="padding:1.5rem;">
@@ -573,6 +644,28 @@
           </a>
           <p class="small text-white-50 mt-2 mb-0" style="font-size:0.75rem;">{% tr "Donations are to Worthwhile Industries initially, to pay our Not-for-Profit Incorporation costs." %}</p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CHAPTER 5 — President's Message ════════ -->
+<section class="story-section tilley-section" style="padding:4rem 0;">
+  <div class="container story-section-inner" style="position:relative;z-index:2;">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5 text-center" data-animate="fade-up">
+        <img src="{% static 'assets/img/edtilley.jpg' %}" alt="Edward Tilley — President, Advance Party of Canada" class="tilley-img img-fluid" style="width:496px;max-width:100%;height:auto;border:4px solid rgba(255,255,255,0.2);">
+      </div>
+      <div class="col-lg-7" data-animate="fade-up">
+        <p class="story-subhead text-uppercase" style="letter-spacing:0.15em;color:#FFC800;">{% tr "President's Message" %}</p>
+        <h2 class="tilley-quote text-white mb-4">{% tr "Preeminent Author, Philosopher, and Canada's Founding Father of Civic Science — Edward Tilley — is President of the Advance Party of Canada." %}</h2>
+        <p class="tilley-quote text-white mb-0" style="font-size:clamp(0.95rem, 1.6vw, 1.3rem);">
+          {% tr "Edward is the Mayflower heritage, 500-year Canadian family patriarch and community leader who founded Civic Science Transition Economics, curates the world's largest Public Civics Library, is Executive Editor — Civic Science Magazine, and author to the 10 book Scientific Societies Series." %}
+        </p>
+        <blockquote class="tilley-quote text-white president-quote mt-4 mb-2" style="font-size:clamp(1.2rem, 2.2vw, 1.8rem);line-height:1.45;">
+          "{% tr "Join me in restoring Canada to its former greatness — with a proven plan for advance that equals the greatest economies in the world today. Let's begin an era of renewal, turnaround, and prosperity in Canada. Let's make today's Canadians, the Greatest Generation again with policies proven to rebuild the Canada of my childhood — which really was the greatest country on earth." %}"
+        </blockquote>
+        <p class="president-name text-white mt-3 mb-0">{% tr "Edward Michael Tilley" %}</p>
       </div>
     </div>
   </div>

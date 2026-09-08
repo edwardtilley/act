@@ -1,0 +1,75 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block content %}
+<main class="main-content position-relative">
+<div class="container-fluid py-4">
+  <div class="card">
+    <div class="card-header pb-0 d-flex justify-content-between align-items-center flex-wrap">
+      <div>
+        <h6 class="mb-0"><i class="fas fa-chart-line text-advance-red me-2"></i>{% tr "Profit & Loss" %}</h6>
+        <p class="text-sm text-muted mb-0">{% tr "Revenue minus expenses for the period. Use the date filter to scope." %}</p>
+      </div>
+      <form method="GET" class="d-flex align-items-center gap-2 flex-wrap">
+        <label class="text-xs mb-0">{% tr "From:" %}</label>
+        <input type="date" class="form-control form-control-sm" name="start_date" value="{{ start }}" style="width:140px;">
+        <label class="text-xs mb-0">{% tr "To:" %}</label>
+        <input type="date" class="form-control form-control-sm" name="end_date" value="{{ end }}" style="width:140px;">
+        <button type="submit" class="btn btn-sm btn-advance-red">{% tr "Apply" %}</button>
+        {% if start or end %}<a href="/admin-financial/reports/p-and-l" class="btn btn-sm btn-outline-secondary">{% tr "Clear" %}</a>{% endif %}
+      </form>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <h6 class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">{% tr "Revenue" %}</h6>
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr><th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Code" %}</th><th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Account" %}</th><th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end">{% tr "Amount" %}</th></tr>
+            </thead>
+            <tbody>
+              {% for a, v in revenues %}
+              <tr><td><p class="text-xs font-weight-bold mb-0">{{ a.code }}</p></td><td><p class="text-xs mb-0">{{ a.name }}</p></td><td class="text-end"><p class="text-xs mb-0 text-success">${{ v|floatformat:2 }}</p></td></tr>
+              {% empty %}
+              <tr><td colspan="3" class="text-center text-sm py-3 text-muted">{% tr "No revenue" %}</td></tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+              <tr class="border-top"><td colspan="2" class="text-end"><strong>{% tr "Total Revenue" %}</strong></td><td class="text-end"><strong class="text-success">${{ total_revenue|floatformat:2 }}</strong></td></tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="col-md-6">
+          <h6 class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">{% tr "Expenses" %}</h6>
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr><th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Code" %}</th><th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Account" %}</th><th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end">{% tr "Amount" %}</th></tr>
+            </thead>
+            <tbody>
+              {% for a, v in expenses %}
+              <tr><td><p class="text-xs font-weight-bold mb-0">{{ a.code }}</p></td><td><p class="text-xs mb-0">{{ a.name }}</p></td><td class="text-end"><p class="text-xs mb-0 text-danger">${{ v|floatformat:2 }}</p></td></tr>
+              {% empty %}
+              <tr><td colspan="3" class="text-center text-sm py-3 text-muted">{% tr "No expenses" %}</td></tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+              <tr class="border-top"><td colspan="2" class="text-end"><strong>{% tr "Total Expenses" %}</strong></td><td class="text-end"><strong class="text-danger">${{ total_expense|floatformat:2 }}</strong></td></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-12 text-end">
+          <p class="text-sm text-muted mb-0">{% tr "Net Income (Revenue − Expenses)" %}</p>
+          <h2 class="{% if net_income >= 0 %}text-success{% else %}text-danger{% endif %}">${{ net_income|floatformat:2 }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+</div>
+</main>
+{% endblock content %}

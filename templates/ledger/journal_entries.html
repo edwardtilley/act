@@ -1,0 +1,228 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load translate_en %}
+{% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
+{% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
+{% block content %}
+<main class="main-content position-relative">
+<div class="container-fluid py-4">
+  <div class="card mb-4">
+    <div class="card-header pb-0 d-flex justify-content-between align-items-center flex-wrap">
+      <div>
+        <h6 class="mb-0"><i class="fas fa-book text-advance-red me-2"></i>{% tr "Journal Entries" %}</h6>
+        <p class="text-sm text-muted mb-0">{% tr "Double-entry ledger. Debits must equal credits. Each entry posts to one or more accounts." %}</p>
+      </div>
+      <button class="btn btn-advance-red btn-sm" data-bs-toggle="modal" data-bs-target="#addEntryModal">
+        <i class="fas fa-plus me-1"></i>{% tr "New Entry" %}
+      </button>
+    </div>
+    {% if error %}
+    <div class="alert alert-danger py-2 mb-0 mx-3 mt-2 text-sm"><i class="fas fa-exclamation-triangle me-1"></i>{{ error }}</div>
+    {% endif %}
+    <div class="card-body px-0 pt-0 pb-2">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Date" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Description" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Reference" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end">{% tr "Debits" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end">{% tr "Credits" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Status" %}</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for e in entries %}
+            <tr>
+              <td><p class="text-xs font-weight-bold mb-0">{{ e.entry_date }}</p></td>
+              <td><p class="text-xs mb-0">{{ e.description }}</p></td>
+              <td><p class="text-xs mb-0 text-muted">{{ e.reference|default:"—" }}</p></td>
+              <td class="text-end"><p class="text-xs font-weight-bold mb-0">${% tr "$" %}{{ e.debit|floatformat:2 }}</p></td>
+              <td class="text-end"><p class="text-xs font-weight-bold mb-0">${% tr "$" %}{{ e.credit|floatformat:2 }}</p></td>
+              <td>
+                <span class="badge badge-sm {% if e.posted %}bg-gradient-success{% else %}bg-gradient-warning{% endif %}">
+                  {% if e.posted %}{% tr "Posted" %}{% else %}{% tr "Draft" %}{% endif %}
+                </span>
+              </td>
+              <td class="text-end">
+                <button class="btn btn-outline-info btn-sm py-0 px-1" onclick="viewEntry({{ e.id }})" title="{% tr 'View lines' %}">
+                  <i class="fas fa-eye"></i>
+                </button>
+                {% if not e.posted %}
+                <form method="POST" action="/admin-financial/journal-entries/{{ e.id }}/post" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-success btn-sm py-0 px-1" title="{% tr 'Post' %}" onclick="return confirm('{% tr 'Post this entry? It will become part of the ledger.' %}');">
+                    <i class="fas fa-check"></i>
+                  </button>
+                </form>
+                {% endif %}
+                <form method="POST" action="/admin-financial/journal-entries/{{ e.id }}/delete" style="display:inline;" onsubmit="return confirm('{% tr 'Delete this journal entry? This cannot be undone.' %}');">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-danger btn-sm py-0 px-1" title="{% tr 'Delete' %}">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7" class="text-center text-sm py-4">{% tr "No journal entries yet. Click New Entry to create one." %}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+</div>
+
+<div class="modal fade" id="addEntryModal" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <form method="POST" action="/admin-financial/journal-entries" id="entryForm">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h6 class="mb-0"><i class="fas fa-plus-circle text-advance-red me-2"></i>{% tr "New Journal Entry" %}</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <label class="form-label">{% tr "Date" %} *</label>
+              <input type="date" class="form-control" name="entry_date" required>
+            </div>
+            <div class="col-md-7 mb-3">
+              <label class="form-label">{% tr "Description" %} *</label>
+              <input type="text" class="form-control" name="description" required placeholder="{% tr 'e.g. Received payment from Acme Corp' %}">
+            </div>
+            <div class="col-md-2 mb-3">
+              <label class="form-label">{% tr "Reference" %}</label>
+              <input type="text" class="form-control" name="reference" placeholder="INV-001">
+            </div>
+          </div>
+          <hr>
+          <h6 class="mb-3">{% tr "Lines" %}</h6>
+          <div id="linesContainer">
+            <div class="row mb-2 line-row">
+              <div class="col-md-5">
+                <select class="form-control" name="account_id[]" required>
+                  <option value="">{% tr "Select account" %}</option>
+                  {% for a in accounts %}
+                  <option value="{{ a.id }}">{{ a.code }} — {{ a.name }} ({{ a.account_type }})</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-2">
+                <input type="number" step="0.01" min="0" class="form-control debit-input" name="debit[]" placeholder="{% tr 'Debit' %}" oninput="recalcTotals()">
+              </div>
+              <div class="col-md-2">
+                <input type="number" step="0.01" min="0" class="form-control credit-input" name="credit[]" placeholder="{% tr 'Credit' %}" oninput="recalcTotals()">
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control" name="memo[]" placeholder="{% tr 'Memo (optional)' %}">
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-primary btn-sm" onclick="addLine()">
+            <i class="fas fa-plus me-1"></i>{% tr "Add Line" %}
+          </button>
+          <div class="row mt-3">
+            <div class="col-md-7"></div>
+            <div class="col-md-2 text-end"><p class="text-xs mb-0">{% tr "Total Debits" %}</p><h5 class="mb-0 text-success" id="totalDebit">$0.00</h5></div>
+            <div class="col-md-2 text-end"><p class="text-xs mb-0">{% tr "Total Credits" %}</p><h5 class="mb-0 text-danger" id="totalCredit">$0.00</h5></div>
+            <div class="col-md-1 text-end"><p class="text-xs mb-0">{% tr "Balance" %}</p><h5 class="mb-0" id="balanceCheck">$0.00</h5></div>
+          </div>
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" name="post_now" value="true" id="postNow" checked>
+            <label class="form-check-label" for="postNow">{% tr "Post immediately (otherwise save as draft)" %}</label>
+          </div>
+          <div class="alert alert-warning text-xs mt-3 mb-0" id="balanceWarning" style="display:none;">
+            <i class="fas fa-exclamation-triangle me-1"></i>{% tr "Debits and credits must balance before this entry can be saved." %}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">{% tr "Cancel" %}</button>
+          <button type="submit" class="btn btn-advance-red btn-sm"><i class="fas fa-save me-1"></i>{% tr "Save Entry" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="viewEntryModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="mb-0"><i class="fas fa-file-invoice text-advance-red me-2"></i>{% tr "Journal Entry Lines" %}</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="viewEntryBody"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">{% tr "Close" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+const entryLines = {{ entries|json_script:"entry-lines" }} && JSON.parse(document.getElementById('entry-lines').textContent);
+const accounts = {{ accounts|json_script:"accounts-data" }} && JSON.parse(document.getElementById('accounts-data').textContent);
+
+function addLine() {
+  var html = '<div class="row mb-2 line-row">' +
+    '<div class="col-md-5"><select class="form-control" name="account_id[]" required><option value="">Select account</option>';
+  accounts.forEach(function(a) {
+    html += '<option value="' + a.id + '">' + a.code + ' — ' + a.name + ' (' + a.account_type + ')</option>';
+  });
+  html += '</select></div>' +
+    '<div class="col-md-2"><input type="number" step="0.01" min="0" class="form-control debit-input" name="debit[]" placeholder="Debit" oninput="recalcTotals()"></div>' +
+    '<div class="col-md-2"><input type="number" step="0.01" min="0" class="form-control credit-input" name="credit[]" placeholder="Credit" oninput="recalcTotals()"></div>' +
+    '<div class="col-md-2"><input type="text" class="form-control" name="memo[]" placeholder="Memo (optional)"></div>' +
+    '<div class="col-md-1"><button type="button" class="btn btn-outline-danger btn-sm" onclick="this.closest(\'.line-row\').remove(); recalcTotals();"><i class="fas fa-trash"></i></button></div>' +
+    '</div>';
+  document.getElementById('linesContainer').insertAdjacentHTML('beforeend', html);
+}
+
+function recalcTotals() {
+  var d = 0, c = 0;
+  document.querySelectorAll('.debit-input').forEach(function(el) { d += parseFloat(el.value || 0); });
+  document.querySelectorAll('.credit-input').forEach(function(el) { c += parseFloat(el.value || 0); });
+  document.getElementById('totalDebit').textContent = '$' + d.toFixed(2);
+  document.getElementById('totalCredit').textContent = '$' + c.toFixed(2);
+  var diff = d - c;
+  var balEl = document.getElementById('balanceCheck');
+  balEl.textContent = (diff >= 0 ? '$' : '-$') + Math.abs(diff).toFixed(2);
+  balEl.className = 'mb-0 ' + (Math.abs(diff) < 0.005 ? 'text-success' : 'text-warning');
+  document.getElementById('balanceWarning').style.display = Math.abs(diff) < 0.005 ? 'none' : 'block';
+}
+
+document.getElementById('entryForm').addEventListener('submit', function(e) {
+  var d = 0, c = 0;
+  document.querySelectorAll('.debit-input').forEach(function(el) { d += parseFloat(el.value || 0); });
+  document.querySelectorAll('.credit-input').forEach(function(el) { c += parseFloat(el.value || 0); });
+  if (Math.abs(d - c) >= 0.005) {
+    e.preventDefault();
+    alert('Debits ($' + d.toFixed(2) + ') and credits ($' + c.toFixed(2) + ') do not balance. Adjust the lines before saving.');
+  }
+});
+
+function viewEntry(id) {
+  var e = entryLines.find(function(x) { return x.id === id; });
+  if (!e) return;
+  var html = '<p class="mb-1"><strong>Date:</strong> ' + e.entry_date + '</p>';
+  html += '<p class="mb-1"><strong>Description:</strong> ' + e.description + '</p>';
+  if (e.reference) html += '<p class="mb-3"><strong>Reference:</strong> ' + e.reference + '</p>';
+  html += '<table class="table table-sm align-items-center mb-0"><thead><tr><th>Account</th><th class="text-end">Debit</th><th class="text-end">Credit</th><th>Memo</th></tr></thead><tbody>';
+  e.lines.forEach(function(ln) {
+    html += '<tr><td>' + ln.account_code + ' — ' + ln.account_name + '</td><td class="text-end">' + (parseFloat(ln.debit||0)).toFixed(2) + '</td><td class="text-end">' + (parseFloat(ln.credit||0)).toFixed(2) + '</td><td>' + (ln.memo||'') + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('viewEntryBody').innerHTML = html;
+  new bootstrap.Modal(document.getElementById('viewEntryModal')).show();
+}
+</script>
+{% endblock extra_js %}

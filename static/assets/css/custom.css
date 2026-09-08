@@ -327,6 +327,26 @@ body {
 
 .text-balance { text-wrap: balance; }
 
+/* ── Sidenav height fix ──────────────────────────────────────────────
+   Soft UI Dashboard's vertical navbar collapses to a fixed inner
+   max-height that does NOT scroll, so the dashboard sidebar is clipped
+   to roughly the top ~60% of the viewport on long menus. Pin the sidenav
+   to the full viewport height and let its nav list scroll internally. */
+.g-sidenav-show .sidenav {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-right: 0 !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.g-sidenav-show .sidenav .navbar-collapse {
+  max-height: none !important;
+  height: auto !important;
+  overflow-y: visible !important;
+}
+
 @media (max-width: 768px) {
   .story-heading-xl { font-size: 2.5rem; }
   .story-number { font-size: 5rem; }
