@@ -469,3 +469,42 @@ Problem Tickets queue (/hub-tickets).
 - Use `change_request_submit` for changes TO THE HUB, not for this store.
 - Never work around the system: file the ticket and wait for the decision.
 - Never commit `.env` — it holds your key and the store's other secrets.
+
+### Open change requests — check status before relying on them
+
+**Ticket #14** (`http://ubuntu:5000/hub/changes/14`, status `open`, priority
+high) — "Rotate the exposed `ai_developer` key (agent_keys id=6, prefix
+`L1VEQggw`) and issue advance its own per-store `ai_developer` key delivered to
+its `.env`."
+
+- The shared `ai_developer` key (id=6, label "Autoresume ai developer") was
+  printed in full to a local dev session transcript — treat as compromised.
+- Requests a re-mint, plus a fresh per-store `ai_developer` key for advance
+  (label `advance store IDE agent`) delivered to this store's `.env`.
+- Until then, advance holds the leaked key as a temporary unblock; replace it
+  when the fresh key arrives.
+
+**Ticket #13** (`http://ubuntu:5000/hub/changes/13`, status `open`) — "Push and
+maintain hub role keys (`HUB_MARKETING_API_KEY`, `HUB_SYSOP_API_KEY`) into
+opt-in stores' `.env` in dev and prod (MicroVM), and re-push on hub rotation."
+
+- **Why:** the marketing agent is to publish via hub MCP tools only. A hub role
+  key cannot reach a store's `.env` today: `agent_keys` mirrors a role key into
+  `user_credentials` as a *personal* `role_key` row (no `hub_app_id`, one raw
+  per user), and `inject_store_env()` only writes store-scoped rows.
+- **Key placement (per the hub owner):** only the **marketing** key belongs in
+  the store `.env`. The **SysOp key is user-scoped and lives in the hub's
+  encrypted credentials vault** (`user_credentials`) — it is NOT a store `.env`
+  var and the store never holds or rotates it. The owner is updating #13 to
+  reflect this.
+- **Blocker for advance (historical):** the store's stored
+  `HUB_AI_DEVELOPER_API_KEY` was stale (not an active registered key); it was
+  replaced with the working active key from autoresume as an initial unblock.
+  Advance should still get its own per-store `ai_developer` key per the spec.
+- **Note:** the earlier ticket **#12** (store writing its own admin password
+  into the vault) was **rejected** — the vault is for hub/shared-service
+  credentials only. #13 is the inverse (hub issues, store consumes), which fits
+  that design. Do not re-propose the #12 shape.
+- After approval, the store side is minimal: add `HUB_MARKETING_API_KEY` to
+  `.env.example` + `core/settings.py`, and a hub-marketing consumer helper
+  gated to opt-in stores (`.env` injection is the transport — no store vault).
