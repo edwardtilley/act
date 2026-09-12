@@ -17,6 +17,17 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,testserver,ubunt
 # are really HTTPS (fixes http:// URLs in sitemap.xml, redirects, CSRF, etc.)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+# ── Hub shared-services credentials (see AGENTS.md §11) ────────────────────
+# (store -> hub) This store's own hub identity, unique per store. Used by the
+# store's IDE agent for hub MCP calls.
+STORE_AI_DEVELOPER_API_KEY = os.getenv('STORE_AI_DEVELOPER_API_KEY', '')
+# (hub -> store) Hub-issued role keys injected into this store by the hub; the
+# store consumes them and never rotates them. Empty = integration disabled.
+HUB_MARKETING_API_KEY = os.getenv('HUB_MARKETING_API_KEY', '')
+HUB_SYSOP_API_KEY = os.getenv('HUB_SYSOP_API_KEY', '')
+# Hub MCP streamable-HTTP gateway.
+HUB_MCP_URL = os.getenv('HUB_MCP_URL', 'http://ubuntu:5001/mcp')
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

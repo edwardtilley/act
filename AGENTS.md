@@ -426,7 +426,7 @@ one at **/hub/admin/agent-keys** (sidebar: Admin → Agent API Keys) with:
 
 Then add it to this repo's gitignored `.env` (perms 600):
 
-    HUB_AI_DEVELOPER_API_KEY=<minted key>
+    STORE_AI_DEVELOPER_API_KEY=<minted key>
 
 A key is shown exactly once at mint time and can never be recovered (only
 sha256 hashes are stored) — if it is lost or revoked, a new one must be
@@ -451,7 +451,7 @@ your `ai_developer` key is sufficient:
         description="Your full requested change",
         priority="medium",            # low | medium | high | critical
         user_name="<your display name>",
-        api_key="<HUB_AI_DEVELOPER_API_KEY value>",
+        api_key="<STORE_AI_DEVELOPER_API_KEY value>",
     )
 
 - The ticket gets a number (#1, #2, ...) and appears on the admin's
@@ -470,41 +470,51 @@ Problem Tickets queue (/hub-tickets).
 - Never work around the system: file the ticket and wait for the decision.
 - Never commit `.env` — it holds your key and the store's other secrets.
 
-### Open change requests — check status before relying on them
+### Hub change requests — resolved
 
-**Ticket #14** (`http://ubuntu:5000/hub/changes/14`, status `open`, priority
-high) — "Rotate the exposed `ai_developer` key (agent_keys id=6, prefix
-`L1VEQggw`) and issue advance its own per-store `ai_developer` key delivered to
-its `.env`."
+**Ticket #14** (`http://ubuntu:5000/hub/changes/14`, approved; store side
+complete) — the exposed shared `ai_developer` key (agent_keys id=6, prefix
+`L1VEQggw`) was revoked and advance was issued its **own per-store** key,
+delivered into `.env` as `STORE_AI_DEVELOPER_API_KEY` (perms 600).
 
-- The shared `ai_developer` key (id=6, label "Autoresume ai developer") was
-  printed in full to a local dev session transcript — treat as compromised.
-- Requests a re-mint, plus a fresh per-store `ai_developer` key for advance
-  (label `advance store IDE agent`) delivered to this store's `.env`.
-- Until then, advance holds the leaked key as a temporary unblock; replace it
-  when the fresh key arrives.
+**Ticket #13** (`http://ubuntu:5000/hub/changes/13`, approved; store side
+complete) — the hub now pushes hub-issued role keys into opt-in stores' `.env`
+(dev + prod MicroVM) and re-pushes them on rotation. advance's `.env` carries
+`HUB_MARKETING_API_KEY` and `HUB_SYSOP_API_KEY`.
 
-**Ticket #13** (`http://ubuntu:5000/hub/changes/13`, status `open`) — "Push and
-maintain hub role keys (`HUB_MARKETING_API_KEY`, `HUB_SYSOP_API_KEY`) into
-opt-in stores' `.env` in dev and prod (MicroVM), and re-push on hub rotation."
+> The earlier ticket **#12** (a store writing its own admin password into the
+> hub vault) was **rejected** — the vault is for hub/shared-service credentials
+> only. #13 is the inverse (hub issues, store consumes), which fits that
+> design. Do not re-propose the #12 shape.
 
-- **Why:** the marketing agent is to publish via hub MCP tools only. A hub role
-  key cannot reach a store's `.env` today: `agent_keys` mirrors a role key into
-  `user_credentials` as a *personal* `role_key` row (no `hub_app_id`, one raw
-  per user), and `inject_store_env()` only writes store-scoped rows.
-- **Key placement (per the hub owner):** only the **marketing** key belongs in
-  the store `.env`. The **SysOp key is user-scoped and lives in the hub's
-  encrypted credentials vault** (`user_credentials`) — it is NOT a store `.env`
-  var and the store never holds or rotates it. The owner is updating #13 to
-  reflect this.
-- **Blocker for advance (historical):** the store's stored
-  `HUB_AI_DEVELOPER_API_KEY` was stale (not an active registered key); it was
-  replaced with the working active key from autoresume as an initial unblock.
-  Advance should still get its own per-store `ai_developer` key per the spec.
-- **Note:** the earlier ticket **#12** (store writing its own admin password
-  into the vault) was **rejected** — the vault is for hub/shared-service
-  credentials only. #13 is the inverse (hub issues, store consumes), which fits
-  that design. Do not re-propose the #12 shape.
-- After approval, the store side is minimal: add `HUB_MARKETING_API_KEY` to
-  `.env.example` + `core/settings.py`, and a hub-marketing consumer helper
-  gated to opt-in stores (`.env` injection is the transport — no store vault).
+### Hub key model — two directions of trust
+
+| Env var | Direction | Scope | Rotation |
+|---------|-----------|-------|----------|
+| `STORE_AI_DEVELOPER_API_KEY` | store → hub | **unique per store** | store's own IDE-agent identity |
+| `HUB_MARKETING_API_KEY` | hub → store | **shared across the owner's stores** | hub mints/rotates; store consumes |
+| `HUB_SYSOP_API_KEY` | hub → store | **shared across the owner's stores** | hub mints/rotates; store consumes |
+
+- The store **never rotates** the hub-issued `HUB_*` keys — the hub injects and
+  maintains them in `.env` and re-pushes on rotation. Do not edit them by hand.
+- The store's OWN identity is `STORE_AI_DEVELOPER_API_KEY` (unique per store);
+  it is what the store's IDE agent presents to file change requests.
+- **Consumer:** `apps/hub_mcp.py` — presents the right key per call to the hub
+  MCP gateway (`HUB_MCP_URL`). Marketing wrappers
+  (`marketing_campaign_*` / `marketing_entry_*` / `marketing_sweep_sheets`) are
+  gated on `HUB_MARKETING_API_KEY` being set (`hub_mcp.marketing_enabled()`).
+- Config in `core/settings.py`; documented in `.env.example`.
+
+### Hub-role agent training (marketing, sysop)
+
+The **authoritative runbook for each role is served live by the hub** — never
+copied into this repo. Every role self-trains over MCP in one call:
+
+    mcp_setup            # detects your role from the key you present and
+                         # returns the role runbook + the training self-check
+    role_runbook role=marketing|sysop|ai_developer
+
+See **`HUB-AGENT-TRAINING.md`** for the store-side onboarding of advance's
+marketing and sysop agents: which key each holds, how to self-train, the tool
+families available, and the rules (marketing publishes via hub MCP only; sysop
+routine duties vs. change requests).
