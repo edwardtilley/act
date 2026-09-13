@@ -39,15 +39,13 @@ The hub detects your role from the key you present and returns:
 - **Auth:** present your key on every call as the `api_key` argument or an
   `Authorization: Bearer <key>` header. The gateway is stateless.
 
-Store-side, call it with the helper:
+Training is an **agent** action, so call the MCP gateway directly with your key
+(e.g. via your agent's MCP client). To fetch just the runbook, call
+`role_runbook` with `role=marketing|sysop`.
 
-```python
-from apps import hub_mcp
-hub_mcp.call_tool('mcp_setup', role='marketing')   # or role='sysop'
-```
-
-You can also fetch just the runbook with
-`hub_mcp.call_tool('role_runbook', {'role': 'marketing'}, role='marketing')`.
+> **Store-code** calls (the storefront calling hub shared services on a page)
+> use the shared client **`apps/hub_roles.py`** instead — see §3/§4. That path
+> goes through the hub's plain-JSON role bridge and is **monitoring-only**.
 
 ---
 
@@ -57,32 +55,35 @@ You can also fetch just the runbook with
 
 **Self-train:** `mcp_setup` with the marketing key, then run its self-check.
 
-**What you can do** (hub marketing tool families — details in the live runbook):
-
-- Campaigns: `marketing_campaign_create` / `_update` / `_list` / `_get`
-- Entries: `marketing_entry_add` / `_list` / `_update` / `_approve` / `_send`
-- Contacts: `marketing_contact_upsert`, `marketing_contacts_list`
-- Email: `marketing_email_render`, `marketing_unsent_list`, `marketing_unsent_revalidate`
-- Sheets: `marketing_sweep_sheets`
-- Affiliates / newsletter: `affiliate_network_*`, `affiliate_account_*`, `newsletter_subscribe`
-
-**How (store-side)** — use the wrappers in `apps/hub_mcp.py`:
+**Store-side (monitoring only)** — use the shared client `apps/hub_roles.py`:
 
 ```python
-from apps import hub_mcp
-if hub_mcp.marketing_enabled():
-    hub_mcp.marketing_campaign_list()
-    hub_mcp.marketing_entry_list()
-    hub_mcp.marketing_sweep_sheets(dry_run=True)
+from apps import hub_roles
+
+hub_roles.marketing("marketing_campaign_list")   # campaign status
+hub_roles.marketing("marketing_unsent_list")     # unsent / gap report
 ```
+
+Returns `{"ok": True, "result": ...}` or `{"ok": False, "error": ...}` — it
+never raises.
+
+**Monitoring-only in prod.** The store role bridge **refuses irreversible
+actions** (e.g. `marketing_entry_send`) with a 403. Sends are performed by the
+hub Marketing Manager **agent** over MCP in dev, tested, then pushed to prod.
+Do **not** add write/send call paths to the store. Reversible writes remain
+permitted, but the store's purpose is read/monitor:
+
+- Read/monitor: `marketing_campaign_list`, `marketing_campaign_get`,
+  `marketing_entry_list`, `marketing_contacts_list`, `marketing_unsent_list`,
+  `marketing_email_render`, `marketing_sweep_sheets`.
+- Refused from the store: `marketing_entry_send` (and any `send` action).
 
 **Rules**
 
-- Publish marketing content **via hub MCP tools only** — never edit this repo's
-  code, templates, or `.env`.
+- Never edit this repo's code, templates, or `.env` to publish marketing.
 - Do not rotate or hand-edit the key; the hub owns it.
-- `hub_mcp.marketing_enabled()` is `True` only when the store is opted in
-  (`HUB_MARKETING_API_KEY` set). When it is unset, calls raise `HubMCPError`.
+- When `HUB_MARKETING_API_KEY` is unset, `hub_roles` returns
+  `{"ok": False, "error": "no marketing role key configured …"}`.
 
 ---
 
@@ -91,6 +92,13 @@ if hub_mcp.marketing_enabled():
 **Key:** `HUB_SYSOP_API_KEY` (hub → store; shared; the store never rotates it).
 
 **Self-train:** `mcp_setup` with the sysop key, then run its self-check.
+
+**Store-side** — shared client `apps/hub_roles.py`:
+
+```python
+from apps import hub_roles
+hub_roles.sysop("health_check")                  # store health
+```
 
 **What you can do** (hub sysop duties — details in the live runbook):
 
@@ -101,13 +109,6 @@ if hub_mcp.marketing_enabled():
 - Backups: `backup_database`, `github_backup`, `offbox_backup`,
   `store_data_backup`, `db_backup_library_run` / `_list` / `_restore`
 - Key hygiene: `api_key_audit`, `api_key_update`
-
-**How (store-side):**
-
-```python
-from apps import hub_mcp
-hub_mcp.call_tool('health_check', role='sysop')
-```
 
 **Rules**
 
@@ -121,7 +122,7 @@ hub_mcp.call_tool('health_check', role='sysop')
 
 ## 5. Where the authority lives
 
-- Live role runbooks + self-checks: hub `mcp_setup` / `role_runbook`.
+- Live role runbooks + self-checks: hub `mcp_setup` / `role_runbook` (MCP gateway).
+- Store-side consumer (monitoring): `apps/hub_roles.py` (hub role bridge).
 - Key model + store policy: `AGENTS.md` §11.
-- Store-side consumer: `apps/hub_mcp.py`.
 - Config: `core/settings.py`; documented in `.env.example`.

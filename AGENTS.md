@@ -499,10 +499,15 @@ complete) — the hub now pushes hub-issued role keys into opt-in stores' `.env`
   maintains them in `.env` and re-pushes on rotation. Do not edit them by hand.
 - The store's OWN identity is `STORE_AI_DEVELOPER_API_KEY` (unique per store);
   it is what the store's IDE agent presents to file change requests.
-- **Consumer:** `apps/hub_mcp.py` — presents the right key per call to the hub
-  MCP gateway (`HUB_MCP_URL`). Marketing wrappers
-  (`marketing_campaign_*` / `marketing_entry_*` / `marketing_sweep_sheets`) are
-  gated on `HUB_MARKETING_API_KEY` being set (`hub_mcp.marketing_enabled()`).
+- **Consumer:** `apps/hub_roles.py` — the canonical shared client (copied
+  unchanged from `mall-services`, stdlib-only). It calls the hub's plain-JSON
+  role bridge (`POST <HUB_URL>/hub/api/role-call`) and **never raises**:
+  returns `{"ok": True, "result": ...}` or `{"ok": False, "error": ...}`.
+  Use `hub_roles.marketing("<tool>")` / `hub_roles.sysop("<tool>")`.
+- **Monitoring-only in prod:** the store role bridge **refuses irreversible
+  actions** (e.g. `marketing_entry_send`) with a 403 — those are run by the hub
+  Marketing Manager agent in dev, tested, then pushed to prod. Do not add
+  write/send call paths to the store. Reversible writes remain permitted.
 - Config in `core/settings.py`; documented in `.env.example`.
 
 ### Hub-role agent training (marketing, sysop)
@@ -516,5 +521,6 @@ copied into this repo. Every role self-trains over MCP in one call:
 
 See **`HUB-AGENT-TRAINING.md`** for the store-side onboarding of advance's
 marketing and sysop agents: which key each holds, how to self-train, the tool
-families available, and the rules (marketing publishes via hub MCP only; sysop
-routine duties vs. change requests).
+families available, and the rules (the store consumes the marketing/sysop keys
+for monitoring only; sends are run by the hub agent in dev then pushed to prod;
+sysop routine duties vs. change requests).

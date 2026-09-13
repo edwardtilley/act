@@ -22,11 +22,13 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # store's IDE agent for hub MCP calls.
 STORE_AI_DEVELOPER_API_KEY = os.getenv('STORE_AI_DEVELOPER_API_KEY', '')
 # (hub -> store) Hub-issued role keys injected into this store by the hub; the
-# store consumes them and never rotates them. Empty = integration disabled.
+# store consumes them (monitoring-only) and never rotates them. Empty = the
+# role integration is disabled.
 HUB_MARKETING_API_KEY = os.getenv('HUB_MARKETING_API_KEY', '')
 HUB_SYSOP_API_KEY = os.getenv('HUB_SYSOP_API_KEY', '')
-# Hub MCP streamable-HTTP gateway.
-HUB_MCP_URL = os.getenv('HUB_MCP_URL', 'http://ubuntu:5001/mcp')
+# Hub base URL for the store-side role bridge (POST <HUB_URL>/hub/api/role-call).
+# Blank -> the shared client falls back to HUB_CALLBACK_URL, then localhost:5000.
+HUB_URL = os.getenv('HUB_URL', '')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
