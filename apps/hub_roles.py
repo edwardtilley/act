@@ -35,10 +35,12 @@ import urllib.request
 
 _DEFAULT_URL = "http://localhost:5000"
 
-# Role -> env var name. Add a line here to support a new hub role key.
+# Role -> env var name. Mirrors the hub's utils/store_role_keys.ROLE_ENV_VARS
+# map. Add a line here to support a new hub role key.
 _ROLE_ENV = {
     "marketing": "HUB_MARKETING_API_KEY",
     "sysop": "HUB_SYSOP_API_KEY",
+    "administrative_assistant": "HUB_ADMINISTRATIVE_ASSISTANT_API_KEY",
 }
 
 
@@ -98,6 +100,11 @@ def marketing(tool: str, **arguments) -> dict:
 def sysop(tool: str, **arguments) -> dict:
     """Call a hub sysop tool (e.g. ``health_check``)."""
     return call(tool, role="sysop", **arguments)
+
+
+def administrative_assistant(tool: str, **arguments) -> dict:
+    """Call a hub administrative-assistant tool (e.g. ``marketing_sweep_sheets``)."""
+    return call(tool, role="administrative_assistant", **arguments)
 
 
 def configured_roles() -> list:

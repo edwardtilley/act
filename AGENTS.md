@@ -494,6 +494,7 @@ complete) — the hub now pushes hub-issued role keys into opt-in stores' `.env`
 | `STORE_AI_DEVELOPER_API_KEY` | store → hub | **unique per store** | store's own IDE-agent identity |
 | `HUB_MARKETING_API_KEY` | hub → store | **shared across the owner's stores** | hub mints/rotates; store consumes |
 | `HUB_SYSOP_API_KEY` | hub → store | **shared across the owner's stores** | hub mints/rotates; store consumes |
+| `HUB_ADMINISTRATIVE_ASSISTANT_API_KEY` | hub → store | **shared across the owner's stores** | hub mints/rotates; store consumes |
 
 - The store **never rotates** the hub-issued `HUB_*` keys — the hub injects and
   maintains them in `.env` and re-pushes on rotation. Do not edit them by hand.

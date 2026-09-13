@@ -18,10 +18,11 @@ fetch it and what to expect.
 | `STORE_AI_DEVELOPER_API_KEY` | store → hub | **unique per store** | store's own IDE-agent identity |
 | `HUB_MARKETING_API_KEY` | hub → store | **shared across the owner's stores** | hub mints/rotates; store consumes |
 | `HUB_SYSOP_API_KEY` | hub → store | **shared across the owner's stores** | hub mints/rotates; store consumes |
+| `HUB_ADMINISTRATIVE_ASSISTANT_API_KEY` | hub → store | **shared across the owner's stores** | hub mints/rotates; store consumes |
 
 - The store **never rotates** the `HUB_*` keys — the hub injects and maintains
   them in `.env` and re-pushes on rotation. Never edit them by hand.
-- All three keys live in this repo's **gitignored** `.env` (perms 600).
+- All keys live in this repo's **gitignored** `.env` (perms 600).
 
 ---
 
@@ -120,7 +121,34 @@ hub_roles.sysop("health_check")                  # store health
 
 ---
 
-## 5. Where the authority lives
+## 5. Administrative Assistant agent
+
+**Key:** `HUB_ADMINISTRATIVE_ASSISTANT_API_KEY` (hub → store; shared; the store
+never rotates it).
+
+**Self-train:** `mcp_setup` with the administrative-assistant key, then run its
+self-check.
+
+**Store-side** — shared client `apps/hub_roles.py`:
+
+```python
+from apps import hub_roles
+hub_roles.administrative_assistant("marketing_sweep_sheets", dry_run=True)
+```
+
+**What you can do** (hub administrative-assistant tools — details in the live runbook):
+
+- `marketing_sweep_sheets`
+- `change_request_submit`, `health_check`
+
+**Rules**
+
+- Administrative work only — no code edits, no key rotation.
+- Irreversible actions remain refused on the store bridge (same as marketing).
+
+---
+
+## 6. Where the authority lives
 
 - Live role runbooks + self-checks: hub `mcp_setup` / `role_runbook` (MCP gateway).
 - Store-side consumer (monitoring): `apps/hub_roles.py` (hub role bridge).

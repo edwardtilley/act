@@ -26,6 +26,7 @@ STORE_AI_DEVELOPER_API_KEY = os.getenv('STORE_AI_DEVELOPER_API_KEY', '')
 # role integration is disabled.
 HUB_MARKETING_API_KEY = os.getenv('HUB_MARKETING_API_KEY', '')
 HUB_SYSOP_API_KEY = os.getenv('HUB_SYSOP_API_KEY', '')
+HUB_ADMINISTRATIVE_ASSISTANT_API_KEY = os.getenv('HUB_ADMINISTRATIVE_ASSISTANT_API_KEY', '')
 # Hub base URL for the store-side role bridge (POST <HUB_URL>/hub/api/role-call).
 # Blank -> the shared client falls back to HUB_CALLBACK_URL, then localhost:5000.
 HUB_URL = os.getenv('HUB_URL', '')
