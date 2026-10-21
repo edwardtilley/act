@@ -35,6 +35,13 @@
       <a href="/stateditor/export/" class="alert-link">{% tr "Download export" %}</a>
     </div>
   </div>
+  {% else %}
+  <div class="alert alert-info py-2 d-flex align-items-start gap-2">
+    <i class="fas fa-code-branch mt-1"></i>
+    <div class="text-sm">
+      {% tr "Dev mode: stats.json is refreshed after every change. Commit it with any new images under static/assets/img/ before pushing." %}
+    </div>
+  </div>
   {% endif %}
 
   {% if saved %}

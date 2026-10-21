@@ -1,4 +1,5 @@
 import io
+import logging
 import os
 import shutil
 import zipfile
@@ -25,6 +26,42 @@ from .models import Riding, JoinApplication, Certification, CertificationApplica
 STAT_IMAGE_DIR = Path(settings.BASE_DIR) / 'static' / 'assets' / 'img'
 STAT_IMAGE_MAX_BYTES = 10 * 1024 * 1024
 STAT_IMAGE_EXTS = {'.jpg', '.jpeg', '.png', '.webp', '.gif'}
+STATS_FIXTURE = Path(settings.BASE_DIR) / 'stats.json'
+PRODUCTION_HOSTS = {'actcanadian.com', 'www.actcanadian.com'}
+
+logger = logging.getLogger(__name__)
+
+
+def _is_production_request(request):
+    host = request.get_host().split(':')[0].lower()
+    return (
+        not settings.DEBUG
+        or host in PRODUCTION_HOSTS
+        or host.endswith('.up.railway.app')
+    )
+
+
+def _refresh_stats_fixture(request):
+    """Refresh stats.json after a dev edit so deployment order/image changes
+    are captured in the repository fixture.
+
+    Production is deliberately skipped: the container is rebuilt on deploy and
+    its filesystem is ephemeral, so prod edits are moved back with the export
+    bundle instead.
+    """
+    if _is_production_request(request):
+        return False
+    try:
+        output = io.StringIO()
+        call_command(
+            'dumpdata', 'party_pages.StatImage', 'party_pages.WAOHAnchor',
+            indent=2, stdout=output,
+        )
+        STATS_FIXTURE.write_text(output.getvalue(), encoding='utf-8')
+        return True
+    except Exception:
+        logger.exception('Could not refresh stats.json fixture')
+        return False
 
 
 def _unique_stat_image_name(filename):
@@ -349,17 +386,11 @@ def stats_slideshow(request):
 @login_required
 def stat_editor(request):
     stats = StatImage.objects.all()
-    host = request.get_host().split(':')[0].lower()
-    is_production = (
-        not settings.DEBUG
-        or host in {'actcanadian.com', 'www.actcanadian.com'}
-        or host.endswith('.up.railway.app')
-    )
     return render(request, 'pages/stateditor.html', {
         'stats': stats,
         'segment': 'stats',
         'saved': request.GET.get('saved'),
-        'is_production': is_production,
+        'is_production': _is_production_request(request),
     })
 
 
@@ -416,6 +447,7 @@ def stat_create(request):
             active='active' in request.POST,
             display_order=(StatImage.objects.aggregate(Max('display_order'))['display_order__max'] or 0) + 1,
         )
+        _refresh_stats_fixture(request)
     return redirect('/stateditor')
 
 
@@ -435,6 +467,7 @@ def stat_move(request, stat_id, direction):
         with transaction.atomic():
             for pos, row in enumerate(rows):
                 StatImage.objects.filter(pk=row.pk).update(display_order=pos)
+        _refresh_stats_fixture(request)
     return redirect('/stateditor')
 
 
@@ -461,6 +494,7 @@ def stat_update(request, stat_id):
         stat.links_json = request.POST.get('links_json', stat.links_json)
         stat.active = 'active' in request.POST
         stat.save()
+        _refresh_stats_fixture(request)
         return redirect('/stateditor?saved=%s' % stat_id)
     return redirect('/stateditor')
 
@@ -470,6 +504,11 @@ def stat_delete(request, stat_id):
     stat = get_object_or_404(StatImage, pk=stat_id)
     if request.method == 'POST':
         stat.delete()
+        rows = list(StatImage.objects.order_by('display_order', 'id'))
+        with transaction.atomic():
+            for pos, row in enumerate(rows):
+                StatImage.objects.filter(pk=row.pk).update(display_order=pos)
+        _refresh_stats_fixture(request)
     return redirect('/stateditor')
 
 
