@@ -341,6 +341,40 @@ submissions) into fixtures.
 
 ---
 
+## 10a. Persistent Production Content (Railway volume)
+
+Production is standalone once a Railway volume is attached. Railway injects
+`RAILWAY_VOLUME_MOUNT_PATH` when a volume is mounted; the app uses it as
+`DATA_DIR` automatically (or set `DATA_DIR=/data` explicitly). With it,
+`db.sqlite3`, `STATIC_ROOT` (collected + uploaded images) and `MEDIA_ROOT`
+live on the volume and survive deploys. Without it prod stays ephemeral: the
+Stats Editor shows an orange warning and **Export** is the fallback.
+
+On every boot `ensure_database`:
+1. `collectstatic` into the volume — refreshes repo assets, leaves uploads
+2. `migrate`
+3. `sync_stats` — appends StatImage/WAOHAnchor rows that exist in the repo
+   fixture but not in the database. New rows are appended at the end;
+   existing rows (filename, description, active flag, `display_order`) are
+   never overwritten.
+4. `sync_translations` — upserts `translations.json` so new French strings
+   reach the persistent DB (the seed migration runs only once).
+
+**Workflow**
+- **Production is authoritative** for uploads, renames, active flags,
+  sequencing and deletes — all persist on the volume.
+- **Dev staging:** `stats.json` is refreshed after every dev edit (a blue
+  banner reminds you). Commit it plus any new image files to push. New rows
+  are appended to prod by `sync_stats`; dev renames/reorders do not override
+  production.
+- **Export** (`/stateditor/export/`) remains a backup bundle: `stats.json`
+  plus every referenced image.
+
+**Setup:** Railway → service → Volumes → mount at `/data` (or set
+`DATA_DIR`). First boot seeds the volume from `stats.json`.
+
+---
+
 ## 11. Hub Shared-Services Access Rules (MANDATORY)
 
 The **hub project (`~/projects/hub`)** provides the shared services advance consumes

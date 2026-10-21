@@ -14,11 +14,19 @@ On a fresh/empty database it:
   4. Creates an admin superuser if DJANGO_SUPERUSER_USERNAME/PASSWORD
      are set in the environment and no superuser exists yet
 
+With a persistent volume (DATA_DIR / RAILWAY_VOLUME_MOUNT_PATH) it also:
+  - collects static files into the volume on every boot (uploads already in
+    STATIC_ROOT are left alone)
+  - runs sync_stats to append new fixture rows without overwriting content
+    edited, renamed, reordered or uploaded in production
+  - runs sync_translations to merge new French strings
+
 Re-running against an existing database changes nothing (no duplicates,
 no overwrites), so it is safe as a deploy hook.
 """
 import os
 
+from django.conf import settings
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
@@ -27,6 +35,13 @@ class Command(BaseCommand):
     help = 'Ensure the database exists and is seeded with minimal production data (idempotent).'
 
     def handle(self, *args, **options):
+        persistent = getattr(settings, 'PERSISTENT_CONTENT', False)
+
+        if persistent:
+            self.stdout.write('ensure_database: collecting static files into persistent volume...')
+            call_command('collectstatic', interactive=False, verbosity=0)
+            self.stdout.write(self.style.SUCCESS('ensure_database: static files OK'))
+
         # 1. Schema — creates all tables on a fresh database; no-op otherwise.
         self.stdout.write('ensure_database: running migrations...')
         call_command('migrate', interactive=False, verbosity=0)
@@ -41,6 +56,10 @@ class Command(BaseCommand):
             app_label='party_pages', model_name='Certification',
             fixture='certifications.json',
         )
+
+        if persistent:
+            call_command('sync_stats', verbosity=0)
+            call_command('sync_translations', verbosity=0)
 
         # 4. Optional admin user from env vars (never overwrites).
         self._ensure_superuser()

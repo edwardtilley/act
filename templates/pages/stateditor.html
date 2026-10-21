@@ -28,13 +28,23 @@
 <div class="container-fluid pt-7 pb-4">
 
   {% if is_production %}
-  <div class="alert alert-warning py-2 d-flex align-items-start gap-2">
-    <i class="fas fa-exclamation-triangle mt-1"></i>
-    <div class="text-sm">
-      {% tr "Production is rebuilt on every deploy. Make content changes on the dev server and push them, or download the export bundle after a production change and commit it before the next deploy." %}
-      <a href="/stateditor/export/" class="alert-link">{% tr "Download export" %}</a>
+    {% if persistent_content %}
+    <div class="alert alert-success py-2 d-flex align-items-start gap-2">
+      <i class="fas fa-database mt-1"></i>
+      <div class="text-sm">
+        {% tr "Production content (images, filenames and sequence) is stored on the persistent volume and survives deploys. Export remains available as a backup." %}
+        <a href="/stateditor/export/" class="alert-link">{% tr "Download export" %}</a>
+      </div>
     </div>
-  </div>
+    {% else %}
+    <div class="alert alert-warning py-2 d-flex align-items-start gap-2">
+      <i class="fas fa-exclamation-triangle mt-1"></i>
+      <div class="text-sm">
+        {% tr "Production is rebuilt on every deploy. Make content changes on the dev server and push them, or download the export bundle after a production change and commit it before the next deploy." %}
+        <a href="/stateditor/export/" class="alert-link">{% tr "Download export" %}</a>
+      </div>
+    </div>
+    {% endif %}
   {% else %}
   <div class="alert alert-info py-2 d-flex align-items-start gap-2">
     <i class="fas fa-code-branch mt-1"></i>

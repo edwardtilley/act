@@ -6,6 +6,19 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Optional persistent content store. On Railway, mount a volume (e.g. /data)
+# and set DATA_DIR=/data: the SQLite DB and collected/uploaded images then
+# live on the volume and survive deploys, making production standalone.
+DATA_DIR = (
+    os.getenv('DATA_DIR', '').strip()
+    or os.getenv('RAILWAY_VOLUME_MOUNT_PATH', '').strip()
+)
+PERSISTENT_CONTENT = bool(DATA_DIR)
+if PERSISTENT_CONTENT:
+    DATA_DIR = Path(DATA_DIR)
+
+STATS_FIXTURE = BASE_DIR / 'stats.json'
+
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-dev-key-change-in-production')
 
 DEBUG = os.getenv('DEBUG', 'True').lower() in ('true', '1', 'yes')
@@ -89,6 +102,10 @@ DATABASES = {
     }
 }
 
+if PERSISTENT_CONTENT:
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    DATABASES['default']['NAME'] = DATA_DIR / 'db.sqlite3'
+
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -114,6 +131,10 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+if PERSISTENT_CONTENT:
+    STATIC_ROOT = DATA_DIR / 'staticfiles'
+    MEDIA_ROOT = DATA_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

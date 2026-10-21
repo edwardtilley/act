@@ -26,10 +26,26 @@ from .models import Riding, JoinApplication, Certification, CertificationApplica
 STAT_IMAGE_DIR = Path(settings.BASE_DIR) / 'static' / 'assets' / 'img'
 STAT_IMAGE_MAX_BYTES = 10 * 1024 * 1024
 STAT_IMAGE_EXTS = {'.jpg', '.jpeg', '.png', '.webp', '.gif'}
-STATS_FIXTURE = Path(settings.BASE_DIR) / 'stats.json'
+STATS_FIXTURE = Path(getattr(settings, 'STATS_FIXTURE', Path(settings.BASE_DIR) / 'stats.json'))
 PRODUCTION_HOSTS = {'actcanadian.com', 'www.actcanadian.com'}
 
 logger = logging.getLogger(__name__)
+
+
+def _stat_image_locations(filename):
+    """Where a stat image may live: the source tree and STATIC_ROOT (the
+    Railway volume when DATA_DIR is set)."""
+    yield STAT_IMAGE_DIR / filename
+    static_root = getattr(settings, 'STATIC_ROOT', None)
+    if static_root:
+        yield Path(static_root) / 'assets' / 'img' / filename
+
+
+def _find_stat_image(filename):
+    for path in _stat_image_locations(filename):
+        if path.exists():
+            return path
+    return None
 
 
 def _is_production_request(request):
@@ -68,7 +84,7 @@ def _unique_stat_image_name(filename):
     base, ext = os.path.splitext(filename)
     candidate = filename
     n = 1
-    while (STAT_IMAGE_DIR / candidate).exists():
+    while _find_stat_image(candidate):
         candidate = f'{base}-{n}{ext}'
         n += 1
     return candidate
@@ -135,16 +151,27 @@ def _copy_stat_image(old_name, new_name):
         return old_name
     if desired == old_name:
         return old_name
-    src = STAT_IMAGE_DIR / old_name
-    if not src.exists():
+    src = _find_stat_image(old_name)
+    if not src:
         return desired
     filename = _unique_stat_image_name(desired)
+    copied = False
     try:
+        STAT_IMAGE_DIR.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(src, STAT_IMAGE_DIR / filename)
+        copied = True
     except OSError:
-        return old_name
-    _mirror_stat_image(filename)
-    return filename
+        pass
+    static_root = getattr(settings, 'STATIC_ROOT', None)
+    if static_root:
+        dest_dir = Path(static_root) / 'assets' / 'img'
+        try:
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(src, dest_dir / filename)
+            copied = True
+        except OSError:
+            pass
+    return filename if copied else old_name
 
 
 def index(request):
@@ -391,6 +418,7 @@ def stat_editor(request):
         'segment': 'stats',
         'saved': request.GET.get('saved'),
         'is_production': _is_production_request(request),
+        'persistent_content': getattr(settings, 'PERSISTENT_CONTENT', False),
     })
 
 
