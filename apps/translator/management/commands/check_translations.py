@@ -9,7 +9,8 @@ from apps.translator.models import TranslationCache
 
 # Matches {% tr "text" %} or {% tr 'text' %}, allowing apostrophes inside
 # double-quoted strings (and double quotes inside single-quoted strings).
-TR_RE = re.compile(r'''{%\s*tr\s+(?:"((?:[^"\\]|\\.)*)"|'((?:[^'\\]|\\.)*)')\s*%}''')
+# Also matches the assign form {% tr "text" as my_var %}.
+TR_RE = re.compile(r'''{%\s*tr\s+(?:"((?:[^"\\]|\\.)*)"|'((?:[^'\\]|\\.)*)')(?:\s+as\s+\w+)?\s*%}''')
 
 
 class Command(BaseCommand):

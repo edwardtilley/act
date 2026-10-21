@@ -5,18 +5,15 @@
 <style>
   .stats-slide { background: linear-gradient(135deg, #1A1A1A 0%, #333 100%); padding: 80px 0 40px; }
   .stats-slide, .stats-slide h1, .stats-slide p { color: #fff; }
-  .slide-main { position: relative; background: #111; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(204,0,0,0.15); }
-  .slide-main img { max-height: 520px; width: 100%; object-fit: contain; display: block; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .stat-card { background: #111; border: 2px solid transparent; border-radius: 14px; overflow: hidden; padding: 0; text-align: left; cursor: zoom-in; transition: all 0.2s ease; box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+  .stat-card:hover { border-color: #CC0000; transform: translateY(-3px); box-shadow: 0 12px 28px rgba(204,0,0,0.2); }
+  .stat-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: #000; }
+  .stat-card-title { display: block; padding: 0.55rem 0.7rem; font-size: 0.78rem; font-weight: 600; color: #fff; background: #1A1A1A; line-height: 1.25; }
   .slide-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; width: 48px; height: 48px; border-radius: 50%; background: rgba(204,0,0,0.85); color: #fff; display: flex; align-items: center; justify-content: center; border: none; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(204,0,0,0.3); transition: all 0.2s ease; }
   .slide-arrow:hover { background: #CC0000; transform: translateY(-50%) scale(1.1); }
   .slide-arrow.prev { left: 20px; }
   .slide-arrow.next { right: 20px; }
-  .slide-caption { padding: 1.5rem 1rem; background: #fff; border-top: 3px solid #CC0000; }
-  .thumb-strip { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; }
-  .thumb-strip .thumb { width: 90px; height: 70px; flex-shrink: 0; border-radius: 8px; overflow: hidden; border: 2px solid transparent; cursor: pointer; opacity: 0.6; transition: all 0.2s ease; }
-  .thumb-strip .thumb.active { border-color: #CC0000; opacity: 1; box-shadow: 0 4px 10px rgba(204,0,0,0.15); }
-  .thumb-strip .thumb:hover { opacity: 0.9; }
-  .thumb-strip .thumb img { width: 100%; height: 100%; object-fit: cover; }
   .filter-box { background: #fff; border: 1px solid #e2e2e2; border-radius: 8px; padding: 0.5rem 0.75rem; width: 100%; max-width: 320px; font-size: 0.9rem; }
   .modal-slide img { max-height: 80vh; width: 100%; object-fit: contain; }
 </style>
@@ -43,23 +40,13 @@
     <div class="col-12 d-flex align-items-center gap-3 flex-wrap">
       <label for="statsFilter" class="fw-bold text-sm mb-0">{% tr "Filter:" %}</label>
       <input type="text" id="statsFilter" class="filter-box" placeholder="Type keywords..." autocomplete="off">
-      <span class="text-xs text-muted" id="statCount">{% tr "Showing" %}{{ stats|length }}{% tr "images" %}</span>
+      <span class="text-xs text-muted" id="statCount">{% tr "Showing" %} {{ stats|length }} {% tr "images" %}</span>
     </div>
   </div>
 
-  <!-- Main slideshow -->
-  <div class="slide-main mb-4" id="slideMain">
-    <button class="slide-arrow prev" onclick="changeSlide(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-    <button class="slide-arrow next" onclick="changeSlide(1)" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
-    <img id="mainSlideImage" src="" alt="" onclick="openModal()">
-    <div class="slide-caption" id="slideCaption">
-      <h5 class="fw-bold mb-2" id="slideTitle"></h5>
-      <p class="text-sm text-muted mb-0" id="slideDesc"></p>
-    </div>
-  </div>
-
-  <!-- Thumbnails -->
-  <div class="thumb-strip" id="thumbStrip"></div>
+  <!-- Photo grid -->
+  <div class="stats-grid" id="statsGrid"></div>
+  <p class="text-center text-muted mt-4 d-none" id="statsEmpty">{% tr "No results" %}</p>
 </div>
 
 <!-- Civic Science Reality Section -->
@@ -140,12 +127,17 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body p-0">
-        <div class="modal-slide text-center p-3">
+        <div class="modal-slide text-center p-3 position-relative">
+          <button type="button" class="slide-arrow prev" onclick="modalStep(-1)" aria-label="{% tr 'Previous' %}"><i class="fas fa-chevron-left"></i></button>
+          <button type="button" class="slide-arrow next" onclick="modalStep(1)" aria-label="{% tr 'Next' %}"><i class="fas fa-chevron-right"></i></button>
           <img id="modalImage" src="" alt="">
         </div>
         <div class="p-4">
-          <p class="text-sm mb-3" id="modalDesc"></p>
-          <div id="modalLinks" class="d-flex gap-2 flex-wrap"></div>
+          <div class="d-flex justify-content-between align-items-start gap-3">
+            <p class="text-sm mb-0" id="modalDesc"></p>
+            <span class="text-xs text-white-50 flex-shrink-0" id="modalCounter"></span>
+          </div>
+          <div id="modalLinks" class="d-flex gap-2 flex-wrap mt-3"></div>
         </div>
       </div>
     </div>
@@ -187,85 +179,99 @@ const statsData = [
   {% endfor %}
 ];
 
-let currentIndex = 0;
+{% tr "Showing" as lbl_showing %}
+{% tr "images" as lbl_images %}
+{% tr "No stats configured" as lbl_no_stats %}
+{% tr "No links set." as lbl_no_links %}
+let gridStats = statsData.slice();
+let modalIndex = 0;
+let statModal = null;
 
-function renderSlide(i) {
-  if (statsData.length === 0) return;
-  const s = statsData[i];
-  document.getElementById('mainSlideImage').src = '/static/assets/img/' + s.filename;
-  document.getElementById('mainSlideImage').alt = s.title;
-  document.getElementById('slideTitle').textContent = s.title;
-  document.getElementById('slideDesc').textContent = s.description;
-  document.getElementById('statCount').textContent = 'Image ' + (i + 1) + ' of ' + statsData.length;
-  document.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === i));
-  currentIndex = i;
+function statImageUrl(s) { return '/static/assets/img/' + s.filename; }
+
+function buildGrid() {
+  const grid = document.getElementById('statsGrid');
+  const empty = document.getElementById('statsEmpty');
+  grid.innerHTML = '';
+  gridStats.forEach(function(s, i) {
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'stat-card';
+    const img = document.createElement('img');
+    img.src = statImageUrl(s);
+    img.alt = s.title;
+    img.loading = 'lazy';
+    const label = document.createElement('span');
+    label.className = 'stat-card-title';
+    label.textContent = s.title;
+    card.appendChild(img);
+    card.appendChild(label);
+    card.addEventListener('click', function() { openModal(i); });
+    grid.appendChild(card);
+  });
+  document.getElementById('statCount').textContent = '{{ lbl_showing|escapejs }} ' + gridStats.length + ' {{ lbl_images|escapejs }}';
+  empty.classList.toggle('d-none', gridStats.length > 0 || statsData.length === 0);
 }
 
-function changeSlide(dir) {
-  let idx = currentIndex + dir;
-  if (statsData.length > 0) {
-    idx = (idx + statsData.length) % statsData.length;
-    renderSlide(idx);
-  }
-}
-
-function openModal() {
-  const s = statsData[currentIndex];
+function renderModal() {
+  if (!gridStats.length) return;
+  const s = gridStats[modalIndex];
   document.getElementById('modalTitle').textContent = s.title;
-  document.getElementById('modalImage').src = '/static/assets/img/' + s.filename;
+  document.getElementById('modalImage').src = statImageUrl(s);
+  document.getElementById('modalImage').alt = s.title;
   document.getElementById('modalDesc').textContent = s.description;
+  document.getElementById('modalCounter').textContent = (modalIndex + 1) + ' / ' + gridStats.length;
   let linksHtml = '';
   try {
     const links = JSON.parse(s.links_json);
-    links.forEach(l => {
+    links.forEach(function(l) {
       linksHtml += '<a href="' + l.url + '" target="_blank" class="btn btn-sm btn-outline-light">' + (l.label || 'Link') + '</a>';
     });
-  } catch(e) {}
-  document.getElementById('modalLinks').innerHTML = linksHtml || '<span class="text-xs text-muted">No links set.</span>';
-  new bootstrap.Modal(document.getElementById('statModal')).show();
+  } catch (e) {}
+  document.getElementById('modalLinks').innerHTML = linksHtml || '<span class="text-xs text-muted">{{ lbl_no_links|escapejs }}</span>';
 }
 
-function buildThumbs() {
-  const strip = document.getElementById('thumbStrip');
-  strip.innerHTML = '';
-  statsData.forEach((s, i) => {
-    const div = document.createElement('div');
-    div.className = 'thumb' + (i === 0 ? ' active' : '');
-    div.innerHTML = '<img src="/static/assets/img/' + s.filename + '" alt="' + s.title.replace(/"/g, '&quot;') + '">';
-    div.onclick = () => renderSlide(i);
-    strip.appendChild(div);
-  });
+function openModal(i) {
+  if (!gridStats.length) return;
+  modalIndex = i;
+  renderModal();
+  const el = document.getElementById('statModal');
+  if (!statModal) statModal = new bootstrap.Modal(el);
+  statModal.show();
+}
+
+function modalStep(dir) {
+  if (gridStats.length < 2) return;
+  modalIndex = (modalIndex + dir + gridStats.length) % gridStats.length;
+  renderModal();
 }
 
 function filterStats(query) {
-  const q = query.toLowerCase();
-  const filtered = statsData.filter(s => (s.title + ' ' + s.description + ' ' + s.keywords).toLowerCase().includes(q));
-  // For simplicity, rebuild array reference temporarily (in full app, use separate state variable)
-  // Here we just filter display by hiding thumbnails and resetting main to first match
-  const thumbs = document.querySelectorAll('.thumb');
-  if (filtered.length === 0) {
-    thumbs.forEach(t => t.style.display = 'none');
-    document.getElementById('mainSlideImage').src = '';
-    document.getElementById('slideTitle').textContent = 'No results';
-    document.getElementById('slideDesc').textContent = '';
-  } else {
-    statsData.forEach((s, i) => {
-      const match = filtered.find(f => f.id === s.id);
-      thumbs[i].style.display = match ? 'block' : 'none';
-    });
-    renderSlide(statsData.indexOf(filtered[0]));
-  }
+  const q = query.trim().toLowerCase();
+  gridStats = q
+    ? statsData.filter(function(s) {
+        return (s.title + ' ' + s.description + ' ' + s.keywords).toLowerCase().indexOf(q) !== -1;
+      })
+    : statsData.slice();
+  buildGrid();
 }
 
-document.getElementById('statsFilter').addEventListener('input', e => filterStats(e.target.value));
+document.getElementById('statsFilter').addEventListener('input', function(e) { filterStats(e.target.value); });
+
+document.addEventListener('keydown', function(e) {
+  const el = document.getElementById('statModal');
+  if (!el || !el.classList.contains('show')) return;
+  if (e.key === 'ArrowLeft') { e.preventDefault(); modalStep(-1); }
+  else if (e.key === 'ArrowRight') { e.preventDefault(); modalStep(1); }
+});
 
 if (statsData.length > 0) {
-  buildThumbs();
-  renderSlide(0);
+  buildGrid();
 } else {
-  document.getElementById('mainSlideImage').src = '';
-  document.getElementById('slideTitle').textContent = 'No stats configured';
-  document.getElementById('slideDesc').textContent = 'Add images via the Stats Editor or admin.';
+  const empty = document.getElementById('statsEmpty');
+  empty.textContent = '{{ lbl_no_stats|escapejs }}';
+  empty.classList.remove('d-none');
+  document.getElementById('statCount').textContent = '{{ lbl_showing|escapejs }} 0 {{ lbl_images|escapejs }}';
 }
 </script>
 {% endblock content %}
