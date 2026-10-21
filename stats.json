@@ -8,7 +8,7 @@
     "description": "",
     "keywords": "housing",
     "links_json": "",
-    "display_order": 22,
+    "display_order": 21,
     "active": true
   }
 },
@@ -112,7 +112,7 @@
     "description": "WAOH Housing case study: Cost of living mismanagement creates starvation wages, usury lending, and double-income traps that prevent family formation and home ownership as a human right. See csq1.org/waoh#bubbles.",
     "keywords": "housing, cost of living, bubble",
     "links_json": "[{\"label\":\"WAOH#bubbles\",\"url\":\"https://csq1.org/waoh#bubbles\"}]",
-    "display_order": 23,
+    "display_order": 22,
     "active": true
   }
 },
@@ -320,7 +320,7 @@
     "description": "WAOH Indoctrination case study: Gender theory, DEI, ESG, and race theory taught to children as young as kindergarten constitute child abuse, creating 8x suicide rates in trans-kids and last 8 major school shootings. See csq1.org/waoh#indoctrination.",
     "keywords": "indoctrination, education, schools",
     "links_json": "[{\"label\":\"WAOH#indoctrination\",\"url\":\"https://csq1.org/waoh#indoctrination\"}]",
-    "display_order": 24,
+    "display_order": 23,
     "active": true
   }
 },
@@ -333,7 +333,7 @@
     "description": "WAOH Globalism case study: Globalist oligarchs sponsor political parties with multi-billion SuperPAC campaigns, control media ($6M/day CBC), and protect election fraud through Hate Laws. See csq1.org/waoh#globalism.",
     "keywords": "globalism, WEF, control",
     "links_json": "[{\"label\":\"WAOH#globalism\",\"url\":\"https://csq1.org/waoh#globalism\"}]",
-    "display_order": 21,
+    "display_order": 20,
     "active": true
   }
 },
@@ -489,7 +489,7 @@
     "description": "WAOH Diversity case study: the ideology of gender identity and pride celebrations taught to children is harmful indoctrination — a child-abusing ideology driving 8x suicide rates in trans-identifying youth.",
     "keywords": "pride, gender, ideology, schools",
     "links_json": "[{\"label\":\"WAOH#diversity\",\"url\":\"https://csq1.org/waoh\"}]",
-    "display_order": 20,
+    "display_order": 24,
     "active": true
   }
 },
