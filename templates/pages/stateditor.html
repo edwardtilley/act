@@ -134,6 +134,7 @@
             <label class="form-label" for="createStatImage">{% tr "Upload Image" %}</label>
             <input type="file" class="form-control" id="createStatImage" name="stat_image" accept="image/jpeg,image/png,image/webp,image/gif">
             <small class="text-muted text-xs">{% tr "Allowed: JPG, PNG, WebP or GIF up to 10 MB. Saved to static/assets/img/." %}</small>
+            <small class="text-muted text-xs d-block">{% tr "Optional: the upload is saved under the Image Filename above (extension follows the image format)." %}</small>
           </div>
           <div class="mb-3"><label class="form-label">{% tr "Description" %}</label><textarea class="form-control" name="description" rows="4"></textarea></div>
           <div class="mb-3"><label class="form-label">{% tr "Keywords (comma delimited)" %}</label><input type="text" class="form-control" name="keywords" placeholder="immigration, GDP, fertility"></div>
@@ -166,12 +167,13 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-8 mb-3"><label class="form-label">{% tr "Title" %}</label><input type="text" class="form-control" name="title" value="{{ stat.title }}" required></div>
-            <div class="col-md-4 mb-3"><label class="form-label">{% tr "Image Filename" %}</label><input type="text" class="form-control" name="image_filename" value="{{ stat.image_filename }}"></div>
+            <div class="col-md-4 mb-3"><label class="form-label">{% tr "Image Filename" %}</label><input type="text" class="form-control" name="image_filename" value="{{ stat.image_filename }}"><small class="text-muted text-xs d-block">{% tr "Changing this renames the image file on disk when you save." %}</small></div>
           </div>
           <div class="mb-3">
             <label class="form-label" for="editStatImage{{ stat.id }}">{% tr "Upload Image" %}</label>
             <input type="file" class="form-control" id="editStatImage{{ stat.id }}" name="stat_image" accept="image/jpeg,image/png,image/webp,image/gif">
             <small class="text-muted text-xs">{% tr "Allowed: JPG, PNG, WebP or GIF up to 10 MB. Saved to static/assets/img/." %} {% tr "Leave empty to keep the current image." %}</small>
+            <small class="text-muted text-xs d-block">{% tr "Optional: the upload is saved under the Image Filename above (extension follows the image format)." %}</small>
           </div>
           <div class="mb-3"><label class="form-label">{% tr "Description" %}<span class="text-muted">{% tr "(shown with the image in the slideshow)" %}</span></label><textarea class="form-control" name="description" rows="6">{{ stat.description }}</textarea></div>
           <div class="mb-3"><label class="form-label">{% tr "Keywords (comma delimited)" %}</label><input type="text" class="form-control" name="keywords" value="{{ stat.keywords }}"></div>

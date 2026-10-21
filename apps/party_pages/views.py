@@ -33,18 +33,35 @@ def _unique_stat_image_name(filename):
     return candidate
 
 
-def _store_stat_image(upload):
+def _mirror_stat_image(filename):
+    """Mirror a saved image into STATIC_ROOT so WhiteNoise serves it in prod."""
+    static_root = getattr(settings, 'STATIC_ROOT', None)
+    if not static_root:
+        return
+    src = STAT_IMAGE_DIR / filename
+    dest_dir = Path(static_root) / 'assets' / 'img'
+    try:
+        if src.exists() and dest_dir.resolve() != STAT_IMAGE_DIR.resolve():
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(src, dest_dir / filename)
+    except OSError:
+        pass
+
+
+def _store_stat_image(upload, preferred_name=''):
     """Save an uploaded stat image into static/assets/img/ and return its
     filename, or None when the upload is missing/not an allowed image.
 
-    In production WhiteNoise serves STATIC_ROOT, so the file is mirrored there
-    too; note that the Railway filesystem is ephemeral and rebuilds on deploy,
-    so uploads must be committed (static file + stats.json fixture) to last.
+    When preferred_name is given, the upload is saved under that name (with
+    the real image format's extension). In production WhiteNoise serves
+    STATIC_ROOT, so the file is mirrored there too; note that the Railway
+    filesystem is ephemeral and rebuilds on deploy, so uploads must be
+    committed (static file + stats.json fixture) to last.
     """
     if not upload or upload.size > STAT_IMAGE_MAX_BYTES:
         return None
-    ext = os.path.splitext(upload.name)[1].lower()
-    if ext not in STAT_IMAGE_EXTS:
+    upload_ext = os.path.splitext(upload.name)[1].lower()
+    if upload_ext not in STAT_IMAGE_EXTS:
         return None
     try:
         Image.open(upload).verify()
@@ -53,22 +70,40 @@ def _store_stat_image(upload):
     upload.seek(0)
 
     STAT_IMAGE_DIR.mkdir(parents=True, exist_ok=True)
-    filename = _unique_stat_image_name(get_valid_filename(upload.name))
+    preferred = os.path.basename(preferred_name or '').strip()
+    if preferred:
+        stem = os.path.splitext(preferred)[0]
+        desired = (get_valid_filename(stem) or os.path.splitext(upload.name)[0]) + upload_ext
+    else:
+        desired = get_valid_filename(upload.name)
+    filename = _unique_stat_image_name(desired)
     storage = FileSystemStorage(location=str(STAT_IMAGE_DIR))
     saved = storage.save(filename, upload)
-
-    static_root = getattr(settings, 'STATIC_ROOT', None)
-    if static_root:
-        src = STAT_IMAGE_DIR / saved
-        dest_dir = Path(static_root) / 'assets' / 'img'
-        try:
-            if src.exists() and dest_dir.resolve() != STAT_IMAGE_DIR.resolve():
-                dest_dir.mkdir(parents=True, exist_ok=True)
-                shutil.copyfile(src, dest_dir / saved)
-        except OSError:
-            pass
-
+    _mirror_stat_image(saved)
     return saved
+
+
+def _copy_stat_image(old_name, new_name):
+    """Copy an existing stat image to a new filename.
+
+    Used when the Image Filename field is edited without uploading a new file,
+    so the typed name is actually applied instead of pointing at nothing.
+    """
+    desired = get_valid_filename(os.path.basename(new_name or ''))
+    if not desired:
+        return old_name
+    if desired == old_name:
+        return old_name
+    src = STAT_IMAGE_DIR / old_name
+    if not src.exists():
+        return desired
+    filename = _unique_stat_image_name(desired)
+    try:
+        shutil.copyfile(src, STAT_IMAGE_DIR / filename)
+    except OSError:
+        return old_name
+    _mirror_stat_image(filename)
+    return filename
 
 
 def index(request):
@@ -319,7 +354,7 @@ def stat_create(request):
         filename = os.path.basename(request.POST.get('image_filename', '').strip())
         upload = request.FILES.get('stat_image')
         if upload:
-            stored = _store_stat_image(upload)
+            stored = _store_stat_image(upload, filename)
             if not stored:
                 messages.error(request, 'Upload failed — choose a JPEG, PNG, WebP or GIF image under 10 MB.')
                 return redirect('/stateditor')
@@ -364,11 +399,13 @@ def stat_update(request, stat_id):
         )
         upload = request.FILES.get('stat_image')
         if upload:
-            stored = _store_stat_image(upload)
+            stored = _store_stat_image(upload, filename or stat.image_filename)
             if not stored:
                 messages.error(request, 'Upload failed — choose a JPEG, PNG, WebP or GIF image under 10 MB.')
                 return redirect('/stateditor')
             filename = stored
+        elif filename and filename != stat.image_filename:
+            filename = _copy_stat_image(stat.image_filename, filename)
         stat.title = request.POST.get('title', stat.title)
         stat.image_filename = filename
         stat.description = request.POST.get('description', stat.description)
