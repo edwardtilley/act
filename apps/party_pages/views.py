@@ -1,9 +1,72 @@
+import os
+import shutil
+from pathlib import Path
+
+from django.conf import settings
+from django.contrib import messages
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.utils.text import get_valid_filename
+from PIL import Image
+
 from .models import Riding, JoinApplication, Certification, CertificationApplication, StatImage, WAOHAnchor
+
+
+STAT_IMAGE_DIR = Path(settings.BASE_DIR) / 'static' / 'assets' / 'img'
+STAT_IMAGE_MAX_BYTES = 10 * 1024 * 1024
+STAT_IMAGE_EXTS = {'.jpg', '.jpeg', '.png', '.webp', '.gif'}
+
+
+def _unique_stat_image_name(filename):
+    base, ext = os.path.splitext(filename)
+    candidate = filename
+    n = 1
+    while (STAT_IMAGE_DIR / candidate).exists():
+        candidate = f'{base}-{n}{ext}'
+        n += 1
+    return candidate
+
+
+def _store_stat_image(upload):
+    """Save an uploaded stat image into static/assets/img/ and return its
+    filename, or None when the upload is missing/not an allowed image.
+
+    In production WhiteNoise serves STATIC_ROOT, so the file is mirrored there
+    too; note that the Railway filesystem is ephemeral and rebuilds on deploy,
+    so uploads must be committed (static file + stats.json fixture) to last.
+    """
+    if not upload or upload.size > STAT_IMAGE_MAX_BYTES:
+        return None
+    ext = os.path.splitext(upload.name)[1].lower()
+    if ext not in STAT_IMAGE_EXTS:
+        return None
+    try:
+        Image.open(upload).verify()
+    except Exception:
+        return None
+    upload.seek(0)
+
+    STAT_IMAGE_DIR.mkdir(parents=True, exist_ok=True)
+    filename = _unique_stat_image_name(get_valid_filename(upload.name))
+    storage = FileSystemStorage(location=str(STAT_IMAGE_DIR))
+    saved = storage.save(filename, upload)
+
+    static_root = getattr(settings, 'STATIC_ROOT', None)
+    if static_root:
+        src = STAT_IMAGE_DIR / saved
+        dest_dir = Path(static_root) / 'assets' / 'img'
+        try:
+            if src.exists() and dest_dir.resolve() != STAT_IMAGE_DIR.resolve():
+                dest_dir.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(src, dest_dir / saved)
+        except OSError:
+            pass
+
+    return saved
 
 
 def index(request):
@@ -251,9 +314,17 @@ def stat_editor(request):
 @login_required
 def stat_create(request):
     if request.method == 'POST':
+        filename = os.path.basename(request.POST.get('image_filename', '').strip())
+        upload = request.FILES.get('stat_image')
+        if upload:
+            stored = _store_stat_image(upload)
+            if not stored:
+                messages.error(request, 'Upload failed — choose a JPEG, PNG, WebP or GIF image under 10 MB.')
+                return redirect('/stateditor')
+            filename = stored
         StatImage.objects.create(
             title=request.POST.get('title', ''),
-            image_filename=request.POST.get('image_filename', ''),
+            image_filename=filename,
             description=request.POST.get('description', ''),
             keywords=request.POST.get('keywords', ''),
             links_json=request.POST.get('links_json', ''),
@@ -266,8 +337,18 @@ def stat_create(request):
 def stat_update(request, stat_id):
     stat = get_object_or_404(StatImage, pk=stat_id)
     if request.method == 'POST':
+        filename = os.path.basename(
+            request.POST.get('image_filename', stat.image_filename).strip()
+        )
+        upload = request.FILES.get('stat_image')
+        if upload:
+            stored = _store_stat_image(upload)
+            if not stored:
+                messages.error(request, 'Upload failed — choose a JPEG, PNG, WebP or GIF image under 10 MB.')
+                return redirect('/stateditor')
+            filename = stored
         stat.title = request.POST.get('title', stat.title)
-        stat.image_filename = request.POST.get('image_filename', stat.image_filename)
+        stat.image_filename = filename
         stat.description = request.POST.get('description', stat.description)
         stat.keywords = request.POST.get('keywords', stat.keywords)
         stat.links_json = request.POST.get('links_json', stat.links_json)
