@@ -3,21 +3,18 @@
 {% load translate_en %}
 {% block body_class %}{% tr "g-sidenav-show bg-gray-100" %}{% endblock body_class %}
 {% block sidebar %}{% include "includes/sidebar.html" %}{% endblock sidebar %}
-{% block content %}
-<main class="main-content position-relative">
+{% block extrastyle %}
 <style>
   body { background: #f5f7fa; }
   .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  #statsEditorTable_wrapper .row:first-child,
+  #statsEditorTable_wrapper .row:last-child { padding: 0 1rem; }
+  #statsEditorTable thead th { white-space: nowrap; }
 </style>
-<div class="container-fluid py-4">
-  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-    <div>
-      <h4 class="fw-bold mb-1"><i class="fas fa-chart-bar text-advance-red me-2"></i>{% tr "Stats Editor" %}</h4>
-      <p class="text-muted text-sm mb-0">{% tr "Edit the text that accompanies each stat image — descriptions, keywords, and links." %}</p>
-    </div>
-    <button type="button" class="btn btn-advance-red btn-sm" data-bs-toggle="modal" data-bs-target="#createStatModal">
-      <i class="fas fa-plus me-1"></i>{% tr "Add Stat" %}</button>
-  </div>
+{% endblock %}
+{% block content %}
+<main class="main-content position-relative">
+<div class="container-fluid pt-7 pb-4">
 
   {% if saved %}
   <div class="alert alert-success py-2"><i class="fas fa-check-circle me-2"></i>{% tr "Stat #" %}{{ saved }}{% tr "updated successfully." %}</div>
@@ -33,7 +30,15 @@
   </div>
   {% endif %}
 
-  <div class="card shadow-sm rounded-4 border-0">
+  <div class="card">
+    <div class="card-header pb-0 d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <div>
+        <h6 class="mb-1"><i class="fas fa-chart-bar text-advance-red me-2"></i>{% tr "Stats Editor" %}</h6>
+        <p class="text-sm text-muted mb-0">{% tr "Edit the text that accompanies each stat image — descriptions, keywords, and links." %}</p>
+      </div>
+      <button type="button" class="btn btn-advance-red btn-sm" data-bs-toggle="modal" data-bs-target="#createStatModal">
+        <i class="fas fa-plus me-1"></i>{% tr "Add Stat" %}</button>
+    </div>
     <div class="card-body px-0 pt-0 pb-2">
       <div class="table-responsive p-0">
         <table id="statsEditorTable" class="table align-items-center mb-0 display" style="width:100%;">
