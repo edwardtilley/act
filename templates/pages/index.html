@@ -57,9 +57,12 @@
   .thumb-deck .deck-card.c1 { z-index: 3; }
   .thumb-deck .deck-card.c2 { top: 3px; left: 4px; z-index: 2; transform: rotate(-4deg); }
   .thumb-deck .deck-card.c3 { top: 6px; left: 8px; z-index: 1; transform: rotate(-8deg); }
+  .thumb-deck .deck-card.c4 { top: 9px; left: 12px; z-index: 0; transform: rotate(-12deg); }
+  .thumb-deck.deck-4 { height: 104px; }
   .thumb-deck:hover .deck-card.c1 { transform: scale(1.04); border-color: #CC0000; }
   .thumb-deck:hover .deck-card.c2 { transform: rotate(-4deg) translate(-3px, -3px); }
   .thumb-deck:hover .deck-card.c3 { transform: rotate(-8deg) translate(-3px, -3px); }
+  .thumb-deck:hover .deck-card.c4 { transform: rotate(-12deg) translate(-3px, -3px); }
   .thumb-deck .deck-count { position: absolute; bottom: -2px; right: -2px; z-index: 4; background: #CC0000; color: #fff; font-size: 0.62rem; font-weight: 700; border-radius: 20px; padding: 1px 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
   /* Accordion thumbnail selector */
   .thumb-accordion { float: right; clear: both; width: 100%; max-width: 90px; margin: 0 0 0.75rem; position: relative; z-index: 3; }
@@ -68,6 +71,7 @@
   .thumb-toggle .chev { transition: transform 0.25s ease; }
   .thumb-accordion.open .thumb-toggle .chev { transform: rotate(180deg); }
   .thumb-thumbs { display: none; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 6px; }
+  .thumb-thumbs.thumbs-4 { grid-template-columns: repeat(2, 1fr); justify-items: center; }
   .thumb-accordion.open .thumb-thumbs { display: grid; }
   .thumb-thumbs img { width: 30px; height: 30px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 1px solid rgba(204,0,0,0.35); transition: transform 0.15s ease; position: relative; z-index: 4; }
   .thumb-thumbs img:hover { transform: scale(1.12); border-color: #CC0000; }
@@ -481,8 +485,26 @@
       <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
         <div class="icon" style="color:#CC0000;"><i class="fas fa-chart-line"></i></div>
         <h4 style="color:#1A1A1A;">{% tr "Economic Treason" %}</h4>
-        <img src="{% static 'assets/img/collapse.jpg' %}" alt="{% tr 'Economic Treason' %}" class="problem-thumb" title="{% tr 'Click Here' %}" data-gallery-index="6" data-gallery-title="{% tr 'Economic Treason' %}">
-        <p style="color:#1A1A1A;">{% tr "$4 Billion lost daily unreported. 1930s production growth levels. 1990s salaries. Lowest GDP per Capita in G20. World's largest housing bubble. 138th in suicide. Double income traps destroy families, our population, and Canada's future. Doubled Welfare roles, Doubled Homelessness, Food Banks run off their feet, with substandard food quality and housing." %}</p>
+        <div class="thumb-deck deck-4" title="{% tr 'Click Here' %}" data-gallery-index="6">
+          <img src="{% static 'assets/img/ProductionGrwthTrend-lowres.jpg' %}" alt="{% tr 'Production Growth Trends — Nominal GDP Since 1800' %}" class="deck-card c1" data-gallery-index="6" data-gallery-title="{% tr 'Production Growth Trends — Nominal GDP Since 1800' %}">
+          <img src="{% static 'assets/img/regulated-capitalism.jpg' %}" alt="{% tr 'Regulated vs Unregulated Capitalism' %}" class="deck-card c2" data-gallery-index="7" data-gallery-title="{% tr 'Regulated vs Unregulated Capitalism' %}">
+          <img src="{% static 'assets/img/productivity-chinavsg7.jpg' %}" alt="{% tr 'Production Trends — China vs G7' %}" class="deck-card c3" data-gallery-index="8" data-gallery-title="{% tr 'Production Trends — China vs G7' %}">
+          <img src="{% static 'assets/img/collapse.jpg' %}" alt="{% tr 'Economic Treason' %}" class="deck-card c4" data-gallery-index="9" data-gallery-title="{% tr 'Economic Treason' %}">
+          <span class="deck-count">4</span>
+        </div>
+        <div class="thumb-accordion">
+          <button type="button" class="thumb-toggle" onclick="this.parentNode.classList.toggle('open')">
+            <span>{% tr "View 4 images" %}</span><i class="fas fa-chevron-down chev"></i>
+          </button>
+          <div class="thumb-thumbs thumbs-4">
+            <img src="{% static 'assets/img/ProductionGrwthTrend-lowres.jpg' %}" alt="{% tr 'Production Growth Trends — Nominal GDP Since 1800' %}" data-gallery-index="6" data-gallery-title="{% tr 'Production Growth Trends — Nominal GDP Since 1800' %}">
+            <img src="{% static 'assets/img/regulated-capitalism.jpg' %}" alt="{% tr 'Regulated vs Unregulated Capitalism' %}" data-gallery-index="7" data-gallery-title="{% tr 'Regulated vs Unregulated Capitalism' %}">
+            <img src="{% static 'assets/img/productivity-chinavsg7.jpg' %}" alt="{% tr 'Production Trends — China vs G7' %}" data-gallery-index="8" data-gallery-title="{% tr 'Production Trends — China vs G7' %}">
+            <img src="{% static 'assets/img/collapse.jpg' %}" alt="{% tr 'Economic Treason' %}" data-gallery-index="9" data-gallery-title="{% tr 'Economic Treason' %}">
+          </div>
+        </div>
+        <p style="color:#1A1A1A;">{% tr "Managed Decline in Canada is intentional; Canadians should be the richest citizens in the world but corruption and a hidden Great Depression collapses us instead. $4 billion is lost daily unreported with 1930s GDP growth levels, 1990s salaries, the lowest GDP per Capita in G20, the world's largest housing bubble. 138th in suicide, double-income-traps destroy families, our population, and Canada's future. Doubled Welfare roles, Doubled Homelessness, Food Banks run off their feet, with unaffordable, sub-standard quality food and home ownership." %}</p>
+        <p style="color:#1A1A1A;margin-top:0.85rem;">{% tr "High transaction economic systems are driven by probability. When you improve important measures like GDP Growth, Social Contract, Monetized Production (with Dark Factories), a nation's advance is guaranteed." %}</p>
       </div>
       <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
         <div class="icon" style="color:#CC0000;"><i class="fas fa-school"></i></div>
