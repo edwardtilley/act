@@ -9,7 +9,17 @@
   .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   #statsEditorTable_wrapper .row:first-child,
   #statsEditorTable_wrapper .row:last-child { padding: 0 1rem; }
+  #statsEditorTable { table-layout: fixed; width: 100% !important; min-width: 1100px; }
   #statsEditorTable thead th { white-space: nowrap; }
+  #statsEditorTable th, #statsEditorTable td { overflow: hidden; text-overflow: ellipsis; }
+  #statsEditorTable th:nth-child(1) { width: 60px !important; }
+  #statsEditorTable th:nth-child(2) { width: 170px !important; }
+  #statsEditorTable th:nth-child(3) { width: 250px !important; }
+  #statsEditorTable th:nth-child(4) { width: 60px !important; }
+  #statsEditorTable th:nth-child(5) { width: 110px !important; }
+  #statsEditorTable th:nth-child(6) { width: 50px !important; }
+  #statsEditorTable th:nth-child(7) { width: 60px !important; }
+  #statsEditorTable th:nth-child(8) { width: 100px !important; }
   #statsEditorTable .btn-link:disabled { opacity: 0.35; }
 </style>
 {% endblock %}
@@ -58,7 +68,7 @@
           <tbody>
             {% for stat in stats %}
             <tr id="stat-row-{{ stat.id }}">
-              <td class="text-center" style="white-space:nowrap;" data-order="{{ forloop.counter }}">
+              <td class="text-center" data-order="{{ forloop.counter }}">
                 <div class="text-xs font-weight-bold mb-1">{{ forloop.counter }}</div>
                 <form method="post" action="/stateditor/move/{{ stat.id }}/up/" class="d-inline">
                   {% csrf_token %}
@@ -224,7 +234,8 @@
 <script>
 $(document).ready(function() {
   $('#statsEditorTable').DataTable({
-    responsive: true,
+    responsive: false,
+    autoWidth: false,
     order: [[0, 'asc']],
     pageLength: 25,
     language: { search: 'Filter:', lengthMenu: 'Show _MENU_ per page', zeroRecords: 'No stats found.' },
