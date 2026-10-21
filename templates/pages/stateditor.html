@@ -27,6 +27,16 @@
 <main class="main-content position-relative">
 <div class="container-fluid pt-7 pb-4">
 
+  {% if is_production %}
+  <div class="alert alert-warning py-2 d-flex align-items-start gap-2">
+    <i class="fas fa-exclamation-triangle mt-1"></i>
+    <div class="text-sm">
+      {% tr "Production is rebuilt on every deploy. Make content changes on the dev server and push them, or download the export bundle after a production change and commit it before the next deploy." %}
+      <a href="/stateditor/export/" class="alert-link">{% tr "Download export" %}</a>
+    </div>
+  </div>
+  {% endif %}
+
   {% if saved %}
   <div class="alert alert-success py-2"><i class="fas fa-check-circle me-2"></i>{% tr "Stat #" %}{{ saved }}{% tr "updated successfully." %}</div>
   {% endif %}
@@ -47,8 +57,11 @@
         <h6 class="mb-1"><i class="fas fa-chart-bar text-advance-red me-2"></i>{% tr "Stats Editor" %}</h6>
         <p class="text-sm text-muted mb-0">{% tr "Edit the text that accompanies each stat image — descriptions, keywords, and links." %}</p>
       </div>
-      <button type="button" class="btn btn-advance-red btn-sm" data-bs-toggle="modal" data-bs-target="#createStatModal">
-        <i class="fas fa-plus me-1"></i>{% tr "Add Stat" %}</button>
+      <div class="d-flex gap-2">
+        <a href="/stateditor/export/" class="btn btn-outline-dark btn-sm"><i class="fas fa-download me-1"></i>{% tr "Export" %}</a>
+        <button type="button" class="btn btn-advance-red btn-sm" data-bs-toggle="modal" data-bs-target="#createStatModal">
+          <i class="fas fa-plus me-1"></i>{% tr "Add Stat" %}</button>
+      </div>
     </div>
     <div class="card-body px-0 pt-0 pb-2">
       <div class="table-responsive p-0">
@@ -128,7 +141,7 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-6 mb-3"><label class="form-label">{% tr "Title" %}</label><input type="text" class="form-control" name="title" placeholder="Stat title" required></div>
-            <div class="col-md-6 mb-3"><label class="form-label">{% tr "Image Filename" %}</label><input type="text" class="form-control" name="image_filename" placeholder="e.g. gdpcapgrowth.jpg"></div>
+            <div class="col-md-6 mb-3"><label class="form-label">{% tr "Image Filename" %} <span data-bs-toggle="tooltip" data-bs-placement="top" title="{% tr 'Changing this filename will save the new name on the server.' %}" style="cursor:help;"><i class="fas fa-info-circle text-muted"></i></span></label><input type="text" class="form-control" name="image_filename" placeholder="e.g. gdpcapgrowth.jpg"></div>
           </div>
           <div class="mb-3">
             <label class="form-label" for="createStatImage">{% tr "Upload Image" %}</label>
@@ -167,7 +180,7 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-8 mb-3"><label class="form-label">{% tr "Title" %}</label><input type="text" class="form-control" name="title" value="{{ stat.title }}" required></div>
-            <div class="col-md-4 mb-3"><label class="form-label">{% tr "Image Filename" %}</label><input type="text" class="form-control" name="image_filename" value="{{ stat.image_filename }}"><small class="text-muted text-xs d-block">{% tr "Changing this renames the image file on disk when you save." %}</small></div>
+            <div class="col-md-4 mb-3"><label class="form-label">{% tr "Image Filename" %} <span data-bs-toggle="tooltip" data-bs-placement="top" title="{% tr 'Changing this filename will save the new name on the server.' %}" style="cursor:help;"><i class="fas fa-info-circle text-muted"></i></span></label><input type="text" class="form-control" name="image_filename" value="{{ stat.image_filename }}"><small class="text-muted text-xs d-block">{% tr "Changing this renames the image file on disk when you save." %}</small></div>
           </div>
           <div class="mb-3">
             <label class="form-label" for="editStatImage{{ stat.id }}">{% tr "Upload Image" %}</label>
@@ -245,6 +258,11 @@ $(document).ready(function() {
       { targets: [0], orderable: true, searchable: false },
       { targets: [7], orderable: false, searchable: false }
     ]
+  });
+
+  // Bootstrap 5 tooltips (Image Filename help icons)
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+    new bootstrap.Tooltip(el);
   });
 
   // Belt-and-braces: open the modals explicitly. Bootstrap's data-api already

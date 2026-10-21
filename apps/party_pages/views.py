@@ -1,14 +1,18 @@
+import io
 import os
 import shutil
+import zipfile
 from pathlib import Path
 
 from django.conf import settings
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
+from django.core.management import call_command
 from django.db import transaction
 from django.db.models import Max
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -345,7 +349,51 @@ def stats_slideshow(request):
 @login_required
 def stat_editor(request):
     stats = StatImage.objects.all()
-    return render(request, 'pages/stateditor.html', {'stats': stats, 'segment': 'stats', 'saved': request.GET.get('saved')})
+    host = request.get_host().split(':')[0].lower()
+    is_production = (
+        not settings.DEBUG
+        or host in {'actcanadian.com', 'www.actcanadian.com'}
+        or host.endswith('.up.railway.app')
+    )
+    return render(request, 'pages/stateditor.html', {
+        'stats': stats,
+        'segment': 'stats',
+        'saved': request.GET.get('saved'),
+        'is_production': is_production,
+    })
+
+
+@login_required
+def stat_export(request):
+    """Download stats.json plus every referenced image.
+
+    Production rebuilds the container on each deploy, so uploads/renames made
+    there are lost unless they are brought back into the repository. This
+    bundle is the bridge: unzip it over the repo, commit, and push.
+    """
+    fixture = io.StringIO()
+    call_command(
+        'dumpdata', 'party_pages.StatImage', 'party_pages.WAOHAnchor',
+        indent=2, stdout=fixture,
+    )
+
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED) as bundle:
+        bundle.writestr('stats.json', fixture.getvalue())
+        bundle.writestr('README.txt', (
+            f'Stats export — {timezone.now():%Y-%m-%d %H:%M} UTC\n\n'
+            "1. Copy static/assets/img/* into the repo's static/assets/img/.\n"
+            "2. Replace the repo's stats.json with the one in this archive.\n"
+            '3. Commit and push so the next deploy seeds these changes.\n'
+        ))
+        for stat in StatImage.objects.exclude(image_filename=''):
+            path = STAT_IMAGE_DIR / stat.image_filename
+            if path.exists():
+                bundle.write(path, f'static/assets/img/{stat.image_filename}')
+
+    response = HttpResponse(buffer.getvalue(), content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename="stats-export.zip"'
+    return response
 
 
 @login_required

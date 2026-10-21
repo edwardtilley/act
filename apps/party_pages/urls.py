@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin-candidates/status/<int:riding_id>/', views.admin_candidate_status),
     path('admin-candidates/delete/<int:riding_id>/', views.admin_candidate_delete),
     path('stateditor', views.stat_editor, name='stat_editor'),
+    path('stateditor/export/', views.stat_export),
     path('stateditor/create/', views.stat_create),
     path('stateditor/update/<int:stat_id>/', views.stat_update),
     path('stateditor/move/<int:stat_id>/<str:direction>/', views.stat_move),
