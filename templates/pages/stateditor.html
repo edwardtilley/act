@@ -15,7 +15,7 @@
       <h4 class="fw-bold mb-1"><i class="fas fa-chart-bar text-advance-red me-2"></i>{% tr "Stats Editor" %}</h4>
       <p class="text-muted text-sm mb-0">{% tr "Edit the text that accompanies each stat image — descriptions, keywords, and links." %}</p>
     </div>
-    <button class="btn btn-advance-red btn-sm" data-bs-toggle="modal" data-bs-target="#createStatModal">
+    <button type="button" class="btn btn-advance-red btn-sm" data-bs-toggle="modal" data-bs-target="#createStatModal">
       <i class="fas fa-plus me-1"></i>{% tr "Add Stat" %}</button>
   </div>
 
@@ -66,13 +66,13 @@
                 <span class="badge badge-sm {% if stat.active %}bg-gradient-success{% else %}bg-gradient-secondary{% endif %}">{{ stat.active|yesno:"Yes,No" }}</span>
               </td>
               <td class="text-center">
-                <button class="btn btn-sm btn-outline-primary mb-0 py-1 px-2" data-bs-toggle="modal" data-bs-target="#editStatModal{{ stat.id }}" title="Edit text">
+                <button type="button" class="btn btn-sm btn-outline-primary mb-0 py-1 px-2" data-bs-toggle="modal" data-bs-target="#editStatModal{{ stat.id }}" title="Edit text">
                   <i class="fas fa-edit"></i>
                 </button>
                 <a href="/stats" class="btn btn-sm btn-outline-dark mb-0 py-1 px-2" title="View in slideshow">
                   <i class="fas fa-eye"></i>
                 </a>
-                <button class="btn btn-sm btn-outline-danger mb-0 py-1 px-2" data-bs-toggle="modal" data-bs-target="#deleteStatModal{{ stat.id }}" title="Delete">
+                <button type="button" class="btn btn-sm btn-outline-danger mb-0 py-1 px-2" data-bs-toggle="modal" data-bs-target="#deleteStatModal{{ stat.id }}" title="Delete">
                   <i class="fas fa-trash-alt"></i>
                 </button>
               </td>
@@ -84,6 +84,7 @@
     </div>
   </div>
 </div>
+</main>
 
 <!-- Create modal -->
 <div class="modal fade" id="createStatModal" tabindex="-1">
@@ -194,7 +195,6 @@
   </div>
 </div>
 {% endfor %}
-</main>
 {% endblock content %}
 
 {% block extra_js %}
@@ -206,6 +206,20 @@ $(document).ready(function() {
     pageLength: 25,
     language: { search: 'Filter:', lengthMenu: 'Show _MENU_ per page', zeroRecords: 'No stats found.' },
     columnDefs: [{ targets: [6], orderable: false, searchable: false }]
+  });
+
+  // Belt-and-braces: open the modals explicitly. Bootstrap's data-api already
+  // does this; the extra handler keeps the buttons working if that listener is
+  // unavailable (e.g. a blocked/stale script bundle). show() is idempotent.
+  document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      var selector = this.getAttribute('data-bs-target');
+      var target = selector ? document.querySelector(selector) : null;
+      if (!target || !window.bootstrap) return;
+      e.preventDefault();
+      e.stopPropagation();
+      bootstrap.Modal.getOrCreateInstance(target).show();
+    });
   });
 });
 </script>
