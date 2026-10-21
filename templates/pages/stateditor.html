@@ -10,6 +10,7 @@
   #statsEditorTable_wrapper .row:first-child,
   #statsEditorTable_wrapper .row:last-child { padding: 0 1rem; }
   #statsEditorTable thead th { white-space: nowrap; }
+  #statsEditorTable .btn-link:disabled { opacity: 0.35; }
 </style>
 {% endblock %}
 {% block content %}
@@ -44,6 +45,7 @@
         <table id="statsEditorTable" class="table align-items-center mb-0 display" style="width:100%;">
           <thead>
             <tr>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Order" %}</th>
               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Title" %}</th>
               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Description" %}</th>
               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{% tr "Image" %}</th>
@@ -56,6 +58,18 @@
           <tbody>
             {% for stat in stats %}
             <tr id="stat-row-{{ stat.id }}">
+              <td class="text-center" style="white-space:nowrap;" data-order="{{ forloop.counter }}">
+                <div class="text-xs font-weight-bold mb-1">{{ forloop.counter }}</div>
+                <form method="post" action="/stateditor/move/{{ stat.id }}/up/" class="d-inline">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-link text-secondary text-xs p-0 mb-0" title="{% tr 'Move up' %}" {% if forloop.first %}disabled{% endif %}>{% tr "Up" %}</button>
+                </form>
+                <span class="text-muted text-xs">|</span>
+                <form method="post" action="/stateditor/move/{{ stat.id }}/down/" class="d-inline">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-link text-secondary text-xs p-0 mb-0" title="{% tr 'Move down' %}" {% if forloop.last %}disabled{% endif %}>{% tr "Down" %}</button>
+                </form>
+              </td>
               <td><p class="text-xs font-weight-bold mb-0">{{ stat.title }}</p><small class="text-muted">{{ stat.image_filename }}</small></td>
               <td><p class="text-xs mb-0 line-clamp-3" style="max-width:380px;">{{ stat.description|default:"<em>No description yet</em>" }}</p></td>
               <td>
@@ -114,6 +128,10 @@
           <div class="mb-3"><label class="form-label">{% tr "Description" %}</label><textarea class="form-control" name="description" rows="4"></textarea></div>
           <div class="mb-3"><label class="form-label">{% tr "Keywords (comma delimited)" %}</label><input type="text" class="form-control" name="keywords" placeholder="immigration, GDP, fertility"></div>
           <div class="mb-3"><label class="form-label">{% tr "Links (JSON)" %}</label><textarea class="form-control" name="links_json" rows="3" placeholder='[{"label":"WAOH#immigration","url":"https://csq1.org/waoh#immigration"}]'></textarea></div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" name="active" id="createActive" checked>
+            <label class="form-check-label text-sm" for="createActive">{% tr "Active (shown in /stats gallery)" %}</label>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">{% tr "Cancel" %}</button>
@@ -210,7 +228,10 @@ $(document).ready(function() {
     order: [[0, 'asc']],
     pageLength: 25,
     language: { search: 'Filter:', lengthMenu: 'Show _MENU_ per page', zeroRecords: 'No stats found.' },
-    columnDefs: [{ targets: [6], orderable: false, searchable: false }]
+    columnDefs: [
+      { targets: [0], orderable: true, searchable: false },
+      { targets: [7], orderable: false, searchable: false }
+    ]
   });
 
   // Belt-and-braces: open the modals explicitly. Bootstrap's data-api already

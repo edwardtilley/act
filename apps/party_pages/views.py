@@ -5,6 +5,8 @@ from pathlib import Path
 from django.conf import settings
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
+from django.db import transaction
+from django.db.models import Max
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -329,7 +331,27 @@ def stat_create(request):
             keywords=request.POST.get('keywords', ''),
             links_json=request.POST.get('links_json', ''),
             active='active' in request.POST,
+            display_order=(StatImage.objects.aggregate(Max('display_order'))['display_order__max'] or 0) + 1,
         )
+    return redirect('/stateditor')
+
+
+@login_required
+def stat_move(request, stat_id, direction):
+    """Move a stat up/down the shared display order used by /stats."""
+    if request.method != 'POST' or direction not in ('up', 'down'):
+        return redirect('/stateditor')
+    stat = get_object_or_404(StatImage, pk=stat_id)
+    rows = list(StatImage.objects.order_by('display_order', 'id'))
+    idx = next((i for i, row in enumerate(rows) if row.pk == stat.pk), None)
+    if idx is None:
+        return redirect('/stateditor')
+    target = idx - 1 if direction == 'up' else idx + 1
+    if 0 <= target < len(rows):
+        rows[idx], rows[target] = rows[target], rows[idx]
+        with transaction.atomic():
+            for pos, row in enumerate(rows):
+                StatImage.objects.filter(pk=row.pk).update(display_order=pos)
     return redirect('/stateditor')
 
 

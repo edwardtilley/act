@@ -26,5 +26,6 @@ urlpatterns = [
     path('stateditor', views.stat_editor, name='stat_editor'),
     path('stateditor/create/', views.stat_create),
     path('stateditor/update/<int:stat_id>/', views.stat_update),
+    path('stateditor/move/<int:stat_id>/<str:direction>/', views.stat_move),
     path('stateditor/delete/<int:stat_id>/', views.stat_delete),
 ]

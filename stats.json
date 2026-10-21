@@ -8,7 +8,7 @@
     "description": "",
     "keywords": "housing",
     "links_json": "",
-    "display_order": 21,
+    "display_order": 22,
     "active": true
   }
 },
@@ -21,7 +21,7 @@
     "description": "",
     "keywords": "GDP, economy, productivity",
     "links_json": "[]",
-    "display_order": 19,
+    "display_order": 20,
     "active": true
   }
 },
@@ -34,7 +34,7 @@
     "description": "",
     "keywords": "manufacturing, production, industry",
     "links_json": "[]",
-    "display_order": 27,
+    "display_order": 28,
     "active": true
   }
 },
@@ -47,7 +47,7 @@
     "description": "",
     "keywords": "housing, construction, economy",
     "links_json": "[]",
-    "display_order": 12,
+    "display_order": 13,
     "active": true
   }
 },
@@ -60,7 +60,7 @@
     "description": "",
     "keywords": "GDP, provinces, economy",
     "links_json": "[]",
-    "display_order": 32,
+    "display_order": 33,
     "active": true
   }
 },
@@ -73,7 +73,7 @@
     "description": "WAOH Fertility case study: Low fertility (1.33) combined with high immigration creates population replacement and depopulation crisis. Anti-family policies and double-income traps destroy family formation. See csq1.org/waoh#fertility.",
     "keywords": "fertility, immigration, depopulation",
     "links_json": "[{\"label\":\"WAOH#fertility\",\"url\":\"https://csq1.org/waoh#fertility\"}]",
-    "display_order": 16,
+    "display_order": 17,
     "active": true
   }
 },
@@ -86,7 +86,7 @@
     "description": "WAOH Fertility case study: Canada loses ~860,000 citizens annually through infertility, abortion, suicide, euthanasia, and drug overdoses. Break-even rate is 2.4; current rate guarantees generational collapse. See csq1.org/waoh#fertility.",
     "keywords": "fertility, depopulation, family",
     "links_json": "[{\"label\":\"WAOH#fertility\",\"url\":\"https://csq1.org/waoh#fertility\"}]",
-    "display_order": 28,
+    "display_order": 29,
     "active": true
   }
 },
@@ -99,7 +99,7 @@
     "description": "",
     "keywords": "longevity, health, collapse",
     "links_json": "[]",
-    "display_order": 26,
+    "display_order": 27,
     "active": true
   }
 },
@@ -112,7 +112,7 @@
     "description": "WAOH Housing case study: Cost of living mismanagement creates starvation wages, usury lending, and double-income traps that prevent family formation and home ownership as a human right. See csq1.org/waoh#bubbles.",
     "keywords": "housing, cost of living, bubble",
     "links_json": "[{\"label\":\"WAOH#bubbles\",\"url\":\"https://csq1.org/waoh#bubbles\"}]",
-    "display_order": 22,
+    "display_order": 23,
     "active": true
   }
 },
@@ -125,7 +125,7 @@
     "description": "",
     "keywords": "currency, dollar, economy",
     "links_json": "[]",
-    "display_order": 8,
+    "display_order": 9,
     "active": true
   }
 },
@@ -138,7 +138,7 @@
     "description": "",
     "keywords": "currency, dollar, economy",
     "links_json": "[]",
-    "display_order": 11,
+    "display_order": 12,
     "active": true
   }
 },
@@ -151,7 +151,7 @@
     "description": "",
     "keywords": "GDP, per capita, economy",
     "links_json": "[]",
-    "display_order": 18,
+    "display_order": 19,
     "active": true
   }
 },
@@ -164,7 +164,7 @@
     "description": "",
     "keywords": "investment, business, economy",
     "links_json": "[]",
-    "display_order": 7,
+    "display_order": 8,
     "active": true
   }
 },
@@ -177,7 +177,7 @@
     "description": "WAOH Housing Bubbles case study: Housing consumes 75% of income vs 30% healthy baseline. Foreign ownership, speculation, and money laundering drive prices to 10x 25-year-ago costs with 9,000 nightly in Toronto shelters. See csq1.org/waoh#bubbles.",
     "keywords": "housing, bubble, crisis",
     "links_json": "[{\"label\":\"WAOH#bubbles\",\"url\":\"https://csq1.org/waoh#bubbles\"}]",
-    "display_order": 10,
+    "display_order": 11,
     "active": true
   }
 },
@@ -190,7 +190,7 @@
     "description": "",
     "keywords": "business, delinquency, economy",
     "links_json": "[]",
-    "display_order": 34,
+    "display_order": 35,
     "active": true
   }
 },
@@ -203,7 +203,7 @@
     "description": "",
     "keywords": "productivity, China, G7",
     "links_json": "[]",
-    "display_order": 3,
+    "display_order": 4,
     "active": true
   }
 },
@@ -216,7 +216,7 @@
     "description": "",
     "keywords": "collapse, wages, economy",
     "links_json": "[]",
-    "display_order": 4,
+    "display_order": 5,
     "active": true
   }
 },
@@ -229,7 +229,7 @@
     "description": "",
     "keywords": "capitalism, regulation, economy",
     "links_json": "[]",
-    "display_order": 2,
+    "display_order": 3,
     "active": true
   }
 },
@@ -242,7 +242,7 @@
     "description": "",
     "keywords": "exports, cars, trade",
     "links_json": "[]",
-    "display_order": 36,
+    "display_order": 37,
     "active": true
   }
 },
@@ -255,7 +255,7 @@
     "description": "",
     "keywords": "euthanasia, suicide, health",
     "links_json": "[]",
-    "display_order": 5,
+    "display_order": 6,
     "active": true
   }
 },
@@ -268,7 +268,7 @@
     "description": "",
     "keywords": "poverty, economy, social contract",
     "links_json": "[]",
-    "display_order": 31,
+    "display_order": 32,
     "active": true
   }
 },
@@ -281,7 +281,7 @@
     "description": "",
     "keywords": "climate, CO2, hoax",
     "links_json": "[]",
-    "display_order": 9,
+    "display_order": 10,
     "active": true
   }
 },
@@ -294,7 +294,7 @@
     "description": "",
     "keywords": "empire, history, nationalism",
     "links_json": "[]",
-    "display_order": 6,
+    "display_order": 7,
     "active": true
   }
 },
@@ -307,7 +307,7 @@
     "description": "WAOH Depopulation case study: Wars are measured by depopulation. Canada’s 2% annual depopulation matches WWII Europe levels, constituting High Treason under Criminal Code 46(1). See csq1.org/waoh#fertility.",
     "keywords": "depopulation, genocide, family",
     "links_json": "[{\"label\":\"WAOH#fertility\",\"url\":\"https://csq1.org/waoh#fertility\"}]",
-    "display_order": 14,
+    "display_order": 15,
     "active": true
   }
 },
@@ -320,7 +320,7 @@
     "description": "WAOH Indoctrination case study: Gender theory, DEI, ESG, and race theory taught to children as young as kindergarten constitute child abuse, creating 8x suicide rates in trans-kids and last 8 major school shootings. See csq1.org/waoh#indoctrination.",
     "keywords": "indoctrination, education, schools",
     "links_json": "[{\"label\":\"WAOH#indoctrination\",\"url\":\"https://csq1.org/waoh#indoctrination\"}]",
-    "display_order": 23,
+    "display_order": 24,
     "active": true
   }
 },
@@ -333,7 +333,7 @@
     "description": "WAOH Globalism case study: Globalist oligarchs sponsor political parties with multi-billion SuperPAC campaigns, control media ($6M/day CBC), and protect election fraud through Hate Laws. See csq1.org/waoh#globalism.",
     "keywords": "globalism, WEF, control",
     "links_json": "[{\"label\":\"WAOH#globalism\",\"url\":\"https://csq1.org/waoh#globalism\"}]",
-    "display_order": 20,
+    "display_order": 21,
     "active": true
   }
 },
@@ -346,7 +346,7 @@
     "description": "",
     "keywords": "election fraud, funding, corruption",
     "links_json": "[]",
-    "display_order": 29,
+    "display_order": 30,
     "active": true
   }
 },
@@ -359,7 +359,7 @@
     "description": "WAOH Human Rights / FDR case study: FDR’s 1944 Second Bill of Rights (home, job, education, pension security) created the greatest economy in history. Diefenbaker adopted these for Canada in 1960; they have been abandoned. See csq1.org/waoh#human-rights.",
     "keywords": "human rights, FDR, constitution",
     "links_json": "[{\"label\":\"WAOH#human-rights\",\"url\":\"https://csq1.org/waoh#human-rights\"}]",
-    "display_order": 15,
+    "display_order": 16,
     "active": true
   }
 },
@@ -372,7 +372,7 @@
     "description": "WAOH Social Contract case study: High-SC countries (strong housing, income, pension, education) have advancing economies; low-SC countries collapse. Canada’s SC has collapsed to 1930s levels. See csq1.org/waoh#social-contract.",
     "keywords": "social contract, productivity, economy",
     "links_json": "[{\"label\":\"WAOH#social-contract\",\"url\":\"https://csq1.org/waoh#social-contract\"}]",
-    "display_order": 35,
+    "display_order": 36,
     "active": true
   }
 },
@@ -385,7 +385,7 @@
     "description": "",
     "keywords": "automation, supply chains, industry",
     "links_json": "[]",
-    "display_order": 13,
+    "display_order": 14,
     "active": true
   }
 },
@@ -398,7 +398,7 @@
     "description": "",
     "keywords": "supply chains, nationalism, economy",
     "links_json": "[]",
-    "display_order": 38,
+    "display_order": 39,
     "active": true
   }
 },
@@ -411,7 +411,7 @@
     "description": "",
     "keywords": "elections, fraud, democracy",
     "links_json": "[]",
-    "display_order": 33,
+    "display_order": 34,
     "active": true
   }
 },
@@ -424,7 +424,7 @@
     "description": "",
     "keywords": "investment, economy, national fund",
     "links_json": "[]",
-    "display_order": 25,
+    "display_order": 26,
     "active": true
   }
 },
@@ -437,7 +437,7 @@
     "description": "",
     "keywords": "democracy, cycle, collapse",
     "links_json": "[]",
-    "display_order": 37,
+    "display_order": 38,
     "active": true
   }
 },
@@ -450,7 +450,7 @@
     "description": "WAOH Civic Science case study: the values of politicians versus the values required to build advancing nations — evidence that ideologues chosen for loyalty, not competence, collapse the societies they govern.",
     "keywords": "politicians, values, leadership, competence",
     "links_json": "[{\"label\":\"WAOH#politician-values\",\"url\":\"https://csq1.org/waoh\"}]",
-    "display_order": 30,
+    "display_order": 31,
     "active": true
   }
 },
@@ -463,7 +463,7 @@
     "description": "Civic Science commentary: Canada's productivity and progress have regressed to laughably primitive levels — the Flintstones — while we are led by ideology rather than evidence.",
     "keywords": "flintstones, productivity, collapse",
     "links_json": "[]",
-    "display_order": 17,
+    "display_order": 18,
     "active": true
   }
 },
@@ -489,7 +489,7 @@
     "description": "WAOH Diversity case study: the ideology of gender identity and pride celebrations taught to children is harmful indoctrination — a child-abusing ideology driving 8x suicide rates in trans-identifying youth.",
     "keywords": "pride, gender, ideology, schools",
     "links_json": "[{\"label\":\"WAOH#diversity\",\"url\":\"https://csq1.org/waoh\"}]",
-    "display_order": 24,
+    "display_order": 25,
     "active": true
   }
 },
@@ -502,8 +502,21 @@
     "description": "Nominal GDP change since 1800 — production growth trends, inequality and government spending.",
     "keywords": "production, gdp, growth, inequality, government spending, productivity, dark factories",
     "links_json": "",
-    "display_order": 1,
+    "display_order": 2,
     "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 42,
+  "fields": {
+    "title": "How Housing Bubbles are built",
+    "image_filename": "Screenshot_2026-06-22_012537.png",
+    "description": "Housing Bubbles are easy to build, and easy to correct. Canada's largest housing bubble today was originally approved by the Harper Conservatives, and made dramatically worse when the Liberals took the stage.",
+    "keywords": "Housing, bubble, poverty, mismanagement, economic collapse, economy, economic treason, treason",
+    "links_json": "",
+    "display_order": 1,
+    "active": false
   }
 },
 {
