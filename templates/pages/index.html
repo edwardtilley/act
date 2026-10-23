@@ -42,8 +42,8 @@
   .story-subhead { font-size: clamp(0.8rem, 1.5vw, 1rem); font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; margin-bottom: 0.5rem; }
   .story-body { font-size: 1.125rem; line-height: 1.7; opacity: 0.85; }
 
-  .problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
-  .problem-item { background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); border-radius: 16px; padding: 2rem; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease; }
+  .problem-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .problem-item { background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); border-radius: 16px; padding: 2rem; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease; min-width: 0; }
   .problem-item:hover { background: rgba(255,255,255,0.15); transform: translateY(-4px); }
   .problem-item .icon { font-size: 2rem; margin-bottom: 1rem; color: rgba(255,255,255,0.9); }
   .problem-item h4 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
@@ -75,6 +75,7 @@
   .thumb-accordion.open .thumb-thumbs { display: grid; }
   .thumb-thumbs img { width: 30px; height: 30px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 1px solid rgba(204,0,0,0.35); transition: transform 0.15s ease; position: relative; z-index: 4; }
   .thumb-thumbs img:hover { transform: scale(1.12); border-color: #CC0000; }
+  @media (max-width: 991px) { .problem-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 640px) { .problem-grid { grid-template-columns: 1fr; } .problem-thumb { float: none; margin: 0 0 0.75rem; } .thumb-deck { float: none; margin: 0 0 0.75rem; } .thumb-accordion { float: none; max-width: none; } }
 
   .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
@@ -439,7 +440,7 @@
         <p class="text-center story-body text-muted mt-3" data-animate="fade-up">{% tr "The Irish burned 32 hotels and kicked down immigrant doors, the Poles shoot border crossers on sight; for 20 million open border crossers, Americans turned to war measures with ICE Agencies, the British held demonstrations by the millions until Starmer was driven out." %} <strong>{% tr "What will Canadians do?" %}</strong></p>
       </div>
     </div>
-    <div class="problem-grid" data-animate="fade-up" style="grid-template-columns:repeat(3,1fr);">
+    <div class="problem-grid" data-animate="fade-up">
       <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
         <div class="icon" style="color:#CC0000;"><i class="fas fa-users"></i></div>
         <h4 style="color:#1A1A1A;">{% tr "Election Fraud" %}</h4>
