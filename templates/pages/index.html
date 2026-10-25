@@ -110,11 +110,13 @@
   .story-divider-wave-reverse { height: 80px; background: #CC0000; clip-path: ellipse(70% 100% at 50% 0%); }
   .data-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; }
 
-  .tilley-section { position: relative; overflow: hidden; }
+  .tilley-section { position: relative; overflow: hidden; background-color: #1A1A1A !important; color: #fff; }
+  .tilley-section h1, .tilley-section h1 a { color: #fff !important; }
   .tilley-section::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(204,0,0,0.95) 0%, rgba(0,0,0,0.85) 100%); z-index: 1; }
   .tilley-quote { font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.3; letter-spacing: -0.01em; }
   .tilley-quote .highlight { color: #FFD700; }
-  .tilley-img { border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 100%; height: auto; }
+  .tilley-img { border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); width: 100%; max-width: 504px; height: auto; }
+  @media (max-width: 991px) { .tilley-section { background-attachment: scroll !important; } }
   .tilley-name { font-weight: 300; font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.7; }
   .president-quote { border-left: 4px solid #FFC800; padding-left: 1.25rem; font-style: italic; }
   .president-name { font-weight: 700; font-size: 1.05rem; letter-spacing: 0.05em; color: #FFC800; }
@@ -534,7 +536,7 @@
     <div class="row align-items-center g-5">
       <div class="col-lg-5 text-center" data-animate="fade-up">
         <h1 class="text-white fw-bold mb-4" style="font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.02em;"><a href="/policies" class="text-white text-decoration-none">{% tr "Our Policies" %}</a></h1>
-        <img src="{% static 'assets/img/advance-party-tile.png' %}" alt="Edward Tilley — President, Advance Party of Canada" class="tilley-img img-fluid" style="max-width:504px;border:4px solid rgba(255,255,255,0.2);">
+        <img src="{% static 'assets/img/advance-party-tile.png' %}" alt="Edward Tilley — President, Advance Party of Canada" class="tilley-img img-fluid" style="border:4px solid rgba(255,255,255,0.2);">
       </div>
       <div class="col-lg-7" data-animate="fade-up">
         <p class="tilley-quote text-white mb-3" style="font-size:clamp(0.95rem, 1.6vw, 1.3rem);">
