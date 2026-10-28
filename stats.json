@@ -520,6 +520,32 @@
   }
 },
 {
+  "model": "party_pages.statimage",
+  "pk": 47,
+  "fields": {
+    "title": "Indoctrinated Useful Idiot",
+    "image_filename": "useful_idiots.png",
+    "description": "Left-voting DEI women and low-compatibility immigrants, vote for the open borders election frauds that guarantees riots, violence, looting, and election fraud that then guarantees one party control and 100% depopulation female equality hiring policies (an Act of War against any country). This woman's folly when viral as her pro-left voting built the riots that she imported and then threatened her livelihood by destroying her Paris, France Cafe in recent weekly riots.",
+    "keywords": "immigration, DEI, diversity, election fraud, act of war, army",
+    "links_json": "",
+    "display_order": 40,
+    "active": true
+  }
+},
+{
+  "model": "party_pages.statimage",
+  "pk": 48,
+  "fields": {
+    "title": "Surveillance State Canada",
+    "image_filename": "survelliance_state_canada.png",
+    "description": "As soon as Carney was able to, with his majority immigration election fraud strategy, he turned Canada into a surveillance state with bills that call any obection to his immigration election fraud \"hate\". Google has called this government's surveillance the most extreme in the world, while Canada is now one step from spending restrictions that restrict our hiring, procurement, admission, travel, or use of public resources,  based on our social media postings, political party, and compliance with Liberal DEI and ESG hiring and funding policies. Some of these are measures are more drastic than North Korea and China controls.",
+    "keywords": "Surveillance, free speech, hiring, poverty, election fraud, DEI, Hate, Incarceration, ",
+    "links_json": "",
+    "display_order": 41,
+    "active": true
+  }
+},
+{
   "model": "party_pages.waohanchor",
   "pk": 1,
   "fields": {

@@ -54,15 +54,19 @@
   /* Card deck — top image on top, more cards fanned beneath */
   .thumb-deck { float: right; position: relative; width: 90px; height: 96px; margin: 0 0 0.75rem 1rem; cursor: pointer; }
   .thumb-deck .deck-card { position: absolute; top: 0; left: 0; width: 90px; height: 90px; border-radius: 12px; object-fit: cover; border: 2px solid rgba(204,0,0,0.35); box-shadow: 0 6px 16px rgba(0,0,0,0.22); transition: transform 0.2s ease, border-color 0.2s ease; }
-  .thumb-deck .deck-card.c1 { z-index: 3; }
-  .thumb-deck .deck-card.c2 { top: 3px; left: 4px; z-index: 2; transform: rotate(-4deg); }
-  .thumb-deck .deck-card.c3 { top: 6px; left: 8px; z-index: 1; transform: rotate(-8deg); }
-  .thumb-deck .deck-card.c4 { top: 9px; left: 12px; z-index: 0; transform: rotate(-12deg); }
+  .thumb-deck .deck-card.c1 { z-index: 4; }
+  .thumb-deck .deck-card.c2 { top: 3px; left: 4px; z-index: 3; transform: rotate(-4deg); }
+  .thumb-deck .deck-card.c3 { top: 6px; left: 8px; z-index: 2; transform: rotate(-8deg); }
+  .thumb-deck .deck-card.c4 { top: 9px; left: 12px; z-index: 1; transform: rotate(-12deg); }
+  .thumb-deck .deck-card.c5 { top: 12px; left: 16px; z-index: 0; transform: rotate(-16deg); }
+  .thumb-deck.deck-2 { height: 100px; }
   .thumb-deck.deck-4 { height: 104px; }
+  .thumb-deck.deck-5 { height: 118px; }
   .thumb-deck:hover .deck-card.c1 { transform: scale(1.04); border-color: #CC0000; }
   .thumb-deck:hover .deck-card.c2 { transform: rotate(-4deg) translate(-3px, -3px); }
   .thumb-deck:hover .deck-card.c3 { transform: rotate(-8deg) translate(-3px, -3px); }
   .thumb-deck:hover .deck-card.c4 { transform: rotate(-12deg) translate(-3px, -3px); }
+  .thumb-deck:hover .deck-card.c5 { transform: rotate(-16deg) translate(-3px, -3px); }
   .thumb-deck .deck-count { position: absolute; bottom: -2px; right: -2px; z-index: 4; background: #CC0000; color: #fff; font-size: 0.62rem; font-weight: 700; border-radius: 20px; padding: 1px 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
   /* Accordion thumbnail selector */
   .thumb-accordion { float: right; clear: both; width: 100%; max-width: 90px; margin: 0 0 0.75rem; position: relative; z-index: 3; }
@@ -516,19 +520,21 @@
       <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
         <div class="icon" style="color:#CC0000;"><i class="fas fa-school"></i></div>
         <h4 style="color:#1A1A1A;">{% tr "Harmful Indoctrination" %}</h4>
-        <div class="thumb-deck" title="{% tr 'Click Here' %}" data-gallery-index="20">
+        <div class="thumb-deck deck-4" title="{% tr 'Click Here' %}" data-gallery-index="20">
           <img src="{% static 'assets/img/indoctrination.jpg' %}" alt="{% tr 'Indoctrination' %}" class="deck-card c1" data-gallery-index="20" data-gallery-title="{% tr 'Indoctrination' %}">
           <img src="{% static 'assets/img/Gay_Pride_Flag.svg.png' %}" alt="{% tr 'Gay Pride Flag' %}" class="deck-card c2" data-gallery-index="21" data-gallery-title="{% tr 'Gay Pride Flag' %}">
-          <img src="{% static 'assets/img/politician-values-CSQ.jpg' %}" alt="{% tr 'Politician Values' %}" class="deck-card c3" data-gallery-index="22" data-gallery-title="{% tr 'Politician Values' %}">
-          <span class="deck-count">3</span>
+          <img src="{% static 'assets/img/useful_idiots.png' %}" alt="{% tr 'Useful Idiots' %}" class="deck-card c3" data-gallery-index="24" data-gallery-title="{% tr 'Useful Idiots' %}">
+          <img src="{% static 'assets/img/politician-values-CSQ.jpg' %}" alt="{% tr 'Politician Values' %}" class="deck-card c4" data-gallery-index="22" data-gallery-title="{% tr 'Politician Values' %}">
+          <span class="deck-count">4</span>
         </div>
         <div class="thumb-accordion">
           <button type="button" class="thumb-toggle" onclick="this.parentNode.classList.toggle('open')">
-            <span>{% tr "View 3 images" %}</span><i class="fas fa-chevron-down chev"></i>
+            <span>{% tr "View 4 images" %}</span><i class="fas fa-chevron-down chev"></i>
           </button>
-          <div class="thumb-thumbs">
+          <div class="thumb-thumbs thumbs-4">
             <img src="{% static 'assets/img/indoctrination.jpg' %}" alt="{% tr 'Indoctrination' %}" data-gallery-index="20" data-gallery-title="{% tr 'Indoctrination' %}">
             <img src="{% static 'assets/img/Gay_Pride_Flag.svg.png' %}" alt="{% tr 'Gay Pride Flag' %}" data-gallery-index="21" data-gallery-title="{% tr 'Gay Pride Flag' %}">
+            <img src="{% static 'assets/img/useful_idiots.png' %}" alt="{% tr 'Useful Idiots' %}" data-gallery-index="24" data-gallery-title="{% tr 'Useful Idiots' %}">
             <img src="{% static 'assets/img/politician-values-CSQ.jpg' %}" alt="{% tr 'Politician Values' %}" data-gallery-index="22" data-gallery-title="{% tr 'Politician Values' %}">
           </div>
         </div>
@@ -537,26 +543,32 @@
       <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
         <div class="icon" style="color:#CC0000;"><i class="fas fa-globe"></i></div>
         <h4 style="color:#1A1A1A;">{% tr "Great Replacement" %}</h4>
-        <img src="{% static 'assets/img/depopulation4.jpg' %}" alt="{% tr 'Great Replacement — Depopulation' %}" class="problem-thumb" title="{% tr 'Click Here' %}" data-gallery-index="23" data-gallery-title="{% tr 'Great Replacement — Depopulation' %}">
+        <div class="thumb-deck deck-2" title="{% tr 'Click Here' %}" data-gallery-index="23">
+          <img src="{% static 'assets/img/depopulation4.jpg' %}" alt="{% tr 'Great Replacement — Depopulation' %}" class="deck-card c1" data-gallery-index="23" data-gallery-title="{% tr 'Great Replacement — Depopulation' %}">
+          <img src="{% static 'assets/img/survelliance_state_canada.png' %}" alt="{% tr 'Surveillance State Canada' %}" class="deck-card c2" data-gallery-index="26" data-gallery-title="{% tr 'Surveillance State Canada' %}">
+          <span class="deck-count">2</span>
+        </div>
         <p style="color:#1A1A1A;">{% tr "Open borders for 70M new immigrants via <a href='https://www.centuryinitiative.ca/' target='_blank' rel='noopener'>Century Initiative</a>. CPP and McKinsey-led plan. No immigration when we can't integrate. WEF Senate. Foreign ownership surge at 42% — highest in G7. No human rights to a home or family." as great_replacement_copy %}{{ great_replacement_copy|safe }}</p>
       </div>
       <div class="problem-item" style="background:rgba(204,0,0,0.06);border:1px solid rgba(204,0,0,0.12);">
         <div class="icon" style="color:#CC0000;"><i class="fas fa-handcuffs"></i></div>
         <h4 style="color:#1A1A1A;">{% tr "Criminal Legislature" %}</h4>
-        <div class="thumb-deck deck-4" title="{% tr 'Click Here' %}" data-gallery-index="10">
+        <div class="thumb-deck deck-5" title="{% tr 'Click Here' %}" data-gallery-index="10">
           <img src="{% static 'assets/img/Globalism-Recipe-11.jpg' %}" alt="{% tr 'Globalism Recipe' %}" class="deck-card c1" data-gallery-index="10" data-gallery-title="{% tr 'Globalism Recipe' %}">
           <img src="{% static 'assets/img/gdpcapgrowth.jpg' %}" alt="{% tr 'GDP per Capita Growth' %}" class="deck-card c2" data-gallery-index="11" data-gallery-title="{% tr 'GDP per Capita Growth' %}">
-          <img src="{% static 'assets/img/canada-housing-bubble.png' %}" alt="{% tr 'Canada Housing Bubble' %}" class="deck-card c3" data-gallery-index="12" data-gallery-title="{% tr 'Canada Housing Bubble' %}">
-          <img src="{% static 'assets/img/manufacturing-growth.jpg' %}" alt="{% tr 'Manufacturing Growth' %}" class="deck-card c4" data-gallery-index="13" data-gallery-title="{% tr 'Manufacturing Growth' %}">
-          <span class="deck-count">4</span>
+          <img src="{% static 'assets/img/Blackrock_bubble.png' %}" alt="{% tr 'Blackrock Bubble' %}" class="deck-card c3" data-gallery-index="25" data-gallery-title="{% tr 'Blackrock Bubble' %}">
+          <img src="{% static 'assets/img/canada-housing-bubble.png' %}" alt="{% tr 'Canada Housing Bubble' %}" class="deck-card c4" data-gallery-index="12" data-gallery-title="{% tr 'Canada Housing Bubble' %}">
+          <img src="{% static 'assets/img/manufacturing-growth.jpg' %}" alt="{% tr 'Manufacturing Growth' %}" class="deck-card c5" data-gallery-index="13" data-gallery-title="{% tr 'Manufacturing Growth' %}">
+          <span class="deck-count">5</span>
         </div>
         <div class="thumb-accordion">
           <button type="button" class="thumb-toggle" onclick="this.parentNode.classList.toggle('open')">
-            <span>{% tr "View 4 images" %}</span><i class="fas fa-chevron-down chev"></i>
+            <span>{% tr "View 5 images" %}</span><i class="fas fa-chevron-down chev"></i>
           </button>
           <div class="thumb-thumbs thumbs-4">
             <img src="{% static 'assets/img/Globalism-Recipe-11.jpg' %}" alt="{% tr 'Globalism Recipe' %}" data-gallery-index="10" data-gallery-title="{% tr 'Globalism Recipe' %}">
             <img src="{% static 'assets/img/gdpcapgrowth.jpg' %}" alt="{% tr 'GDP per Capita Growth' %}" data-gallery-index="11" data-gallery-title="{% tr 'GDP per Capita Growth' %}">
+            <img src="{% static 'assets/img/Blackrock_bubble.png' %}" alt="{% tr 'Blackrock Bubble' %}" data-gallery-index="25" data-gallery-title="{% tr 'Blackrock Bubble' %}">
             <img src="{% static 'assets/img/canada-housing-bubble.png' %}" alt="{% tr 'Canada Housing Bubble' %}" data-gallery-index="12" data-gallery-title="{% tr 'Canada Housing Bubble' %}">
             <img src="{% static 'assets/img/manufacturing-growth.jpg' %}" alt="{% tr 'Manufacturing Growth' %}" data-gallery-index="13" data-gallery-title="{% tr 'Manufacturing Growth' %}">
           </div>
